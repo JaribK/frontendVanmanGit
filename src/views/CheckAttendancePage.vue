@@ -129,7 +129,7 @@ import IconSearchBar from '../components/icons/IconSearchbar.vue'
 
 <script>
     import axios from 'axios'
-    const host = 'http://127.0.0.1:8000/';
+    const host = 'https://backendvanmangit-production.up.railway.app/';
     import * as XLSX from 'xlsx'
     import swal from 'sweetalert2'
     import moment from 'moment'
