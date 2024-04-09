@@ -58,7 +58,6 @@
                     </div>
                     <div class="flex flex-wrap justify-evenly">
                         <button type="button" @click="clearForm" class="btn btn-warning w-[150px] text-black rounded-[10px] mx-4 my-[32px] cursor-pointer">Clear Input</button>
-                        <button type="button" @click="deleteall_leaverequest" class="btn btn-error w-[250px] text-black rounded-[10px] mx-4 my-[32px] cursor-pointer">Delete All Leave Request</button>
                     </div>
                         <table class="table py-[100px] w-[80%] text-center">
                             <thead class="text-black bg-emerald-400 rounded-t-lg">
@@ -248,32 +247,6 @@
                             swal.fire({
                                 title: 'Success',
                                 text: 'Leave Request Deleted',
-                                icon: 'success',
-                                confirmButtonText: 'OK'
-                            }).then(() => {
-                                if (confirm) {
-                                    this.$router.go()
-                                }
-                            })
-                        })
-                    }
-                })
-            },
-            deleteall_leaverequest(){
-                swal.fire({
-                    title: 'Are you sure?',
-                    text: 'You will not be able to recover this data!',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonText: 'Yes, delete all data!',
-                    cancelButtonText: 'No, keep it'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        axios.delete(`${host}leave_requests/`)
-                        .then((res) => {
-                            swal.fire({
-                                title: 'Success',
-                                text: 'All Leave Request Deleted',
                                 icon: 'success',
                                 confirmButtonText: 'OK'
                             }).then(() => {
