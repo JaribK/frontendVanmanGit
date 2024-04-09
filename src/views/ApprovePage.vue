@@ -65,10 +65,10 @@
                                 <tr class="rounded-t-lg text-[15px]">
                                     <th class="w-[10%]">DateTime Requested</th>
                                     <th class="w-[10%]">Leave DateTime that request</th>
-                                    <th class="w-[30%]">Description</th>
+                                    <th class="w-[20%]">Description</th>
                                     <th class="w-[10%]">Tel</th>
                                     <th class="w-[20%]">Send Request by</th>
-                                    <th class="w-[20%]">Status</th>
+                                    <th class="w-[30%]">Status</th>
                                 </tr>
                             </thead>
                             <tbody class="text-black text-center">
@@ -78,7 +78,7 @@
                                         <td class="border-b-blue-900">{{ lr.description }}</td>
                                         <td class="border-b-blue-900">{{ lr.tel }}</td>
                                         <td class="border-b-blue-900">{{ lr.who_signed }}</td>
-                                        <td v-if="lr.status == 0" class="border-b-blue-900 text-red-600 font-bold">
+                                        <td v-if="lr.status == 0" class="border-b-blue-900 text-red-600 font-bold flex justify-center items-center">
                                             <div class="dropdown dropdown-top dropdown-end ">
                                               <div tabindex="0" role="button" class="btn m-1 bg-error text-black w-[125px]">Rejected<svg width="12px" height="12px" class="hidden h-2 w-2 fill-current opacity-60 sm:inline-block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 2048"><path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"></path></svg></div>
                                               <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
@@ -87,8 +87,11 @@
                                                   <li class="text-error" @click="patchstatus(lr.id,0)"><a>Reject</a></li>
                                               </ul>
                                             </div>
+                                            <button class="btn btn-square btn-outline ml-4" @click="delete_leaverequest(lr.id)">
+                                              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                                            </button>
                                         </td>
-                                        <td v-if="lr.status == 1" class="border-b-blue-900 text-warning font-bold">
+                                        <td v-if="lr.status == 1" class="border-b-blue-900 text-warning font-bold flex justify-center items-center">
                                             <div class="dropdown dropdown-top dropdown-end ">
                                               <div tabindex="0" role="button" class="btn m-1 bg-warning text-black w-[125px]">Pending<svg width="12px" height="12px" class="hidden h-2 w-2 fill-current opacity-60 sm:inline-block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 2048"><path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"></path></svg></div>
                                               <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
@@ -97,8 +100,11 @@
                                                   <li class="text-error" @click="patchstatus(lr.id,0)"><a>Reject</a></li>
                                               </ul>
                                             </div>
+                                            <button class="btn btn-square btn-outline ml-4" @click="delete_leaverequest(lr.id)">
+                                              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                                            </button>
                                         </td>
-                                        <td v-if="lr.status == 2" class="border-b-blue-900 text-green-600 font-bold">
+                                        <td v-if="lr.status == 2" class="border-b-blue-900 text-green-600 font-bold flex justify-center items-center">
                                             <div class="dropdown dropdown-top dropdown-end ">
                                               <div tabindex="0" role="button" class="btn m-1 bg-success text-black w-[125px]">Approved<svg width="12px" height="12px" class="hidden h-2 w-2 fill-current opacity-60 sm:inline-block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 2048"><path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"></path></svg></div>
                                               <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
@@ -107,6 +113,9 @@
                                                   <li class="text-error" @click="patchstatus(lr.id,0)"><a>Reject</a></li>
                                               </ul>
                                             </div>
+                                            <button class="btn btn-square btn-outline ml-4" @click="delete_leaverequest(lr.id)">
+                                              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                                            </button>
                                         </td>
                                     </tr>
                             </tbody>
@@ -219,13 +228,39 @@
                     })
                 })
             },
+            delete_leaverequest(id){
+                swal.fire({
+                    title: 'Are you sure?',
+                    text: 'You will not be able to recover this data!',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, delete this data!',
+                    cancelButtonText: 'No, keep it'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        axios.delete(`${host}leave_requests/${id}`)
+                        .then((res) => {
+                            swal.fire({
+                                title: 'Success',
+                                text: 'Leave Request Deleted',
+                                icon: 'success',
+                                confirmButtonText: 'OK'
+                            }).then(() => {
+                                if (confirm) {
+                                    this.$router.go()
+                                }
+                            })
+                        })
+                    }
+                })
+            },
             deleteall_leaverequest(){
                 swal.fire({
                     title: 'Are you sure?',
                     text: 'You will not be able to recover this data!',
                     icon: 'warning',
                     showCancelButton: true,
-                    confirmButtonText: 'Yes, delete it!',
+                    confirmButtonText: 'Yes, delete all data!',
                     cancelButtonText: 'No, keep it'
                 }).then((result) => {
                     if (result.isConfirmed) {
