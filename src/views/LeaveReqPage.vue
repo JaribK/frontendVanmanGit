@@ -143,7 +143,7 @@
 <script>
     import axios from 'axios'
     import swal from 'sweetalert2'
-    const host = 'http://localhost:8000/'
+    const host = 'https://backendvanmangit-production.up.railway.app/'
     import moment from 'moment'
     export default {
         name: 'LeaveReqPage',
