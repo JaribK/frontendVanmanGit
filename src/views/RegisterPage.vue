@@ -50,7 +50,7 @@
                             confirmButtonText: 'OK'
                         })
                     } else {
-                        await axios.post('http://localhost:8000/api/register', {
+                        await axios.post('https://backendvanmangit-production.up.railway.app/api/register', {
                             username: this.username,
                             email: this.email,
                             password: this.password,
