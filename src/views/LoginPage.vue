@@ -34,7 +34,7 @@
         methods : {
             async login(){    
                 try {
-                    await axios.post('http://localhost:8000/api/login', {
+                    await axios.post('https://backendvanmangit-production.up.railway.app/api/login', {
                          username: this.username,
                          password: this.password
                      })
