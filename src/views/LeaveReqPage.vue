@@ -59,10 +59,11 @@
                         <table class="table py-[100px] w-[80%] text-center">
                             <thead class="text-black bg-emerald-400 rounded-t-lg">
                                 <tr class="rounded-t-lg text-[15px]">
-                                    <th class="w-[10%]">No.</th>
-                                    <th class="w-[40%]">Leave DateTime that request</th>
-                                    <th class="w-[40%]">Description</th>
-                                    <th class="w-[10%]">Status</th>
+                                    <th class="w-[5%]">No.</th>
+                                    <th class="w-[35%]">Leave DateTime that request</th>
+                                    <th class="w-[30%]">Description</th>
+                                    <th class="w-[20%]">Status</th>
+                                    <th class="w-[10%]">Manage</th>
                                 </tr>
                             </thead>
                             <tbody class="text-black text-center">
@@ -73,6 +74,55 @@
                                         <td v-if="lr.status == 0" class="border-b-blue-900 text-red-600 font-bold">Rejected</td>
                                         <td v-if="lr.status == 1" class="border-b-blue-900 text-warning font-bold">Pending</td>
                                         <td v-if="lr.status == 2" class="border-b-blue-900 text-success font-bold">Approved</td>
+                                        <td v-if="lr.status == 0">
+                                            <button type="button" class="btn btn-outline bg-error" @click="delete_leaverequest(lr.id)">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                                            </button>
+                                        </td>
+                                        <td v-if="lr.status == 1">
+                                            <button type="button" onclick="my_modal_1.showModal()" class="btn btn-warning">Manage</button>                     
+                                            <dialog id="my_modal_1" class="modal">
+                                              <div class="modal-box">
+                                                <h3 class="font-bold text-lg">Manage this data</h3>
+                                                <div class="w-full flex flex-col items-center">
+                                                    <label class="form-control w-full max-w-xs">
+                                                        <div class="label">
+                                                            <span class="label-text text-black">Leave DateTime Start</span>
+                                                        </div>
+                                                        <input id="datetimein" type="datetime-local" value="" placeholder="Type here" class="input input-bordered w-full max-w-xl mb-4" v-model="datetime_start" required/>
+                                                    </label>
+                                                    <label class="form-control w-full max-w-xs">
+                                                        <div class="label">
+                                                            <span class="label-text text-black">Leave DateTime End</span>
+                                                        </div>
+                                                        <input id="datetimeout" type="datetime-local" placeholder="Type here" class="input input-bordered w-full max-w-xl mb-4" v-model="datetime_end" required/>
+                                                    </label>
+                                                    <label class="form-control w-full max-w-xs">
+                                                        <div class="label">
+                                                            <span class="label-text text-black">Description</span>
+                                                        </div>
+                                                        <input id="description" type="text" placeholder="Type here" class="input input-bordered w-full max-w-xl mb-4" v-model="description" required/>
+                                                    </label>
+                                                    <label class="form-control w-full max-w-xs">
+                                                        <div class="label">
+                                                            <span class="label-text text-black">Tel</span>
+                                                        </div>
+                                                        <input id="tel" type="text" placeholder="Type here" class="input input-bordered w-full max-w-xl mb-4" v-model="tel" required/>
+                                                    </label>
+                                                </div>
+                                                <div class="modal-action">
+                                                  <form method="dialog" class="flex justify-evenly flex-row w-full">
+                                                      <button class="btn btn-error" @click="delete_leaverequest(lr.id)">Delete Request</button>
+                                                      <button class="btn btn-success" @click="patch_leaverequest(lr.id)">Update Request</button>
+                                                      <button class="btn btn-info">Close</button>
+                                                  </form>
+                                                </div>
+                                              </div>
+                                            </dialog>
+                                        </td>
+                                        <td v-if="lr.status == 2">
+                                            <button type="button" class="btn btn-warning cursor-not-allowed" @click="delete_leaverequest(lr.id)" disabled >Manage</button>
+                                        </td>
                                     </tr>
                             </tbody>
                         </table>
@@ -169,6 +219,65 @@
             formatDateTime(datetime){
                 return moment(datetime).format('D MMM YYYY | hh:mm A')
             },
+            patch_leaverequest(id){
+                if (this.datetime_start == '' || this.datetime_end == '' || this.description == '' || this.tel == '') {
+                    swal.fire({
+                        title: 'Error',
+                        text: 'All field must be filled',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    })
+                } else {
+                    swal.fire({
+                        title: 'Are you sure?',
+                        text: 'You will update this leave request',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Yes',
+                        cancelButtonText: 'No'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            const today = moment(this.today)
+                            const start = moment(this.datetime_start)
+                            const end = moment(this.datetime_end)
+                            if (end.diff(today, 'days') < 15) {
+                                    swal.fire({
+                                        title: 'Error',
+                                        text: 'DateTime must be greater than 15 days from today',
+                                        icon: 'error',
+                                        confirmButtonText: 'OK'
+                                    })
+                                } else if (start.diff(today, 'days') < 15) {
+                                    swal.fire({
+                                        title: 'Error',
+                                        text: 'DateTime must be greater than 15 days from today',
+                                        icon: 'error',
+                                        confirmButtonText: 'OK'
+                                    })
+                                } else {
+                                    axios.patch(`${host}leave_requests/${id}/`, {
+                                        datetime_start: this.datetime_start,
+                                        datetime_end: this.datetime_end,
+                                        description: this.description,
+                                        tel: this.tel,
+                                    })
+                                    .then((res) => {
+                                        swal.fire({
+                                            title: 'Success',
+                                            text: 'Leave Request Updated',
+                                            icon: 'success',
+                                            confirmButtonText: 'OK'
+                                        }).then(() => {
+                                            if (confirm) {
+                                                this.$router.go()
+                                            }
+                                        })
+                                    })
+                            }
+                        }
+                    })
+                }
+            },
             post_leaverequest(){
                 try {
                     swal.fire({
@@ -220,14 +329,38 @@
                                     })
                                 })
                             }
-                        } else {
-                            swal.fire('Cancelled', 'Your leave request is cancelled', 'error')
                         }
                     })
                 
                     } catch (error) {
                         console.error(error);
                     }
+            },
+            delete_leaverequest(id){
+                swal.fire({
+                    title: 'Are you sure?',
+                    text: 'You will delete this leave request',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes',
+                    cancelButtonText: 'No'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        axios.delete(`${host}leave_requests/${id}`)
+                        .then((res) => {
+                            swal.fire({
+                                title: 'Success',
+                                text: 'Leave Request Deleted',
+                                icon: 'success',
+                                confirmButtonText: 'OK'
+                            }).then(() => {
+                                if (confirm) {
+                                    this.$router.go()
+                                }
+                            })
+                        })
+                    }
+                })
             },
             logout(){
                 localStorage.removeItem('token')

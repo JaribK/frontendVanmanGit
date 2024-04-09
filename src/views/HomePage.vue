@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="overflow-y-scroll no-scrollbar">
         <div id="background" class="w-full h-fit bg-white">
             <div class="navbar bg-gray-800">
                 <div class="flex-1 px-2 lg:flex-none">
