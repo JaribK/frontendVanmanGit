@@ -82,7 +82,6 @@ import IconSearchBar from '../components/icons/IconSearchbar.vue'
                     <div class="w-full flex justify-center flex-wrap">
                         <input type="button" @click="downloadTimesheetInExcel" value="download list of attendance" class="btn w-[250px] h-[50px] bg-[#3668A7] text-white rounded-[10px] my-[32px] cursor-pointer">
                         <button type="button" @click="clearForm" class="btn btn-warning w-[150px] h-[50px]  text-black rounded-[10px] mx-4 my-[32px] cursor-pointer">Clear Input</button>
-                        <button type="button" @click="deletealltimesheet" class="btn w-[150px] h-[50px] bg-red-500 text-white rounded-[10px] my-[32px] cursor-pointer">Delete All Data</button>
                     </div>
                 </div>
                 <div id="table" class="overflow-x-auto w-full flex justify-center flex-col items-center pb-10">
@@ -265,24 +264,6 @@ import IconSearchBar from '../components/icons/IconSearchbar.vue'
                     const fullDateTime = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()} ${value}`;
                     return moment(fullDateTime, 'YYYY-MM-DD HH:mm:ss').format('hh:mm A');
                 }
-            },
-            deletealltimesheet(){
-                swal.fire({
-                    title: 'Are you sure?',
-                    text: 'You will not be able to recover this data!',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonText: 'Yes, delete it!',
-                    cancelButtonText: 'No, keep it'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        axios.delete(host + 'timesheets/')
-                        .then(res => {
-                            console.log(res)
-                            this.$router.go()
-                        })
-                    }
-                })
             },
             logout(){
                 localStorage.removeItem('token')
