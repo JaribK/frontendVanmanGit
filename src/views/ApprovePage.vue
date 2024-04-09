@@ -71,7 +71,7 @@
                                     <th class="w-[30%]">Status</th>
                                 </tr>
                             </thead>
-                            <tbody class="text-black text-center">
+                            <tbody class="text-black text-center" v-if="displayedAttendance.length > 0">
                                     <tr v-for="lr,index in displayedAttendance" :key="lr.id" class="border-b-black">
                                         <td class="border-b-blue-900">{{ formatDateTime(lr.datetime_requested) }}</td>
                                         <td class="border-b-blue-900">{{ formatDateTime(lr.datetime_start) }}<br>-<br>{{ formatDateTime(lr.datetime_end) }}</td>
@@ -118,6 +118,11 @@
                                             </button>
                                         </td>
                                     </tr>
+                            </tbody>
+                            <tbody class="text-black text-center" v-else>
+                                <tr>
+                                    <td colspan="6" class="border-b-blue-900">No data available.</td>
+                                </tr>
                             </tbody>
                         </table>
                         <div class="flex justify-center mt-4 pb-[32px] flex-wrap items-center">
