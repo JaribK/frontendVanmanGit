@@ -66,7 +66,7 @@
                                     <th class="w-[10%]">Manage</th>
                                 </tr>
                             </thead>
-                            <tbody class="text-black text-center">
+                            <tbody class="text-black text-center" v-if="displayedAttendance.length > 0">
                                     <tr v-for="lr,index in displayedAttendance" :key="lr.id" class="border-b-black">
                                         <td class="border-b-blue-900">{{ index + 1 }}</td>
                                         <td class="border-b-blue-900">{{ formatDateTime(lr.datetime_start) }} - {{ formatDateTime(lr.datetime_end) }}</td>
@@ -124,6 +124,11 @@
                                             <button type="button" class="btn btn-warning cursor-not-allowed" @click="delete_leaverequest(lr.id)" disabled >Manage</button>
                                         </td>
                                     </tr>
+                            </tbody>
+                            <tbody class="text-black text-center" v-else>
+                                <tr>
+                                    <td colspan="5" class="border-b-blue-900">No data available.</td>
+                                </tr>
                             </tbody>
                         </table>
                 </div>
