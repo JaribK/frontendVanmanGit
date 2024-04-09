@@ -238,7 +238,7 @@
                     cancelButtonText: 'No, keep it'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        axios.delete(`${host}leave_requests/${id}`)
+                        axios.delete(`${host}leave_requests/${id}/`)
                         .then((res) => {
                             swal.fire({
                                 title: 'Success',
@@ -264,7 +264,7 @@
                     cancelButtonText: 'No, keep it'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        axios.delete(`${host}leave_requests`)
+                        axios.delete(`${host}leave_requests/`)
                         .then((res) => {
                             swal.fire({
                                 title: 'Success',
