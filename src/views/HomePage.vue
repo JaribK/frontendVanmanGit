@@ -21,6 +21,7 @@
                 </div>
             <div id="content" class="w-full h-fit flex justify-center">
                 <div id="box" class="bg-white w-[80%] h-fit flex justify-center flex-col">
+                    <div class="w-[100%] text-center">Time Attendance On {{ formatDate(this.server_date)  }} at {{ format_time(this.server_time) }}</div>
                     <div id="titlebox" class="py-[32px] text-black font-bold text-[30px] w-[100%] text-center">Sign for work <br>{{user.first_name}}</div>
                     <div id="form" class="w-full mt-10">
                         <form action="" class="px-[40px] flex justify-evenly flex-wrap">
@@ -124,7 +125,7 @@
 import axios from 'axios'
 import swal from 'sweetalert2'
 import * as XLSX from 'xlsx'
-const host = 'https://backendvanmangit-production.up.railway.app/';
+const host = 'http://127.0.0.1:8000/';
 import moment from 'moment'
 
     export default {
@@ -145,6 +146,9 @@ import moment from 'moment'
                 configsalary: '',
                 currentPage: 1,
                 itemsPerPage: 10,
+                server_datetime: '',
+                server_date: '',
+                server_time: ''
             }
         },
 
@@ -153,9 +157,14 @@ import moment from 'moment'
             this.getuser()
             this.getlistTimesheet()
             this.getConfigSalary()
+            this.get_datetimefromserver()
+            setInterval(() => {
+                this.get_datetimefromserver();
+            }, 1000)
         },
 
         computed: {
+            
             getmyattendance(){
                 return this.timesheetlList.filter(timesheet => timesheet.user === this.user_id)
             },
@@ -207,6 +216,7 @@ import moment from 'moment'
 
             checkdatematchholidays(){ 
                 try {
+                if (this.date == this.server_date) {
                     if (this.holidays.includes(this.date)) {
                         this.isHoliday = true;
                         const holidayIndex = this.holidays.indexOf(this.date);
@@ -262,6 +272,13 @@ import moment from 'moment'
                             })
                         }
                     }
+                } else {
+                    swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'You can only sign in on the same day as the date you selected'
+                    });
+                }
                 } catch (error) {
                     console.error(error)
                 }
@@ -301,7 +318,7 @@ import moment from 'moment'
                 } else {
                     swal.fire({
                         title: 'Are you sure?',
-                        text: 'You want to sign out at ' + this.get_timenow12h() + ' ?',
+                        text: 'You want to sign out at ' + this.server_time + ' ?',
                         icon: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#3085d6',
@@ -310,7 +327,7 @@ import moment from 'moment'
                     }).then((result) => {
                         if (result.isConfirmed) {
                             axios.patch(host + 'timesheets/' + id + '/',{
-                                time_out: this.get_timenow()
+                                time_out: this.server_time
                             }).then(() => {
                                 swal.fire({
                                     icon: 'success',
@@ -337,7 +354,7 @@ import moment from 'moment'
                 } else {
                     swal.fire({
                         title: 'Are you sure?',
-                        text: 'You want to sign in at ' + this.get_timenow12h() + ' ?',
+                        text: 'You want to sign in at ' + this.server_time + ' ?',
                         icon: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#3085d6',
@@ -346,7 +363,7 @@ import moment from 'moment'
                     }).then((result) => {
                         if (result.isConfirmed) {
                             axios.patch(host + 'timesheets/' + id + '/',{
-                                time_in: this.get_timenow()
+                                time_in: this.server_time
                             }).then(() => {
                                 swal.fire({
                                     icon: 'success',
@@ -458,12 +475,12 @@ import moment from 'moment'
                 return moment(datetime).format('D MMM YYYY')
             },
 
-            format_date(value) {
-                if (value) {
-                    const today = new Date();
-                    const fullDateTime = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()} ${value}`;
-                    return moment(fullDateTime, 'YYYY-MMM-DD HH:mm:ss').format('hh:mm A');
-                }
+            format_datetime(datetime){
+                return moment(datetime).format('D MMM YYYY hh:mm:ss A')
+            },
+
+            format_time(time){
+                return moment(time, 'HH:mm:ss').format('hh:mm:ss A')
             },
 
             calculateMysalary(user_id){
@@ -482,7 +499,23 @@ import moment from 'moment'
                 } catch (error) {
                     console.error(error)
                 }
-            }
+            },
+
+            get_datetimefromserver(){
+                axios.get('http://worldtimeapi.org/api/timezone/Asia/Bangkok')
+                .then(res => {
+                    this.server_datetime = res.data.datetime
+                    const datetime = new Date(this.server_datetime);
+            
+                    // Get date in "YYYY-MM-DD" format
+                    this.server_date = datetime.toISOString().split('T')[0];
+
+                    // Get time in "HH:MM:SS" format
+                    this.server_time = datetime.toTimeString().split(' ')[0];
+
+                })
+            },
         }
     }   
 </script>
+
