@@ -94,9 +94,9 @@
                                         <td class="border-b-blue-900">{{ (currentPage - 1) * itemsPerPage + index + 1 }}</td>
                                         <td class="border-b-blue-900">{{ formatDate(ts.date) }}</td>
                                         <td v-if="ts.time_in == '00:00:00'" class="border-b-blue-900"><button :disabled="!isInTimeRangeTimeIn()" @click="signtime_in(ts.id,ts.date)" class="btn btn-warning">Sign TimeIn</button></td>
-                                        <td v-else class="border-b-blue-900">{{ format_date(ts.time_in) }}</td>
+                                        <td v-else class="border-b-blue-900">{{ format_time(ts.time_in) }}</td>
                                         <td v-if="ts.time_out == '00:00:00'" class="border-b-blue-900"><button :disabled="!isInTimeRangeTimeOut()" @click="signtime_out(ts.id,ts.date)" class="btn btn-warning">Sign TimeOut</button></td>
-                                        <td v-else class="border-b-blue-900">{{ format_date(ts.time_out) }}</td>
+                                        <td v-else class="border-b-blue-900">{{ format_time(ts.time_out) }}</td>
                                         <td class="border-b-blue-900">{{ ts.description }}</td>
                                         <td class="border-b-blue-900">{{ ts.site_name}}</td>
                                     </tr>
@@ -477,6 +477,10 @@ import moment from 'moment'
 
             format_datetime(datetime){
                 return moment(datetime).format('D MMM YYYY hh:mm:ss A')
+            },
+
+            format_date(datetime){
+                return moment(datetime).format('D MMM YYYY')
             },
 
             format_time(time){
