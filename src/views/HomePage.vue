@@ -251,7 +251,8 @@ import moment from 'moment'
                                         site_name: this.site_name,
                                         description: this.text,
                                         who_signed: this.user.first_name + ' ' + this.user.last_name,
-                                        user: this.user_id
+                                        user: this.user_id,
+                                        status:'normal'
                                     }).then((res) => {
                                         swal.fire({
                                             icon: 'success',
