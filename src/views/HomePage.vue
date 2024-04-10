@@ -80,7 +80,6 @@
                         <table class="table py-[100px] w-[80%] text-center" >
                             <thead class="text-black bg-emerald-400 rounded-t-lg text-[15px]">
                                 <tr class="rounded-t-lg">
-
                                     <th class="w-[5%]">No.</th>
                                     <th class="w-[15%]">Date</th>
                                     <th class="w-[15%]">Time In</th>
@@ -93,9 +92,9 @@
                                     <tr v-for="ts,index in displayedAttendance" :key="ts.id" class="border-b-black">
                                         <td class="border-b-blue-900">{{ (currentPage - 1) * itemsPerPage + index + 1 }}</td>
                                         <td class="border-b-blue-900">{{ formatDate(ts.date) }}</td>
-                                        <td v-if="ts.time_in == '00:00:00'" class="border-b-blue-900"><button :disabled="!isInTimeRangeTimeIn()" @click="signtime_in(ts.id,ts.date)" class="btn btn-warning">Sign TimeIn</button></td>
+                                        <td v-if="ts.time_in == '00:00:00'" class="border-b-blue-900"><button :disabled="!isInServerTimeRangeTimeIn()" @click="signtime_in(ts.id,ts.date)" class="btn btn-warning">Sign TimeIn</button></td>
                                         <td v-else class="border-b-blue-900">{{ format_time(ts.time_in) }}</td>
-                                        <td v-if="ts.time_out == '00:00:00'" class="border-b-blue-900"><button :disabled="!isInTimeRangeTimeOut()" @click="signtime_out(ts.id,ts.date)" class="btn btn-warning">Sign TimeOut</button></td>
+                                        <td v-if="ts.time_out == '00:00:00'" class="border-b-blue-900"><button :disabled="!isInServerTimeRangeTimeOut()" @click="signtime_out(ts.id,ts.date)" class="btn btn-warning">Sign TimeOut</button></td>
                                         <td v-else class="border-b-blue-900">{{ format_time(ts.time_out) }}</td>
                                         <td class="border-b-blue-900">{{ ts.description }}</td>
                                         <td class="border-b-blue-900">{{ ts.site_name}}</td>
@@ -381,35 +380,27 @@ import moment from 'moment'
             
             },
 
-            isInTimeRangeTimeOut() {
-                  const now = new Date();
-                  const start = new Date();
-                  const end = new Date();
+            isInServerTimeRangeTimeIn(){
+                const time = this.server_time.split(':');
+                const hour = parseInt(time[0]);
+                const minute = parseInt(time[1]);
+                if ((hour === 8 && minute >= 0) || (hour === 8 && minute === 30)) {
+                     return true;
+                } else {
+                    return false;
+                }
 
-                  start.setHours(17);
-                  start.setMinutes(30);
-                  start.setSeconds(0);
-
-                  end.setHours(18);
-                  end.setMinutes(0);
-                  end.setSeconds(0);
-
-                  return now >= start && now <= end;
             },
-            isInTimeRangeTimeIn() {
-                  const now = new Date();
-                  const start = new Date();
-                  const end = new Date();
 
-                  start.setHours(8);
-                  start.setMinutes(0);
-                  start.setSeconds(0);
-
-                  end.setHours(8);
-                  end.setMinutes(30);
-                  end.setSeconds(0);
-
-                  return now >= start && now <= end;
+            isInServerTimeRangeTimeOut(){
+                const time = this.server_time.split(':');
+                const hour = parseInt(time[0]);
+                const minute = parseInt(time[1]);
+                if ((hour === 17 && minute >= 30) || (hour === 18 && minute === 0)) {
+                     return true;
+                } else {
+                    return false;
+                }
             },
 
             getlistTimesheet(){
@@ -479,10 +470,6 @@ import moment from 'moment'
                 return moment(datetime).format('D MMM YYYY hh:mm:ss A')
             },
 
-            format_date(datetime){
-                return moment(datetime).format('D MMM YYYY')
-            },
-
             format_time(time){
                 return moment(time, 'HH:mm:ss').format('hh:mm:ss A')
             },
@@ -507,6 +494,7 @@ import moment from 'moment'
 
             get_datetimefromserver(){
                 axios.get('https://worldtimeapi.org/api/ip')
+                // https://worldtimeapi.org/api/ip
                 .then(res => {
                     this.server_datetime = res.data.datetime
                     const datetime = new Date(this.server_datetime);
