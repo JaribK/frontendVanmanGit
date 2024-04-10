@@ -502,7 +502,7 @@ import moment from 'moment'
             },
 
             get_datetimefromserver(){
-                axios.get('https://timeapi.io/api/Time/current/zone?timeZone=Aisa/Bangkok')
+                axios.get('https://worldtimeapi.org/api/ip')
                 .then(res => {
                     this.server_datetime = res.data.datetime
                     const datetime = new Date(this.server_datetime);
