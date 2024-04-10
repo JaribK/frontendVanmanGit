@@ -124,7 +124,7 @@
 import axios from 'axios'
 import swal from 'sweetalert2'
 import * as XLSX from 'xlsx'
-const host = 'http://127.0.0.1:8000/';
+const host = 'https://backendvanmangit-production.up.railway.app/';
 import moment from 'moment'
 
     export default {
