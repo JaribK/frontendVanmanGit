@@ -22,7 +22,7 @@
             <div id="content" class="w-full h-fit flex justify-center">
                 <div id="box" class="bg-white w-[80%] h-fit flex justify-center flex-col">
                     <div class="w-[100%] text-center">Time Attendance On {{ formatDate(this.server_date)  }} at {{ format_time(this.server_time) }}</div>
-                    <div id="titlebox" class="py-[32px] text-black font-bold text-[30px] w-[100%] text-center">Sign for work <br>{{user.first_name}}</div>
+                    <div id="titlebox" class="py-[32px] text-black font-bold text-[30px] w-[100%] text-center">Sign for work <br>{{user.first_name}} {{user.last_name}}</div>
                     <div id="form" class="w-full mt-10">
                         <form action="" class="px-[40px] flex justify-evenly flex-wrap">
                             <!-- <label class="form-control w-full max-w-xs">
