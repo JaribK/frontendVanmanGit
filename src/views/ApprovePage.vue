@@ -8,6 +8,7 @@
                 <div class="flex justify-end flex-1 px-2">
                     <div class="flex items-stretch">
                         <div class="dropdown dropdown-end">
+                            <div class="btn btn-primary mr-2">{{ user.role }}</div>
                             <div tabindex="0" role="button" class="btn btn-ghost text-black bg-white rounded-btn">Welcome, {{ user.username }}</div>
                                 <ul tabindex="0" class="menu dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52 mt-4">
                                     <li><router-link to="/home">Back to Home</router-link></li>
@@ -22,6 +23,11 @@
             </div>
             <div id="content" class="w-full h-lvh flex justify-center">
                 <div id="box" class="bg-white w-[100%] h-fit flex justify-start flex-col" >
+                    <div class="w-[100%] text-center text-black text-[20px] font-bold py-4 flex justify-center">
+                        <div id="datetime-server">
+                            Time Attendance On {{ formatDate(this.server_date)  }} at {{ format_time(this.server_time) }}
+                        </div>
+                    </div>
                 <div id="title" class="text-black font-bold w-full text-center my-[48px] text-[25px]">List Request From Employee</div>
                 <div id="table" class="overflow-x-auto w-full flex justify-center flex-col items-center py-[32px]">
                     <label class="input input-bordered w-[30%] flex items-center gap-2">
@@ -155,12 +161,19 @@
                 search: '',
                 currentPage: 1,
                 itemsPerPage: 10,
-                selectedStatus: ''
+                selectedStatus: '',
+                server_datetime: '',
+                server_date: '',
+                server_time: ''
             }
         },
         mounted(){
             this.getUser()
             this.getlist_leaverequest()
+            this.get_datetimefromserver()
+            setInterval(() => {
+                this.get_datetimefromserver();
+            }, 1000)
         },
         computed: {
             mergedFilteredList() {
@@ -182,6 +195,17 @@
             } 
         },
         methods: {
+            formatDate(datetime){
+                return moment(datetime).format('D MMM YYYY')
+            },
+
+            format_datetime(datetime){
+                return moment(datetime).format('D MMM YYYY hh:mm:ss A')
+            },
+
+            format_time(time){
+                return moment(time, 'HH:mm:ss').format('hh:mm:ss A')
+            },
             filterByStatus() {
               this.currentPage = 1; // Reset pagination to first page
             },
@@ -274,7 +298,22 @@
                 this.dateend = ''
                 this.search = ''
                 this.selectedStatus = ''
-            }
+            },
+            get_datetimefromserver(){
+                axios.get('https://worldtimeapi.org/api/ip')
+                // https://worldtimeapi.org/api/ip
+                .then(res => {
+                    this.server_datetime = res.data.datetime
+                    const datetime = new Date(this.server_datetime);
+            
+                    // Get date in "YYYY-MM-DD" format
+                    this.server_date = datetime.toISOString().split('T')[0];
+
+                    // Get time in "HH:MM:SS" format
+                    this.server_time = datetime.toTimeString().split(' ')[0];
+
+                })
+            },
         }
     }
 </script>

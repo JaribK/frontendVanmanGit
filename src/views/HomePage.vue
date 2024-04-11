@@ -1,5 +1,5 @@
 <template>
-    <div class="overflow-y-scroll no-scrollbar">
+    <div>
         <div id="background" class="w-full h-fit bg-white">
             <div class="navbar bg-gray-800">
                 <div class="flex-1 px-2 lg:flex-none">
@@ -72,7 +72,7 @@
                                 <textarea id="text" type="text" placeholder="Type here" class="textarea textarea-bordered w-full max-w-xs" cols="15" v-model="text" required></textarea>
                             </label>
                             <div class="w-full flex justify-center flex-wrap">
-                                <input type="button" @click="checkdatematchholidays" value="Sign" class="btn w-[300px] h-[50px] bg-[#3668A7] text-white rounded-[10px] my-[64px] cursor-pointer">
+                                <input type="button" :disabled="checkSigninToday()" @click="checkdatematchholidays" value="Sign" class="btn w-[300px] h-[50px] bg-[#3668A7] text-white rounded-[10px] my-[64px] cursor-pointer">
                                 <button type="button" @click="clearForm" class="btn btn-warning w-[150px] h-[50px]  text-black rounded-[10px] mx-4 my-[64px] cursor-pointer">Clear Input</button>
                                 <button type="button" @click="downloadTimesheetInExcel" class="btn w-[300px] h-[50px] bg-gray-400 text-black rounded-[10px] my-[64px] cursor-pointer">Download my Attendance</button>
                             </div>
@@ -311,6 +311,14 @@ import moment from 'moment'
 
             get_datenow(){
                 return new Date().toISOString().slice(0, 10)
+            },
+            checkSigninToday() {
+                const todayDate = this.server_date;
+                if (this.displayedAttendance.find(ts => ts.user === this.user_id && ts.date === todayDate)){
+                    return true; // Can sign in
+                } else {
+                    return false; // Cannot sign in
+                }
             },
 
             signtime_out(id,date){
