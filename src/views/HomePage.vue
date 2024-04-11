@@ -8,6 +8,7 @@
                 <div class="flex justify-end flex-1 px-2">
                     <div class="flex items-stretch">
                         <div class="dropdown dropdown-end">
+                            <div class="btn btn-primary mr-2">{{ user.role }}</div>
                             <div tabindex="0" role="button" class="btn btn-ghost text-black bg-white rounded-btn">Welcome, {{ user.username }}</div>
                                 <ul tabindex="0" class="menu dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52 mt-4">
                                     <li><router-link to="/leave-req">Leave Request</router-link></li>
@@ -21,7 +22,11 @@
                 </div>
             <div id="content" class="w-full h-fit flex justify-center">
                 <div id="box" class="bg-white w-[80%] h-fit flex justify-center flex-col">
-                    <div class="w-[100%] text-center text-black text-[20px] font-bold py-4">Time Attendance On {{ formatDate(this.server_date)  }} at {{ format_time(this.server_time) }}</div>
+                    <div class="w-[100%] text-center text-black text-[20px] font-bold py-4 flex justify-center">
+                        <div id="datetime-server">
+                            Time Attendance On {{ formatDate(this.server_date)  }} at {{ format_time(this.server_time) }}
+                        </div>
+                    </div>
                     <div id="titlebox" class="py-[32px] text-black font-bold text-[30px] w-[100%] text-center">Sign for work <br>{{user.first_name}} {{user.last_name}}</div>
                     <div id="form" class="w-full mt-10">
                         <form action="" class="px-[40px] flex justify-evenly flex-wrap">
