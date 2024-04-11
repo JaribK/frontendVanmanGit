@@ -288,30 +288,6 @@ import moment from 'moment'
                     console.error(error)
                 }
             },
-
-            get_timenow(){
-                const options = {
-                    hour12: false,
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit'
-                };
-                return new Date().toLocaleTimeString([], options);
-            },
-
-            get_timenow12h(){
-                const options = {
-                    hour12: true,
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit'
-                };
-                return new Date().toLocaleTimeString([], options);
-            },
-
-            get_datenow(){
-                return new Date().toISOString().slice(0, 10)
-            },
             checkSigninToday() {
                 const todayDate = this.server_date;
                 if (this.displayedAttendance.find(ts => ts.user === this.user_id && ts.date === todayDate)){
@@ -322,7 +298,7 @@ import moment from 'moment'
             },
 
             signtime_out(id,date){
-                if (this.get_datenow() != date ){
+                if (this.server_date != date ){
                     swal.fire({
                         icon: 'error',
                         title: 'Oops...',
@@ -358,7 +334,7 @@ import moment from 'moment'
             },
 
             signtime_in(id,date){
-                if (this.get_datenow() != date ){
+                if (this.server_date != date ){
                     swal.fire({
                         icon: 'error',
                         title: 'Oops...',
