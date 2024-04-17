@@ -126,7 +126,7 @@
                                                 </div>
                                               </div>
                                             </dialog>
-                                    <router-link to="/leave-req"><button type="button" class="btn bg-warning w-[150px] h-[50px]  text-black rounded-[10px] mx-4 cursor-pointer">Leave Request</button></router-link>
+                                    <router-link to="/leave-req"><button type="button" class="btn bg-green-500 w-[150px] h-[50px]  text-black rounded-[10px] mx-4 cursor-pointer">Leave Request</button></router-link>
                             </div>
                         </form>
                     </div>

@@ -28,14 +28,14 @@ import IconSearchBar from '../components/icons/IconSearchbar.vue'
                 <div id="config-salary" class="flex justify-center flex-col items-center">
                     <div class="w-[100%] text-center text-black text-[20px] font-bold py-4 flex justify-center">
                         <div id="datetime-server">
-                            Time Attendance On {{ formatDate(this.server_date)  }} at {{ format_time(this.server_time) }}
+                            Time Attendance On {{ formatDate(server_date)  }} at {{ format_time(server_time) }}
                         </div>
                     </div>
                         <div class="text-black font-bold text-[20px] w-[100%] text-center py-10">Config Wages</div>
                         <div class="text-black">
                             daily wage WOF : {{ configsalary.WOF }} | daily wage WFH : {{ configsalary.WFH }}
                         </div><br>
-                        <button class="btn btn-warning w-[100px]" onclick="my_modal_1.showModal()"> Edit </button>
+                        <button class="btn bg-warning w-[100px] text-black" onclick="my_modal_1.showModal()"> Edit </button>
                         <dialog id="my_modal_1" class="modal">
                           <div class="modal-box">
                             <h3 class="font-bold text-lg">Edit<br></h3>
@@ -86,10 +86,10 @@ import IconSearchBar from '../components/icons/IconSearchbar.vue'
                     </div>
                     <div class="w-full flex justify-center flex-wrap">
                         <input type="button" @click="downloadTimesheetInExcel" value="download list of attendance" class="btn w-[250px] h-[50px] bg-[#3668A7] text-white rounded-[10px] my-[32px] cursor-pointer">
-                        <button type="button" @click="clearForm" class="btn btn-warning w-[150px] h-[50px]  text-black rounded-[10px] mx-4 my-[32px] cursor-pointer">Clear Input</button>
+                        <button type="button" @click="clearForm" class="btn bg-warning w-[150px] h-[50px]  text-black rounded-[10px] mx-4 my-[32px] cursor-pointer">Clear Input</button>
                     </div>
                 </div>
-                <div id="table" class="overflow-x-auto w-full flex justify-center flex-col items-center pb-10">
+                <div id="table" class="overflow-x-auto w-full flex justify-center flex-col items-center py-[72px]">
                     <table class="table py-[100px] w-[80%] text-center">
                         <thead class="text-black bg-emerald-400 rounded-t-lg text-[15px]">
                             <tr class="rounded-t-lg">
@@ -103,7 +103,7 @@ import IconSearchBar from '../components/icons/IconSearchbar.vue'
                                 <th class="w-[10%]">Status</th>
                             </tr>
                         </thead>
-                        <tbody class="text-black text-center" v-if="displayedAttendance.length > 0">
+                        <tbody class="text-black text-center " v-if="displayedAttendance.length > 0">
                                 <tr v-for="liftts in displayedAttendance" :key="liftts.id" class="border-b-black">
                                         <td class="border-b-blue-900">{{ formatDate(liftts.date) }}</td>
                                         <td v-if="liftts.time_in == '00:00:00'" class="border-b-blue-900"></td>
@@ -126,7 +126,7 @@ import IconSearchBar from '../components/icons/IconSearchbar.vue'
                                                   <li class="text-error" @click="patchstatus(liftts.id,0)"><a>Reject</a></li>
                                               </ul>
                                             </div>
-                                            <button class="btn btn-square btn-outline ml-4" @click="delete_leaverequest(liftts.id)">
+                                            <button class="btn btn-square btn-outline ml-4" @click="delete_signwork(liftts.id)">
                                               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
                                             </button>
                                         </td>
@@ -139,7 +139,7 @@ import IconSearchBar from '../components/icons/IconSearchbar.vue'
                                                   <li class="text-error" @click="patchstatus(liftts.id,0)"><a>Reject</a></li>
                                               </ul>
                                             </div>
-                                            <button class="btn btn-square btn-outline ml-4" @click="delete_leaverequest(liftts.id)">
+                                            <button class="btn btn-square btn-outline ml-4" @click="delete_signwork(liftts.id)">
                                               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
                                             </button>
                                         </td>
@@ -305,7 +305,7 @@ import IconSearchBar from '../components/icons/IconSearchbar.vue'
             },
             downloadTimesheetInExcel() {
                 let totalWages = 0;
-                const dataForExcel = this.getmyattendance.map((attendance) => {
+                const dataForExcel = this.mergedFilteredList.map((attendance) => {
                     let status = '';
                     if (attendance.site_name === "Work From Home") {
                         if (attendance.status === 0) {
@@ -383,14 +383,50 @@ import IconSearchBar from '../components/icons/IconSearchbar.vue'
             patchstatus(id,status){
                 axios.patch(host + 'timesheets/' + id + '/',{
                     status: status
-                }).then(res => {
-                    this.$router.go()
+                }).then((res) => {
+                    swal.fire({
+                        title: 'Success',
+                        text: 'Status Updated',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                        if (confirm) {
+                            this.$router.go()
+                        }
+                    })
                 })
             },
             delete_signwork(id){
-                axios.delete(host + 'timesheets/' + id + '/')
-                .then(res => {
-                    this.$router.go()
+                swal.fire({
+                    title: 'Are you sure?',
+                    text: 'You will not be able to recover this data!',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, delete it!',
+                    cancelButtonText: 'No, keep it'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        axios.delete(host + 'timesheets/' + id + '/')
+                        .then(res => {
+                            swal.fire({
+                                title: 'Success',
+                                text: 'Data has been deleted',
+                                icon: 'success',
+                                confirmButtonText: 'OK'
+                            }).then(() => {
+                                if (confirm) {
+                                    this.$router.go()
+                                }
+                            })
+                        })
+                    } else if (result.dismiss === swal.DismissReason.cancel) {
+                        swal.fire({
+                            title: 'Cancelled',
+                            text: 'Your data is safe :)',
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        })
+                    }
                 })
             }
             
