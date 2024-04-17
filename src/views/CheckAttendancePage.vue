@@ -93,7 +93,7 @@ import IconSearchBar from '../components/icons/IconSearchbar.vue'
                     <table class="table py-[100px] w-[80%] text-center">
                         <thead class="text-black bg-emerald-400 rounded-t-lg text-[15px]">
                             <tr class="rounded-t-lg">
-                                <th class="w-[15%]">Date</th>
+                                <th class="w-[15%]">Date Sign</th>
                                 <th class="w-[10%]">Time In</th>
                                 <th class="w-[10%]">Time Out</th>
                                 <th class="w-[30%]">Description</th>
