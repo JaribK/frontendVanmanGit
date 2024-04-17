@@ -349,7 +349,16 @@ import moment from 'moment'
             },
             checkdatematchholidays2(){ 
                 try {
-                    if (this.holidays.includes(this.date)) {
+                    const today = new Date(this.server_date);
+                    const selectedDate = new Date(this.date);
+                    
+                    if (selectedDate >= today) {
+                        swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Please select a day before today.'
+                        });
+                    } else if (this.holidays.includes(this.date)) {
                         this.isHoliday = true;
                         const holidayIndex = this.holidays.indexOf(this.date);
                         swal.fire({
