@@ -73,7 +73,7 @@
                             </label>
                             <div class="w-full flex justify-center flex-wrap mt-10">
                                 <input type="button" :disabled="checkSigninToday()" @click="checkdatematchholidays" value="Sign" class="btn w-[300px] h-[50px] bg-[#3668A7] text-white rounded-[10px] cursor-pointer">
-                                <button type="button" @click="clearForm" class="btn btn-warning w-[150px] h-[50px]  text-black rounded-[10px] mx-4 cursor-pointer">Clear Input</button>
+                                <button type="button" @click="clearForm" class="btn bg-warning w-[150px] h-[50px]  text-black rounded-[10px] mx-4 cursor-pointer">Clear Input</button>
                                 <button type="button" @click="downloadTimesheetInExcel" class="btn w-[300px] h-[50px] bg-gray-400 text-black rounded-[10px] mb-4 cursor-pointer">Download my Attendance</button>
                             </div>
                             <div class="w-full flex justify-center flex-wrap mb-10">
@@ -126,7 +126,7 @@
                                                 </div>
                                               </div>
                                             </dialog>
-                                <button type="button" @click="clearForm" class="btn btn-warning w-[150px] h-[50px]  text-black rounded-[10px] mx-4 cursor-pointer">Leave Request</button>
+                                    <router-link to="/leave-req"><button type="button" class="btn bg-warning w-[150px] h-[50px]  text-black rounded-[10px] mx-4 cursor-pointer">Leave Request</button></router-link>
                             </div>
                         </form>
                     </div>

@@ -93,24 +93,69 @@ import IconSearchBar from '../components/icons/IconSearchbar.vue'
                     <table class="table py-[100px] w-[80%] text-center">
                         <thead class="text-black bg-emerald-400 rounded-t-lg text-[15px]">
                             <tr class="rounded-t-lg">
-                                <th class="w-[15%]">Date Sign</th>
+                                <th class="w-[10%]">Date Sign</th>
                                 <th class="w-[10%]">Time In</th>
                                 <th class="w-[10%]">Time Out</th>
-                                <th class="w-[30%]">Description</th>
+                                <th class="w-[20%]">Description</th>
                                 <th class="w-[15%]">Site Name</th>
-                                <th class="w-[20%]">Signed by</th>
+                                <th class="w-[15%]">Signed by</th>
+                                <th class="w-[10%]">Type Sign</th>
+                                <th class="w-[10%]">Status</th>
                             </tr>
                         </thead>
                         <tbody class="text-black text-center" v-if="displayedAttendance.length > 0">
                                 <tr v-for="liftts in displayedAttendance" :key="liftts.id" class="border-b-black">
-                                    <td class="border-b-blue-900">{{ formatDate(liftts.date) }}</td>
-                                    <td v-if="liftts.time_in == '00:00:00'" class="border-b-blue-900"></td>
-                                    <td v-else class="border-b-blue-900">{{ format_date(liftts.time_in) }}</td>
-                                    <td v-if="liftts.time_out == '00:00:00'" class="border-b-blue-900"></td>
-                                    <td v-else class="border-b-blue-900">{{ format_date(liftts.time_out) }}</td>
-                                    <td class="border-b-blue-900">{{ liftts.description }}</td>
-                                    <td class="border-b-blue-900">{{ liftts.site_name }}</td>
-                                    <td class="border-b-blue-900">{{ liftts.who_signed }}</td>
+                                        <td class="border-b-blue-900">{{ formatDate(liftts.date) }}</td>
+                                        <td v-if="liftts.time_in == '00:00:00'" class="border-b-blue-900"></td>
+                                        <td v-else class="border-b-blue-900">{{ format_date(liftts.time_in) }}</td>
+                                        <td v-if="liftts.time_out == '00:00:00'" class="border-b-blue-900"></td>
+                                        <td v-else class="border-b-blue-900">{{ format_date(liftts.time_out) }}</td>
+                                        <td class="border-b-blue-900">{{ liftts.description }}</td>
+                                        <td class="border-b-blue-900">{{ liftts.site_name }}</td>
+                                        <td class="border-b-blue-900">{{ liftts.who_signed }}</td>
+                                        <td class="border-b-blue-900">
+                                            <span v-if="liftts.type_sign == 'normal'" class="text-green-500 font-bold">Normal</span>
+                                            <span v-else-if="liftts.type_sign == 'backdate'" class="text-red-500 font-bold">Backdate</span>
+                                        </td>
+                                        <td v-if="liftts.status == 0" class="border-b-blue-900 text-red-600 font-bold flex justify-center items-center">
+                                            <div class="dropdown dropdown-top dropdown-end ">
+                                              <div tabindex="0" role="button" class="btn m-1 bg-error text-black w-[125px]">Rejected<svg width="12px" height="12px" class="hidden h-2 w-2 fill-current opacity-60 sm:inline-block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 2048"><path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"></path></svg></div>
+                                              <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+                                                  <li class="text-success" @click="patchstatus(liftts.id,2)"><a>Approve</a></li>
+                                                  <li class="text-warning" @click="patchstatus(liftts.id,1)"><a>Pend</a></li>
+                                                  <li class="text-error" @click="patchstatus(liftts.id,0)"><a>Reject</a></li>
+                                              </ul>
+                                            </div>
+                                            <button class="btn btn-square btn-outline ml-4" @click="delete_leaverequest(liftts.id)">
+                                              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                                            </button>
+                                        </td>
+                                        <td v-if="liftts.status == 1" class="border-b-blue-900 text-warning font-bold flex justify-center items-center">
+                                            <div class="dropdown dropdown-top dropdown-end ">
+                                              <div tabindex="0" role="button" class="btn m-1 bg-warning text-black w-[125px]">Pending<svg width="12px" height="12px" class="hidden h-2 w-2 fill-current opacity-60 sm:inline-block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 2048"><path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"></path></svg></div>
+                                              <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+                                                  <li class="text-success" @click="patchstatus(liftts.id,2)"><a>Approve</a></li>
+                                                  <li class="text-warning" @click="patchstatus(liftts.id,1)"><a>Pend</a></li>
+                                                  <li class="text-error" @click="patchstatus(liftts.id,0)"><a>Reject</a></li>
+                                              </ul>
+                                            </div>
+                                            <button class="btn btn-square btn-outline ml-4" @click="delete_leaverequest(liftts.id)">
+                                              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                                            </button>
+                                        </td>
+                                        <td v-if="liftts.status == 2" class="border-b-blue-900 text-green-600 font-bold flex justify-center items-center">
+                                            <div class="dropdown dropdown-top dropdown-end ">
+                                              <div tabindex="0" role="button" class="btn m-1 bg-success text-black w-[125px]">Approved<svg width="12px" height="12px" class="hidden h-2 w-2 fill-current opacity-60 sm:inline-block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 2048"><path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"></path></svg></div>
+                                              <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+                                                  <li class="text-success" @click="patchstatus(liftts.id,2)"><a>Approve</a></li>
+                                                  <li class="text-warning" @click="patchstatus(liftts.id,1)"><a>Pend</a></li>
+                                                  <li class="text-error" @click="patchstatus(liftts.id,0)"><a>Reject</a></li>
+                                              </ul>
+                                            </div>
+                                            <button class="btn btn-square btn-outline ml-4" @click="delete_signwork(liftts.id)">
+                                              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                                            </button>
+                                        </td>
                                 </tr>
                         </tbody>
                         <tbody class="text-black text-center font-bold" v-else>
@@ -259,21 +304,42 @@ import IconSearchBar from '../components/icons/IconSearchbar.vue'
                 })
             },
             downloadTimesheetInExcel() {
-              let totalWages = 0;
-              this.mergedFilteredList.forEach((attendance) => {
-                if (attendance.site_name === "Work From Home") {
-                  totalWages += this.configsalary.WFH;
-                } else if (attendance.site_name === "Work at Office") {
-                  totalWages += this.configsalary.WOF;
-                }
-              });
-          
-              const totalObject = { Total_Wages: totalWages };
-              const dataForExcel = [...this.mergedFilteredList, totalObject];
-              const ws = XLSX.utils.json_to_sheet(dataForExcel);
-              const wb = XLSX.utils.book_new();
-              XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-              XLSX.writeFile(wb, `list_of_attendance.xlsx`);
+                let totalWages = 0;
+                const dataForExcel = this.getmyattendance.map((attendance) => {
+                    let status = '';
+                    if (attendance.site_name === "Work From Home") {
+                        if (attendance.status === 0) {
+                            status = 'Rejected';
+                            totalWages += 0;
+                        } else if (attendance.status === 1) {
+                            status = 'Pending';
+                            totalWages += 0;
+                        } else if (attendance.status === 2) {
+                            status = 'Approved';
+                            totalWages += this.configsalary.WFH;
+                        }
+                    } else if (attendance.site_name === "Work at Office") {
+                        if (attendance.status === 0) {
+                            status = 'Rejected';
+                            totalWages += 0;
+                        } else if (attendance.status === 1) {
+                            status = 'Pending';
+                            totalWages += 0;
+                        } else if (attendance.status === 2) {
+                            status = 'Approved';
+                            totalWages += this.configsalary.WOF;
+                        }
+                    }
+                    return { ...attendance, status };
+                });
+
+                const totalObject = { Total_Wages: totalWages };
+                dataForExcel.push(totalObject);
+
+                const ws = XLSX.utils.json_to_sheet(dataForExcel);
+                const wb = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+                XLSX.writeFile(wb, `attendance_of_${this.user.first_name}_${this.user.last_name}.xlsx`);
             },
             formatDateTime(datetime){
                 return moment(datetime).format('D MMM YYYY | hh:mm A')
@@ -314,6 +380,19 @@ import IconSearchBar from '../components/icons/IconSearchbar.vue'
 
                 })
             },
+            patchstatus(id,status){
+                axios.patch(host + 'timesheets/' + id + '/',{
+                    status: status
+                }).then(res => {
+                    this.$router.go()
+                })
+            },
+            delete_signwork(id){
+                axios.delete(host + 'timesheets/' + id + '/')
+                .then(res => {
+                    this.$router.go()
+                })
+            }
             
         }
     }
