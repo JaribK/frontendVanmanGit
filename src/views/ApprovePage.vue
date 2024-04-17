@@ -63,7 +63,7 @@
                         </label>
                     </div>
                     <div class="flex flex-wrap justify-evenly">
-                        <button type="button" @click="clearForm" class="btn btn-warning w-[150px] text-black rounded-[10px] mx-4 my-[32px] cursor-pointer">Clear Input</button>
+                        <button type="button" @click="clearForm" class="btn bg-warning w-[150px] text-black rounded-[10px] mx-4 my-[32px] cursor-pointer">Clear Input</button>
                     </div>
                         <table class="table py-[100px] w-[80%] text-center">
                             <thead class="text-black bg-emerald-400 rounded-t-lg">

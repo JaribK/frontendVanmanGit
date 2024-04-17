@@ -57,7 +57,7 @@
                         </label>
                         <div class="w-full flex justify-center flex-wrap">
                                 <input type="submit"  value="Send Request" class="btn w-[300px] h-[50px] bg-[#3668A7] text-white rounded-[10px] my-[64px] cursor-pointer">
-                                <button type="button" @click="clearForm" class="btn btn-warning w-[200px] h-[50px] text-black rounded-[10px] mx-4 my-[64px] cursor-pointer">Clear Input</button>
+                                <button type="button" @click="clearForm" class="btn bg-warning w-[200px] h-[50px] text-black rounded-[10px] mx-4 my-[64px] cursor-pointer">Clear Input</button>
                         </div>
                     </form>
                 </div>

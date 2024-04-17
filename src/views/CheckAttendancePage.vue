@@ -53,7 +53,6 @@ import IconSearchBar from '../components/icons/IconSearchbar.vue'
                                   <input type="text" placeholder="Change to..." class="input input-bordered w-full max-w-xs" v-model="wfh" />
                                 </label>
                             </div>
-
                             <div class="modal-action">
                               <form method="dialog">
                                 <button class="btn btn-success" @click="updateconfigsalary">Confirm</button>
@@ -75,13 +74,25 @@ import IconSearchBar from '../components/icons/IconSearchbar.vue'
                             <div class="label">
                                 <span class="label-text text-black">Date Start</span>
                             </div>
-                            <input id="date" type="date" placeholder="Type here" class="input input-bordered w-full max-w-xs mb-10" v-model="datestart"/>
+                            <input id="date" type="date" placeholder="Type here" class="input input-bordered w-full max-w-xs" v-model="datestart"/>
                         </label>
                         <label class="form-control w-full max-w-xs ml-[15px]">
                             <div class="label">
                                 <span class="label-text text-black">Date End</span>
                             </div>
                             <input id="date" type="date" placeholder="Type here" class="input input-bordered w-full max-w-xs" v-model="dateend" />
+                        </label>
+                    </div>
+                    <div class="w-full flex justify-center flex-wrap mb-10">
+                        <label class="form-control w-full max-w-xs">
+                            <div class="label">
+                              <span class="label-text text-black">filter by type sign</span>
+                            </div>
+                          <select class="select select-bordered " v-model="selectedStatus" @change="filterByStatus">
+                            <option value="">All</option>
+                            <option value="normal">Normal</option>
+                            <option value="backdate">Backdate</option>
+                          </select>
                         </label>
                     </div>
                     <div class="w-full flex justify-center flex-wrap">
@@ -199,7 +210,8 @@ import IconSearchBar from '../components/icons/IconSearchbar.vue'
                 itemsPerPage: 10,
                 server_datetime: '',
                 server_date: '',
-                server_time: ''
+                server_time: '',
+                selectedStatus: ''
             }
         },
         computed:{
@@ -219,7 +231,8 @@ import IconSearchBar from '../components/icons/IconSearchbar.vue'
                   return this.listts.filter(listts => {
                     return (
                       listts.who_signed.toLowerCase().includes(this.search.toLowerCase()) &&
-                      (!this.datestart || !this.dateend || (listts.date >= this.datestart && listts.date <= this.dateend))
+                      (!this.datestart || !this.dateend || (listts.date >= this.datestart && listts.date <= this.dateend)) &&
+                      (!this.selectedStatus || listts.type_sign === this.selectedStatus)
                     );
                   });
             },
@@ -271,6 +284,9 @@ import IconSearchBar from '../components/icons/IconSearchbar.vue'
             },
             goToLastPage() {
               this.currentPage = this.totalPages;
+            },
+            filterByStatus() {
+              this.currentPage = 1; // Reset pagination to first page
             },
             clearForm(){
                 this.search = ''
