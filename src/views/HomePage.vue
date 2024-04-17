@@ -71,10 +71,62 @@
                                 </div>
                                 <textarea id="text" type="text" placeholder="Type here" class="textarea textarea-bordered w-full max-w-xs" cols="15" v-model="text" required></textarea>
                             </label>
-                            <div class="w-full flex justify-center flex-wrap">
-                                <input type="button" :disabled="checkSigninToday()" @click="checkdatematchholidays" value="Sign" class="btn w-[300px] h-[50px] bg-[#3668A7] text-white rounded-[10px] my-[64px] cursor-pointer">
-                                <button type="button" @click="clearForm" class="btn btn-warning w-[150px] h-[50px]  text-black rounded-[10px] mx-4 my-[64px] cursor-pointer">Clear Input</button>
-                                <button type="button" @click="downloadTimesheetInExcel" class="btn w-[300px] h-[50px] bg-gray-400 text-black rounded-[10px] my-[64px] cursor-pointer">Download my Attendance</button>
+                            <div class="w-full flex justify-center flex-wrap mt-10">
+                                <input type="button" :disabled="checkSigninToday()" @click="checkdatematchholidays" value="Sign" class="btn w-[300px] h-[50px] bg-[#3668A7] text-white rounded-[10px] cursor-pointer">
+                                <button type="button" @click="clearForm" class="btn btn-warning w-[150px] h-[50px]  text-black rounded-[10px] mx-4 cursor-pointer">Clear Input</button>
+                                <button type="button" @click="downloadTimesheetInExcel" class="btn w-[300px] h-[50px] bg-gray-400 text-black rounded-[10px] mb-4 cursor-pointer">Download my Attendance</button>
+                            </div>
+                            <div class="w-full flex justify-center flex-wrap mb-10">
+                                <button type="button" onclick="my_modal_1.showModal()" class="btn bg-error w-[300px] text-white">Backdate Sign</button>                     
+                                            <dialog id="my_modal_1" class="modal">
+                                              <div class="modal-box">
+                                                <h3 class="font-bold text-lg">Backdate Sign</h3>
+                                                <div class="w-full flex flex-col items-center">
+                                                    <label class="form-control w-full max-w-xs">
+                                                        <div class="label">
+                                                            <span class="label-text text-black">Date</span>
+                                                        </div>
+                                                        <input id="datetime" type="date" value="" placeholder="Type here" class="input input-bordered w-full max-w-xl mb-4" v-model="date" required/>
+                                                    </label>
+                                                    <label class="form-control w-full max-w-xs">
+                                                        <div class="label">
+                                                            <span class="label-text text-black">Time In</span>
+                                                        </div>
+                                                        <input id="datetimein" type="time" value="" placeholder="Type here" class="input input-bordered w-full max-w-xl mb-4" v-model="timein" required/>
+                                                    </label>
+                                                    <label class="form-control w-full max-w-xs">
+                                                        <div class="label">
+                                                            <span class="label-text text-black">Time Out</span>
+                                                        </div>
+                                                        <input id="datetimeout" type="time" placeholder="Type here" class="input input-bordered w-full max-w-xl mb-4" v-model="timeout" required/>
+                                                    </label>
+                                                    <label class="form-control w-full max-w-xs">
+                                                        <div class="label">
+                                                            <span class="label-text text-black">Site Name</span>
+                                                        </div>
+                                                        <select class="select select-bordered" v-model="site_name" required>
+                                                            <option disabled selected>Please Pick one</option>
+                                                            <option>Work From Home</option>
+                                                            <option>Work at Office</option>
+                                                        </select>
+                                                    </label>
+                                                    <label class="form-control w-full max-w-xs">
+                                                        <div class="label">
+                                                            <span class="label-text text-black">Description</span>
+                                                        </div>
+                                                        <input id="description" type="text" placeholder="Type here" class="input input-bordered w-full max-w-xl mb-4" v-model="text" required/>
+                                                    </label>
+                                                </div>
+                                                <div class="modal-action">
+                                                  <form method="dialog" class="flex justify-evenly flex-row w-full">
+                                                      <button type="submit" class="btn btn-error" @click="checkdatematchholidays2">Sign</button>
+                                                      <button type="reset" class="btn btn-warning" @click="clearForm">ClearInput</button>
+                                                      <button class="btn btn-info">Close</button>
+                                                  </form>
+                                                </div>
+                                              </div>
+                                            </dialog>
+                                <button type="button" @click="clearForm" class="btn btn-warning w-[150px] h-[50px]  text-black rounded-[10px] mx-4 cursor-pointer">Leave Request</button>
                             </div>
                         </form>
                     </div>
@@ -87,10 +139,12 @@
                                 <tr class="rounded-t-lg">
                                     <th class="w-[5%]">No.</th>
                                     <th class="w-[15%]">Date</th>
-                                    <th class="w-[15%]">Time In</th>
-                                    <th class="w-[15%]">Time Out</th>
-                                    <th class="w-[30%]">Description</th>
-                                    <th class="w-[20%]">Site Name</th>
+                                    <th class="w-[10%]">Time In</th>
+                                    <th class="w-[10%]">Time Out</th>
+                                    <th class="w-[22%]">Description</th>
+                                    <th class="w-[17%]">Site Name</th>
+                                    <th class="w-[10%]">Type Sign</th>
+                                    <th class="w-[10%]">Status</th>
                                 </tr>
                             </thead>
                             <tbody class="text-black text-center" v-if="displayedAttendance.length > 0">
@@ -103,11 +157,15 @@
                                         <td v-else class="border-b-blue-900">{{ format_time(ts.time_out) }}</td>
                                         <td class="border-b-blue-900">{{ ts.description }}</td>
                                         <td class="border-b-blue-900">{{ ts.site_name}}</td>
+                                        <td class="border-b-blue-900">{{ ts.type_sign }}</td>
+                                        <td v-if="ts.status == 0" class="border-b-blue-900 text-red-600 font-bold">Rejected</td>
+                                        <td v-if="ts.status == 1" class="border-b-blue-900 text-warning font-bold">Pending</td>
+                                        <td v-if="ts.status == 2" class="border-b-blue-900 text-success font-bold">Approved</td>
                                     </tr>
                             </tbody>
                             <tbody v-else>
                                 <tr>
-                                    <td colspan="6" class="text-black text-center font-bold">No data available.</td>
+                                    <td colspan="8" class="text-black text-center font-bold">No data available.</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -257,7 +315,8 @@ import moment from 'moment'
                                         description: this.text,
                                         who_signed: this.user.first_name + ' ' + this.user.last_name,
                                         user: this.user_id,
-                                        status:'normal'
+                                        type_sign:'normal',
+                                        status: 1
                                     }).then((res) => {
                                         swal.fire({
                                             icon: 'success',
@@ -284,6 +343,69 @@ import moment from 'moment'
                         text: 'You can only sign in on the same day as the date you selected'
                     });
                 }
+                } catch (error) {
+                    console.error(error)
+                }
+            },
+            checkdatematchholidays2(){ 
+                try {
+                    if (this.holidays.includes(this.date)) {
+                        this.isHoliday = true;
+                        const holidayIndex = this.holidays.indexOf(this.date);
+                        swal.fire({
+                            icon: 'warning',
+                            title: 'Oops...',
+                            text: 'This date is a holiday.',
+                            footer: this.datadate[holidayIndex].HolidayDescription
+                        });
+                    } else {
+                        if (this.date == '' || this.site_name == '' || this.text == '') {
+                            swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Please fill in all fields.'
+                            });
+                        } else {
+                            swal.fire({
+                                title: 'Are you sure?',
+                                text: 'You want to sign in ?',
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'Yes'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    this.isHoliday = false
+                                    axios.post(host+ 'timesheets/',{
+                                        date: this.date,
+                                        time_in: this.timein,
+                                        time_out: this.timeout,
+                                        site_name: this.site_name,
+                                        description: this.text,
+                                        who_signed: this.user.first_name + ' ' + this.user.last_name,
+                                        user: this.user_id,
+                                        type_sign:'backdate',
+                                        status: 1
+                                    }).then((res) => {
+                                        swal.fire({
+                                            icon: 'success',
+                                            title: 'Success',
+                                            text: 'Sign for work successfully'
+                                        }).then(() => {
+                                            axios.post(host + 'user_timesheets/',{
+                                                user: this.user_id,
+                                                timesheet: res.data.id
+                                            })
+                                            this.$router.go();
+                                        })
+                                    }).catch((err) => {
+                                        console.log(err)
+                                    })
+                                }
+                            })
+                        }
+                    }
                 } catch (error) {
                     console.error(error)
                 }
@@ -409,21 +531,42 @@ import moment from 'moment'
             },
 
             downloadTimesheetInExcel() {
-              let totalWages = 0;
-              this.getmyattendance.forEach((attendance) => {
-                if (attendance.site_name === "Work From Home") {
-                  totalWages += this.configsalary.WFH;
-                } else if (attendance.site_name === "Work at Office") {
-                  totalWages += this.configsalary.WOF;
-                }
-              });
-          
-              const totalObject = { Total_Wages: totalWages };
-              const dataForExcel = [...this.getmyattendance, totalObject];
-              const ws = XLSX.utils.json_to_sheet(dataForExcel);
-              const wb = XLSX.utils.book_new();
-              XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-              XLSX.writeFile(wb, `attendance_of_${this.user.first_name}_${this.user.last_name}.xlsx`);
+                let totalWages = 0;
+                const dataForExcel = this.getmyattendance.map((attendance) => {
+                    let status = '';
+                    if (attendance.site_name === "Work From Home") {
+                        if (attendance.status === 0) {
+                            status = 'Rejected';
+                            totalWages += 0;
+                        } else if (attendance.status === 1) {
+                            status = 'Pending';
+                            totalWages += 0;
+                        } else if (attendance.status === 2) {
+                            status = 'Approved';
+                            totalWages += this.configsalary.WFH;
+                        }
+                    } else if (attendance.site_name === "Work at Office") {
+                        if (attendance.status === 0) {
+                            status = 'Rejected';
+                            totalWages += 0;
+                        } else if (attendance.status === 1) {
+                            status = 'Pending';
+                            totalWages += 0;
+                        } else if (attendance.status === 2) {
+                            status = 'Approved';
+                            totalWages += this.configsalary.WOF;
+                        }
+                    }
+                    return { ...attendance, status };
+                });
+
+                const totalObject = { Total_Wages: totalWages };
+                dataForExcel.push(totalObject);
+
+                const ws = XLSX.utils.json_to_sheet(dataForExcel);
+                const wb = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+                XLSX.writeFile(wb, `attendance_of_${this.user.first_name}_${this.user.last_name}.xlsx`);
             },
 
             logout(){
@@ -471,9 +614,17 @@ import moment from 'moment'
                     this.getmyattendance.map(ts => {
                         if (ts.user === user_id){
                             if (ts.site_name == 'Work at Office') {
-                                salary += this.configsalary.WOF
+                                if (ts.status === 0 || ts.status === 1) {
+                                    salary += 0
+                                } else {
+                                    salary += this.configsalary.WOF
+                                }
                             } else {
-                                salary += this.configsalary.WFH
+                                if (ts.status === 0 || ts.status === 1) {
+                                    salary += 0
+                                } else {
+                                    salary += this.configsalary.WFH
+                                }
                             }
                         }
                     })
