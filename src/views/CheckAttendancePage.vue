@@ -171,7 +171,7 @@ import IconSearchBar from '../components/icons/IconSearchbar.vue'
                         </tbody>
                         <tbody class="text-black text-center font-bold" v-else>
                             <tr>
-                                <td colspan="6">No data available.</td>
+                                <td colspan="8">No data available.</td>
                             </tr>
                         </tbody>
                     </table>

@@ -126,7 +126,7 @@
                             </tbody>
                             <tbody class="text-black text-center" v-else>
                                 <tr>
-                                    <td colspan="6" class="border-b-blue-900">No data available.</td>
+                                    <td colspan="6" class="border-b-blue-900 font-bold">No data available.</td>
                                 </tr>
                             </tbody>
                         </table>
