@@ -157,7 +157,10 @@
                                         <td v-else class="border-b-blue-900">{{ format_time(ts.time_out) }}</td>
                                         <td class="border-b-blue-900">{{ ts.description }}</td>
                                         <td class="border-b-blue-900">{{ ts.site_name}}</td>
-                                        <td class="border-b-blue-900">{{ ts.type_sign }}</td>
+                                        <td class="border-b-blue-900">
+                                            <span v-if="ts.type_sign == 'normal'" class="text-green-500 font-bold">Normal</span>
+                                            <span v-else-if="ts.type_sign == 'backdate'" class="text-red-500 font-bold">Backdate</span>
+                                        </td>
                                         <td v-if="ts.status == 0" class="border-b-blue-900 text-red-600 font-bold">Rejected</td>
                                         <td v-if="ts.status == 1" class="border-b-blue-900 text-warning font-bold">Pending</td>
                                         <td v-if="ts.status == 2" class="border-b-blue-900 text-success font-bold">Approved</td>
