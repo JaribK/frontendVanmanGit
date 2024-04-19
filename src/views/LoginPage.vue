@@ -40,7 +40,19 @@
                      .then((response) => {
                         console.log(response.status)
                          if (response.status == 400) {
-                            alert('Username or Password is incorrect')
+                            swal.fire({
+                                title: 'Error',
+                                text: 'Password is incorrect',
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            })
+                        } else if (response.status == 404) {
+                            swal.fire({
+                                title: 'Error',
+                                text: 'Username is incorrect or not found',
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            })
                         } else {
                             const user = JSON.stringify(response.data.user)
                             localStorage.setItem('token', response.data.token);
