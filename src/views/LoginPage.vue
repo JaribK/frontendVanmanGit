@@ -10,8 +10,7 @@
                         <button type="submit" value="Login" class="btn w-full h-[50px] bg-[#3668A7] text-white rounded-[10px] my-[32px] cursor-pointer">Login</button>
                     </form>
                     <div id="sign-up">
-                        <p class="text-black
-                        text-center">Don't have an account? <router-link to="/register" class="text-[#3668A7]">Sign Up</router-link></p>
+                        <p class="text-black text-center">Don't have an account? <router-link to="/register" class="text-[#3668A7]">Sign Up</router-link></p>
                     </div>
                 </div>
             </div>
@@ -58,9 +57,7 @@
                     } catch (error) {
                         console.error(error);
                     }
+                }
         }
-    
-        }
-        
     }
 </script>
