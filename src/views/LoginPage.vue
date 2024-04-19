@@ -30,7 +30,15 @@
                 password: ''
             }
         },
+        created(){
+            this.checkUserlogin()
+        },
         methods : {
+        checkUserlogin(){
+            if(localStorage.getItem('token')){
+                this.$router.push('/home')
+            }
+        },
         async login() {
             try {
                 const response = await axios.post('https://backendvanmangit-production.up.railway.app/api/login', {
@@ -47,7 +55,7 @@
                         confirmButtonText: 'OK'
                     });
                     this.$router.push('/home');
-                } catch (response) {
+                } catch (error) {
                     swal.fire({
                         title: 'Error',
                         text: 'Username or Password is incorrect',

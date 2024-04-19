@@ -55,7 +55,15 @@
                 role: ''
             }
         },
+        created(){
+            this.checkUserlogin()
+        },
         methods : {
+            checkUserlogin(){
+                if(localStorage.getItem('token')){
+                    this.$router.push('/home')
+                }
+            },
             async register(){
                 try {
                     if (this.password != this.password_confirmation) {
@@ -90,7 +98,12 @@
                         })
                     }
                 } catch (error) {
-                    console.error(error);
+                    swal.fire({
+                        title: 'Error',
+                        text: 'Username or Password is incorrect',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    })
             }
     
         }

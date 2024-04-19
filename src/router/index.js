@@ -5,6 +5,7 @@ import CheckAttendancePage from '@/views/CheckAttendancePage.vue'
 import RegisterPage from '@/views/RegisterPage.vue'
 import LeaveReqPage from '@/views/LeaveReqPage.vue'
 import ApprovePage from '@/views/ApprovePage.vue'
+import HelpPage from '@/views/HelpPage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -38,6 +39,11 @@ const router = createRouter({
       path: '/approve-lr',
       name: 'approve',
       component: ApprovePage
+    },
+    {
+      path: '/help',
+      name: 'help',
+      component: HelpPage
     }
   ]
 })
