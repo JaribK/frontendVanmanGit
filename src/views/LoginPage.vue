@@ -31,42 +31,31 @@
             }
         },
         methods : {
-            async login(){    
-                try {
-                    await axios.post('https://backendvanmangit-production.up.railway.app/api/login', {
-                         username: this.username,
-                         password: this.password
-                     })
-                    if (response.status == 400) {
-                        swal.fire({
-                            title: 'Error',
-                            text: 'Password is incorrect',
-                            icon: 'error',
-                            confirmButtonText: 'OK'
-                        })
-                    } else if (response.status == 404) {
-                        swal.fire({
-                            title: 'Error',
-                            text: 'Username is incorrect or not found',
-                            icon: 'error',
-                            confirmButtonText: 'OK'
-                        })
-                    } else {
-                        const user = JSON.stringify(response.data.user)
-                        localStorage.setItem('token', response.data.token);
-                        localStorage.setItem('user', user);
-                        swal.fire({
-                            title: 'Success',
-                            text: 'Login Success',
-                            icon: 'success',
-                            confirmButtonText: 'OK'
-                        })
-                        this.$router.push('/home')
-                    }
-                } catch (error) {
-                        console.error(error);
-                    }
+        async login() {
+            try {
+                const response = await axios.post('https://backendvanmangit-production.up.railway.app/api/login', {
+                    username: this.username,
+                    password: this.password
+                });
+                    const user = JSON.stringify(response.data.user);
+                    localStorage.setItem('token', response.data.token);
+                    localStorage.setItem('user', user);
+                    swal.fire({
+                        title: 'Success',
+                        text: 'Login Success',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    });
+                    this.$router.push('/home');
+                } catch (response) {
+                    swal.fire({
+                        title: 'Error',
+                        text: 'Username or Password is incorrect',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
                 }
+            }
         }
     }
 </script>
