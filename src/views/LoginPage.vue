@@ -52,7 +52,8 @@
                         title: 'Success',
                         text: 'Login Success',
                         icon: 'success',
-                        confirmButtonText: 'OK'
+                        confirmButtonText: 'OK',
+                        footer: 'หากมีข้อสงสัยตเกี่ยวกับการใช้งาน<br>กดที่ menu ที่ขวาบนและเลือก Need help?'
                     });
                     this.$router.push('/home');
                 } catch (error) {
