@@ -541,7 +541,7 @@ import moment from 'moment'
                 const time = this.server_time.split(':');
                 const hour = parseInt(time[0]);
                 const minute = parseInt(time[1]);
-                if ((hour === 8 && minute >= 0 && minute <= 30)) {
+                if ((hour === 8 && minute >= 0 && minute <= 59)) {
                      return true;
                 } else {
                     return false;

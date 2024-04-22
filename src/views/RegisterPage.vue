@@ -26,6 +26,7 @@
                             <option value="Sales Trainee">Sales Trainee</option>
                             <option value="Translator Trainee">Translator Trainee</option>
                             <option value="Accountant Trainee">Accountant Trainee</option>
+                            <option value="Secretary Trainee">Secretary Trainee</option>
                         </select>
                         <button type="submit" value="Register" class="btn w-full h-[50px] bg-[#3668A7] text-white rounded-[10px] my-[32px] cursor-pointer">Sign up</button>
                     </form>
