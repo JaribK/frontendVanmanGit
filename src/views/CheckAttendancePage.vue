@@ -7,7 +7,7 @@ import IconSearchBar from '../components/icons/IconSearchbar.vue'
             <div class="navbar bg-gray-800">
                 <div class="flex-1 px-2 lg:flex-none">
                     <a class="text-lg font-bold text-white">Manage attendance</a>
-                </div> 
+                </div>
                 <div class="flex justify-end flex-1 px-2">
                     <div class="flex items-stretch">
                         <div class="dropdown dropdown-end">
