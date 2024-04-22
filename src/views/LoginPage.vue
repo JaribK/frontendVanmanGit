@@ -53,7 +53,7 @@
                         text: 'Login Success',
                         icon: 'success',
                         confirmButtonText: 'OK',
-                        footer: 'หากมีข้อสงสัยตเกี่ยวกับการใช้งาน<br>กดที่ menu ที่ขวาบนและเลือก Need help?'
+                        footer: 'หากมีข้อสงสัยตเกี่ยวกับการใช้งาน<br>กดที่ Menu ที่ขวาบนและเลือก <router-link to="/help" class="text-[#3668A7]">Need help?</router-link>'
                     });
                     this.$router.push('/home');
                 } catch (error) {

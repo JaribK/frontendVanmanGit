@@ -69,12 +69,28 @@
                 try {
                     if (this.password != this.password_confirmation) {
                         swal.fire({
-                            title: 'Error',
+                            title: 'Warning',
                             text: 'Password and Confirm Password must be the same',
                             icon: 'error',
                             confirmButtonText: 'OK'
-                        })
+                        });
+                    } else if (this.username.length < 6) {
+                        swal.fire({
+                            title: 'Warning',
+                            text: 'The length of username must be more than 6 digits',
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                    } else if (!this.password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&_-])[A-Za-z\d@$!%*?&_-]{8,}$/)) {
+                        swal.fire({
+                            title: 'Warning',
+                            text: 'Password must contain at least 1 capital letter, 1 small letter, 1 number, and 1 special character',
+                            icon: 'error',
+                            confirmButtonText: 'OK',
+                            footer: 'Special letter : @ $ ! % * ? & _ -'
+                        });
                     } else {
+                        // Rest of the code remains the same
                         await axios.post('https://backendvanmangit-production.up.railway.app/api/register', {
                             username: this.username,
                             email: this.email,
@@ -84,19 +100,19 @@
                             role: this.role
                         })
                         .then((response) => {
-                            console.log(response.status)
+                            console.log(response.status);
                             if (response.status == 400) {
-                                alert('Username or Password is incorrect')
+                                alert('Username or Password is incorrect');
                             } else {
                                 swal.fire({
                                     title: 'Success',
                                     text: 'Register Success',
                                     icon: 'success',
                                     confirmButtonText: 'OK'
-                                })
-                                this.$router.push('/')
+                                });
+                                this.$router.push('/');
                             }
-                        })
+                        });
                     }
                 } catch (error) {
                     swal.fire({
@@ -104,10 +120,9 @@
                         text: 'Username or Password is incorrect',
                         icon: 'error',
                         confirmButtonText: 'OK'
-                    })
+                    });
+                }
             }
-    
         }
-    }
     }
 </script>

@@ -83,7 +83,7 @@
                         </label>
                         <label class="form-control w-full max-w-xs">
                             <div class="label">
-                                <span class="label-text text-black">Description</span>
+                                <span class="label-text text-black">Description (Reason for leave request)</span>
                             </div>
                             <input id="description" type="text" placeholder="Type here" class="input input-bordered w-full max-w-xl mb-10" v-model="description" required/>
                         </label>

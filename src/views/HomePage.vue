@@ -100,7 +100,7 @@
                             </label>
                             <label class="form-control w-full max-w-xs">
                                 <div class="label">
-                                    <span class="label-text text-black">Description</span>
+                                    <span class="label-text text-black">Description (What will you do today?)</span>
                                 </div>
                                 <textarea id="text" type="text" placeholder="Type here" class="textarea textarea-bordered w-full max-w-xs" cols="15" v-model="text" required></textarea>
                             </label>

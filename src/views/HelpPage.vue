@@ -112,7 +112,7 @@
                     <div class="flex justify-center w-full">
                         <div class="w-[80%]">
                             <div class="text-black text-[16px] text-center">Email : admin@admin.com
-                                <br>Phone : 02-123-4567
+                                <br>Tel : 02-123-4567
                             </div>
                         </div>
                     </div>
@@ -123,6 +123,7 @@
 </template>
 
 <script>
+import swal from 'sweetalert2'
     export default {
         name: 'HelpPage',
         data(){
