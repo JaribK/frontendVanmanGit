@@ -113,7 +113,7 @@
                                 <button type="button" onclick="my_modal_1.showModal()" class="btn bg-error w-[300px] text-white">Backdate Sign</button>                     
                                             <dialog id="my_modal_1" class="modal">
                                               <div class="modal-box">
-                                                <h3 class="font-bold text-base">Backdate Sign (If you don't have time to sign the normal form)</h3>
+                                                <h3 class="font-bold text-base text-center">Backdate Sign <br> (If you don't have time to sign the normal form)</h3>
                                                 <div class="w-full flex flex-col items-center">
                                                     <label class="form-control w-full max-w-xs">
                                                         <div class="label">
