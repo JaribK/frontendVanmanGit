@@ -393,7 +393,7 @@ import IconSearchBar from '../components/icons/IconSearchbar.vue'
                 const ws = XLSX.utils.json_to_sheet(dataForExcel);
                 const wb = XLSX.utils.book_new();
                 XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-                XLSX.writeFile(wb, `attendance_of_${this.user.first_name}_${this.user.last_name}.xlsx`);
+                XLSX.writeFile(wb, `list_of_attendance.xlsx`);
             },
             formatDateTime(datetime){
                 return moment(datetime).format('D MMM YYYY | hh:mm A')
