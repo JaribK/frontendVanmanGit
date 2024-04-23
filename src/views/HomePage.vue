@@ -167,7 +167,7 @@
                         <div class="text-black font-bold text-[20px] w-[100%] text-center mb-10">My Attendance List <br> <div id="amount" class="text-black">Summary Wages : {{ calculateMysalary(this.user_id) }} Baht <br></div></div>
                     </div>
                     <div id="table" class="overflow-x-auto w-full flex justify-center flex-col items-center mb-10">
-                        <table class="table py-[100px] w-[80%] text-center" >
+                        <table class="table py-[100px] w-[100%] text-center" >
                             <thead class="text-black bg-emerald-400 rounded-t-lg text-[15px]">
                                 <tr class="rounded-t-lg">
                                     <th class="w-[5%]">No.</th>
