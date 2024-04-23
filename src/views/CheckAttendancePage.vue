@@ -408,16 +408,26 @@ import IconSearchBar from '../components/icons/IconSearchbar.vue'
                     return moment(fullDateTime, 'YYYY-MM-DD HH:mm:ss').format('hh:mm A');
                 }
             },
-            logout(){
-                localStorage.removeItem('token')
-                localStorage.removeItem('user')
-                swal.fire({
-                    title: 'Success',
-                    text: 'Logout Success',
-                    icon: 'success',
-                    confirmButtonText: 'OK'
+            async logout(){
+                await axios.post(host + 'api/logout/',{},
+                    {
+                        headers: {
+                            'Authorization': `Token ${localStorage.getItem('token')}`
+                        }
+                    }
+                ).then(() => {
+                    localStorage.removeItem('user');
+                    localStorage.removeItem('token');
+                    swal.fire({
+                        title: 'Success',
+                        text: 'Logout Success',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    })
+                    this.$router.push('/login');
+                }).catch((err) => {
+                    console.log(err)
                 })
-                this.$router.push('/')
             },
             get_datetimefromserver(){
                 axios.get('https://worldtimeapi.org/api/ip')

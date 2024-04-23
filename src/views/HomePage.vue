@@ -613,7 +613,14 @@ import moment from 'moment'
                 XLSX.writeFile(wb, `attendance_of_${this.user.first_name}_${this.user.last_name}.xlsx`);
             },
 
-            logout(){
+            async logout(){
+                await axios.post(host + 'api/logout/',{},
+                    {
+                        headers: {
+                            'Authorization': `Token ${localStorage.getItem('token')}`
+                        }
+                    }
+                ).then(() => {
                     localStorage.removeItem('user');
                     localStorage.removeItem('token');
                     swal.fire({
@@ -623,6 +630,9 @@ import moment from 'moment'
                         confirmButtonText: 'OK'
                     })
                     this.$router.push('/login');
+                }).catch((err) => {
+                    console.log(err)
+                })
             },
 
             getuser(){

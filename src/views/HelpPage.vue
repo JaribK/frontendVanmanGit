@@ -145,17 +145,27 @@ import swal from 'sweetalert2'
                 this.user = user_data
                 this.user_id = user_data.id
             },
-            logout() {
-                localStorage.removeItem('user');
-                localStorage.removeItem('token');
-                swal.fire({
-                    title: 'Success',
-                    text: 'Logout Success',
-                    icon: 'success',
-                    confirmButtonText: 'OK'
+            async logout(){
+                await axios.post(host + 'api/logout/',{},
+                    {
+                        headers: {
+                            'Authorization': `Token ${localStorage.getItem('token')}`
+                        }
+                    }
+                ).then(() => {
+                    localStorage.removeItem('user');
+                    localStorage.removeItem('token');
+                    swal.fire({
+                        title: 'Success',
+                        text: 'Logout Success',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    })
+                    this.$router.push('/login');
+                }).catch((err) => {
+                    console.log(err)
                 })
-                this.$router.push('/login');
-            }
+            },
         }
         
     }
