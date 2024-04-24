@@ -273,7 +273,7 @@ import moment from 'moment'
                 const startIndex = (this.currentPage - 1) * this.itemsPerPage;
                 const endIndex = this.currentPage * this.itemsPerPage;
                 const sortedAttendance = this.getmyattendance.sort((a, b) => {
-                    return new Date(a.date) - new Date(b.date);
+                    return new Date(b.date) - new Date(a.date);
                 });
                 return sortedAttendance.slice(startIndex, endIndex);
             }
