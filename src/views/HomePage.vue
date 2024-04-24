@@ -125,13 +125,13 @@
                                                         <div class="label">
                                                             <span class="label-text text-black">Time In</span>
                                                         </div>
-                                                        <input id="datetimein" type="time" value="" placeholder="Type here" class="input input-bordered w-full max-w-xl mb-4" v-model="timein" required/>
+                                                        <input id="datetimein" type="time" step="2" value="" placeholder="Type here" class="input input-bordered w-full max-w-xl mb-4" v-model="timein" required/>
                                                     </label>
                                                     <label class="form-control w-full max-w-xs">
                                                         <div class="label">
                                                             <span class="label-text text-black">Time Out</span>
                                                         </div>
-                                                        <input id="datetimeout" type="time" placeholder="Type here" class="input input-bordered w-full max-w-xl mb-4" v-model="timeout" required/>
+                                                        <input id="datetimeout" type="time" step="2" placeholder="Type here" class="input input-bordered w-full max-w-xl mb-4" v-model="timeout" required/>
                                                     </label>
                                                     <label class="form-control w-full max-w-xs">
                                                         <div class="label">
@@ -404,7 +404,7 @@ import moment from 'moment'
                             footer: this.datadate[holidayIndex].HolidayDescription
                         });
                     } else {
-                        if (this.date == '' || this.site_name == '' || this.text == '') {
+                        if (this.date == '' || this.site_name == '' || this.text == '' || this.timein == '' || this.timeout == '') {
                             swal.fire({
                                 icon: 'error',
                                 title: 'Oops...',
