@@ -614,13 +614,13 @@ import moment from 'moment'
             },
 
             async logout(){
-                // await axios.post(host + 'api/logout/',{},
-                //     {
-                //         headers: {
-                //             'Authorization': `Token ${localStorage.getItem('token')}`
-                //         }
-                //     }
-                // ).then(() => {
+                await axios.post(host + 'api/logout/',{},
+                    {
+                        headers: {
+                            'Authorization': `Token ${localStorage.getItem('token')}`
+                        }
+                    }
+                ).then(() => {
                     localStorage.removeItem('user');
                     localStorage.removeItem('token');
                     swal.fire({
@@ -630,9 +630,9 @@ import moment from 'moment'
                         confirmButtonText: 'OK'
                     })
                     this.$router.push('/login');
-                // }).catch((err) => {
-                //     console.log(err)
-                // })
+                }).catch((err) => {
+                    console.log(err)
+                })
             },
 
             getuser(){
