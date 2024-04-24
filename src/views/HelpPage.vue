@@ -127,6 +127,7 @@
 <script>
 import swal from 'sweetalert2'
 import axios from 'axios'
+const host = 'https://backendvanmangit-production.up.railway.app/'
     export default {
         name: 'HelpPage',
         data(){
