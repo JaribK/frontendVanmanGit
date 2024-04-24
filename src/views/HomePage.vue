@@ -270,9 +270,12 @@ import moment from 'moment'
               return Math.ceil(this.getmyattendance.length / this.itemsPerPage);
             },
             displayedAttendance() {
-              const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-              const endIndex = this.currentPage * this.itemsPerPage;
-              return this.getmyattendance.slice(startIndex, endIndex);
+                const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+                const endIndex = this.currentPage * this.itemsPerPage;
+                const sortedAttendance = this.getmyattendance.sort((a, b) => {
+                    return new Date(a.date) - new Date(b.date);
+                });
+                return sortedAttendance.slice(startIndex, endIndex);
             }
 
         },
