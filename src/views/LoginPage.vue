@@ -59,23 +59,23 @@
                 } catch (error) {
                     if (error.response.status === 400) {
                         swal.fire({
-                            title: 'Error',
+                            title: 'Warning',
                             text: 'Username or Password is incorrect',
-                            icon: 'error',
+                            icon: 'warning',
                             confirmButtonText: 'OK'
                         });
                     } else if (error.response.status === 409) {
                         swal.fire({
-                            title: 'Error',
+                            title: 'Warning',
                             text: 'another user is logged in now, please try again later',
-                            icon: 'error',
+                            icon: 'warning',
                             confirmButtonText: 'OK'
                         });
                     } else {
                         swal.fire({
-                            title: 'Error',
+                            title: 'Warning',
                             text: 'Something went wrong',
-                            icon: 'error',
+                            icon: 'warning',
                             confirmButtonText: 'OK'
                         });
                     }
