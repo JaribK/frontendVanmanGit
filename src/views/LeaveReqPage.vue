@@ -66,7 +66,9 @@
                             Time Attendance On {{ formatDate(this.server_date)  }} at {{ format_time(this.server_time) }}
                         </div>
                     </div>
-                <div id="title" class="text-black font-bold w-full text-center my-[64px] text-[30px]">Leave Request</div>
+                <div id="title" class="text-black font-bold w-full text-center my-[64px] text-[30px]">Leave Request <br> 
+                    <span class="text-[20px] font-normal text-error">Resignation notice must be given at least 15 days in advance</span>
+                </div>
                 <div id="from" class="w-full">
                     <form @submit.prevent="post_leaverequest" class="px-[40px] flex justify-evenly flex-wrap" >
                         <label class="form-control w-full max-w-xs">

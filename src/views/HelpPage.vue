@@ -60,7 +60,7 @@
                     </div>
                 </div>
                 <div id="title" class="flex justify-center w-full py-10">
-                    <div class="font-bold text-black text-[20px]">Help Foreach Page</div>
+                    <div class="font-bold text-black text-[30px]">Help Foreach Page</div>
                 </div>
                 <div id="content" class="h-fit w-full bg-white flex justify-center py-10">
                     <div id="listhelp" class="w-[80%] flex justify-center">
@@ -75,14 +75,13 @@
                                 <p>มี 2 แบบคือ แบบปกติ(normal) และ ย้อนหลัง(backdate)</p>
                                 <br>
                                 <p>- ในส่วนของปุ่ม Sign แบบปกติ สามารถกดได้ 1 ครั้งต่อวัน จะไม่สามารถลงชื่อในวันหยุดตาม BOT ได้,ไม่สามารถลงชื่อล่วงหน้าได้ และจะมีให้ Sign TimeIn และ Sign TimeOut</p>
-                                <p>Sign TimeIn -> จะสามารถลงชื่อได้ในช่วง 8.00 - 8.30 น. ของวันนั้นๆเท่านั้นที่ลงชื่อ</p>
-                                <p>Sign TimeOut -> จะสามารถลงชื่อได้ในช่วง 17.00 - 17.30 น. ของวันนั้นๆเท่านั้นที่ลงชื่อ</p>
-                                <br>
-                                <p class="font-bold">**Sign TimeIn & TimeOut ถ้าไม่ได้ SignTime จะมีค่าเริ่มต้นเป็น 00:00:00 ใน excel</p>
+                                <p>Sign TimeIn -> จะสามารถลงชื่อได้ในช่วง 8.00 - 18.00 น. ของวันนั้นๆเท่านั้นที่ Sign แบบธรรมดา</p>
+                                <p>Sign TimeOut -> จะสามารถลงชื่อได้ในช่วง 8.00 - 18.00 น. ของวันนั้นๆเท่านั้นที่ Sign แบบธรรมดา</p>
                                 <br>
                                 <p>- ในส่วนของปุ่ม Sign แบบย้อนหลัง สามารถกดได้หลายครั้งแต่ต้องเป็นวันที่นับตังแต่เมื่อวานเป็นต้นไป (เฉพาะผู้ที่ลงชื่อแบบธรรมดาไม่ทัน)</p>
                                 <p>เช่น วันนี้วันที่ 10 Sign แบบย้านหลัง จะสามารถลงชื่อในวันที่ 9,8,7,6,... พอลงชื่อเสร็จจะติด status "Backdate"</p>
                                 <br>
+                                <p class="font-bold">**Sign TimeIn & TimeOut ถ้าไม่ได้ SignTime จะมีค่าเริ่มต้นเป็น 00:00:00 ใน excel</p>
                                 <p class="font-bold">**การลงชื่อทั้งสองแบบต้องได้รับการยืนยันจาก Admin ถึงจะสามารถได้รับค่าจ้าง.</p>
                                 <br>
                                 <p class="mb-4"><input type="button" value="Sign" class="mr-2 btn w-[300px] h-[50px] bg-[#3668A7] text-white rounded-[10px] cursor-pointer">นี่คือปุ่มลงชื่อแบบปกติ</p>

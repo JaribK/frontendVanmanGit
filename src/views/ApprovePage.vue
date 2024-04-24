@@ -66,7 +66,7 @@
                             Time Attendance On {{ formatDate(this.server_date)  }} at {{ format_time(this.server_time) }}
                         </div>
                     </div>
-                <div id="title" class="text-black font-bold w-full text-center my-[48px] text-[25px]">List Request From Employee</div>
+                <div id="title" class="text-black font-bold w-full text-center my-[48px] text-[30px]">List Request From Employee</div>
                 <div id="table" class="overflow-x-auto w-full flex justify-center flex-col items-center py-[32px]">
                     <label class="input input-bordered w-[30%] flex items-center gap-2">
                         <input v-model="search" type="text" class="grow" placeholder="Search by name." />
