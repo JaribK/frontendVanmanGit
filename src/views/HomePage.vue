@@ -105,7 +105,7 @@
                                 <textarea id="text" type="text" placeholder="Type here" class="textarea textarea-bordered w-full max-w-xs" cols="15" v-model="text" required></textarea>
                             </label>
                             <div class="w-full flex justify-center flex-wrap mt-10">
-                                <input type="button" :disabled="checkSigninToday()" @click="checkdatematchholidays" value="Sign" class="btn w-[300px] h-[50px] bg-[#3668A7] text-white rounded-[10px] cursor-pointer">
+                                <input type="button" :disabled="checkSigninToday()" @click="checkdatematchholidays" value="Start Work" class="btn w-[300px] h-[50px] bg-[#3668A7] text-white rounded-[10px] cursor-pointer">
                                 <button type="button" @click="clearForm" class="btn bg-warning w-[150px] h-[50px]  text-black rounded-[10px] mx-4 cursor-pointer">Clear Input</button>
                                 <button type="button" @click="downloadTimesheetInExcel" class="btn w-[300px] h-[50px] bg-gray-400 text-black rounded-[10px] mb-4 cursor-pointer">Download my Attendance</button>
                             </div>
