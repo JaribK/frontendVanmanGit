@@ -84,9 +84,9 @@
                             </label>
                             <label class="form-control w-full max-w-xs">
                               <div class="label">
-                                <span class="label-text text-black">Site Name</span>
+                                <span class="label-text text-black">Type of work</span>
                               </div>
-                              <select class="select select-bordered" v-model="site_name" required>
+                              <select class="select select-bordered" v-model="type_of_work" required>
                                 <option disabled selected>Please Pick one</option>
                                 <option>Work From Home</option>
                                 <option>Work at Office</option>
@@ -94,7 +94,7 @@
                             </label>
                             <label class="form-control w-full max-w-xs">
                                 <div class="label">
-                                    <span class="label-text text-black">YourName</span>
+                                    <span class="label-text text-black">Your Name</span>
                                 </div>
                                 <input id="timein" type="text" placeholder="Type here" class="input input-bordered w-full max-w-xs mb-10" :value="user.first_name + ' ' + user.last_name" disabled />
                             </label>
@@ -135,9 +135,9 @@
                                                     </label>
                                                     <label class="form-control w-full max-w-xs">
                                                         <div class="label">
-                                                            <span class="label-text text-black">Site Name</span>
+                                                            <span class="label-text text-black">Type of work</span>
                                                         </div>
-                                                        <select class="select select-bordered" v-model="site_name" required>
+                                                        <select class="select select-bordered" v-model="type_of_work" required>
                                                             <option disabled selected>Please Pick one</option>
                                                             <option>Work From Home</option>
                                                             <option>Work at Office</option>
@@ -175,7 +175,7 @@
                                     <th class="w-[10%]">Time In</th>
                                     <th class="w-[10%]">Time Out</th>
                                     <th class="w-[22%]">Description</th>
-                                    <th class="w-[17%]">Site Name</th>
+                                    <th class="w-[17%]">Type of work</th>
                                     <th class="w-[10%]">Type Sign</th>
                                     <th class="w-[10%]">Status</th>
                                 </tr>
@@ -189,7 +189,7 @@
                                         <td v-if="ts.time_out == '00:00:00'" class="border-b-blue-900"><button :disabled="!isInServerTimeRangeTimeOut()" @click="signtime_out(ts.id,ts.date)" class="btn btn-warning">Sign TimeOut</button></td>
                                         <td v-else class="border-b-blue-900">{{ format_time(ts.time_out) }}</td>
                                         <td class="border-b-blue-900">{{ ts.description }}</td>
-                                        <td class="border-b-blue-900">{{ ts.site_name}}</td>
+                                        <td class="border-b-blue-900">{{ ts.type_of_work}}</td>
                                         <td class="border-b-blue-900">
                                             <span v-if="ts.type_sign == 'normal'" class="text-green-500 font-bold">Normal</span>
                                             <span v-else-if="ts.type_sign == 'backdate'" class="text-red-500 font-bold">Backdate</span>
@@ -236,7 +236,7 @@ import moment from 'moment'
                 date: '',
                 timein: '',
                 timeout: '',
-                site_name: '',
+                type_of_work: '',
                 text: '',
                 isHoliday: false,
                 user: '',
@@ -328,7 +328,7 @@ import moment from 'moment'
                             footer: this.datadate[holidayIndex].HolidayDescription
                         });
                     } else {
-                        if (this.date == '' || this.site_name == '' || this.text == '') {
+                        if (this.date == '' || this.type_of_work == '' || this.text == '') {
                             swal.fire({
                                 icon: 'error',
                                 title: 'Oops...',
@@ -350,7 +350,7 @@ import moment from 'moment'
                                         date: this.date,
                                         time_in: '00:00:00',
                                         time_out: '00:00:00',
-                                        site_name: this.site_name,
+                                        type_of_work: this.type_of_work,
                                         description: this.text,
                                         who_signed: this.user.first_name + ' ' + this.user.last_name,
                                         user: this.user_id,
@@ -407,7 +407,7 @@ import moment from 'moment'
                             footer: this.datadate[holidayIndex].HolidayDescription
                         });
                     } else {
-                        if (this.date == '' || this.site_name == '' || this.text == '' || this.timein == '' || this.timeout == '') {
+                        if (this.date == '' || this.type_of_work == '' || this.text == '' || this.timein == '' || this.timeout == '') {
                             swal.fire({
                                 icon: 'error',
                                 title: 'Oops...',
@@ -429,7 +429,7 @@ import moment from 'moment'
                                         date: this.date,
                                         time_in: this.timein,
                                         time_out: this.timeout,
-                                        site_name: this.site_name,
+                                        type_of_work: this.type_of_work,
                                         description: this.text,
                                         who_signed: this.user.first_name + ' ' + this.user.last_name,
                                         user: this.user_id,
@@ -580,7 +580,7 @@ import moment from 'moment'
                 let totalWages = 0;
                 const dataForExcel = this.getmyattendance.map((attendance) => {
                     let status = '';
-                    if (attendance.site_name === "Work From Home") {
+                    if (attendance.type_of_work === "Work From Home") {
                         if (attendance.status === 0) {
                             status = 'Rejected';
                             totalWages += 0;
@@ -591,7 +591,7 @@ import moment from 'moment'
                             status = 'Approved';
                             totalWages += this.configsalary.WFH;
                         }
-                    } else if (attendance.site_name === "Work at Office") {
+                    } else if (attendance.type_of_work === "Work at Office") {
                         if (attendance.status === 0) {
                             status = 'Rejected';
                             totalWages += 0;
@@ -648,7 +648,7 @@ import moment from 'moment'
                 this.date = ''
                 this.timein = ''
                 this.timeout = ''
-                this.site_name = ''
+                this.type_of_work = ''
                 this.text = ''
             },
 
@@ -669,7 +669,7 @@ import moment from 'moment'
                     let salary = 0
                     this.getmyattendance.map(ts => {
                         if (ts.user === user_id){
-                            if (ts.site_name == 'Work at Office') {
+                            if (ts.type_of_work == 'Work at Office') {
                                 if (ts.status === 0 || ts.status === 1) {
                                     salary += 0
                                 } else {

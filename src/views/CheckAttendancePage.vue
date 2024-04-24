@@ -146,7 +146,7 @@ import IconSearchBar from '../components/icons/IconSearchbar.vue'
                                 <th class="w-[10%]">Time In</th>
                                 <th class="w-[10%]">Time Out</th>
                                 <th class="w-[20%]">Description</th>
-                                <th class="w-[15%]">Site Name</th>
+                                <th class="w-[15%]">Type of work</th>
                                 <th class="w-[15%]">Signed by</th>
                                 <th class="w-[10%]">Type Sign</th>
                                 <th class="w-[10%]">Status</th>
@@ -160,7 +160,7 @@ import IconSearchBar from '../components/icons/IconSearchbar.vue'
                                         <td v-if="liftts.time_out == '00:00:00'" class="border-b-blue-900"></td>
                                         <td v-else class="border-b-blue-900">{{ format_date(liftts.time_out) }}</td>
                                         <td class="border-b-blue-900">{{ liftts.description }}</td>
-                                        <td class="border-b-blue-900">{{ liftts.site_name }}</td>
+                                        <td class="border-b-blue-900">{{ liftts.type_of_work }}</td>
                                         <td class="border-b-blue-900">{{ liftts.who_signed }}</td>
                                         <td class="border-b-blue-900">
                                             <span v-if="liftts.type_sign == 'normal'" class="text-green-500 font-bold">Normal</span>
@@ -364,7 +364,7 @@ import IconSearchBar from '../components/icons/IconSearchbar.vue'
                 let totalWages = 0;
                 const dataForExcel = this.mergedFilteredList.map((attendance) => {
                     let status = '';
-                    if (attendance.site_name === "Work From Home") {
+                    if (attendance.type_of_work === "Work From Home") {
                         if (attendance.status === 0) {
                             status = 'Rejected';
                             totalWages += 0;
@@ -375,7 +375,7 @@ import IconSearchBar from '../components/icons/IconSearchbar.vue'
                             status = 'Approved';
                             totalWages += this.configsalary.WFH;
                         }
-                    } else if (attendance.site_name === "Work at Office") {
+                    } else if (attendance.type_of_work === "Work at Office") {
                         if (attendance.status === 0) {
                             status = 'Rejected';
                             totalWages += 0;
