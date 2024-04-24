@@ -234,7 +234,7 @@
             displayedAttendance() {
                 const startIndex = (this.currentPage - 1) * this.itemsPerPage;
                 const endIndex = this.currentPage * this.itemsPerPage;
-                const sortedAttendance = this.showmy_leaverequest.sort((a, b) => {
+                const sortedAttendance = this.list_leaverequest.sort((a, b) => {
                     return new Date(a.datetime_start) - new Date(b.datetime_start);
                 });
                 return sortedAttendance.slice(startIndex, endIndex);
@@ -471,5 +471,4 @@
                 })
             },
         }
-    }
-</script>
+   
