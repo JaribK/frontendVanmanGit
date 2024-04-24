@@ -57,12 +57,28 @@
                     });
                     this.$router.push('/home');
                 } catch (error) {
-                    swal.fire({
-                        title: 'Error',
-                        text: 'Username or Password is incorrect',
-                        icon: 'error',
-                        confirmButtonText: 'OK'
-                    });
+                    if (error.response.status === 400) {
+                        swal.fire({
+                            title: 'Error',
+                            text: 'Username or Password is incorrect',
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                    } else if (error.response.status === 409) {
+                        swal.fire({
+                            title: 'Error',
+                            text: 'another user is logged in now, please try again later',
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                    } else {
+                        swal.fire({
+                            title: 'Error',
+                            text: 'Something went wrong',
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                    }
                 }
             }
         }
