@@ -232,9 +232,12 @@
               return Math.ceil(this.showmy_leaverequest.length / this.itemsPerPage);
             },
             displayedAttendance() {
-              const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-              const endIndex = this.currentPage * this.itemsPerPage;
-              return this.showmy_leaverequest.slice(startIndex, endIndex);
+                const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+                const endIndex = this.currentPage * this.itemsPerPage;
+                const sortedAttendance = this.showmy_leaverequest.sort((a, b) => {
+                    return new Date(a.datetime_start) - new Date(b.datetime_start);
+                });
+                return sortedAttendance.slice(startIndex, endIndex);
             }
         },
         methods: {
