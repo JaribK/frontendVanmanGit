@@ -278,10 +278,13 @@ import IconSearchBar from '../components/icons/IconSearchbar.vue'
               return Math.ceil(this.mergedFilteredList.length / this.itemsPerPage);
             },
             displayedAttendance() {
-              const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-              const endIndex = this.currentPage * this.itemsPerPage;
-              return this.mergedFilteredList.slice(startIndex, endIndex);
-            }    
+                const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+                const endIndex = this.currentPage * this.itemsPerPage;
+                const sortedList = this.mergedFilteredList.sort((a, b) => {
+                    return new Date(b.date) - new Date(a.date);
+                });
+                return sortedList.slice(startIndex, endIndex);
+            }
         
 
         },

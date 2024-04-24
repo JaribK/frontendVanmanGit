@@ -67,7 +67,7 @@
                         </div>
                     </div>
                 <div id="title" class="text-black font-bold w-full text-center my-[64px] text-[30px]">Leave Request <br> 
-                    <span class="text-[20px] font-normal text-error">Resignation notice must be given at least 15 days in advance</span>
+                    <span class="text-[20px] font-normal">Resignation notice must be given at least 15 days in advance</span>
                 </div>
                 <div id="from" class="w-full">
                     <form @submit.prevent="post_leaverequest" class="px-[40px] flex justify-evenly flex-wrap" >
@@ -232,12 +232,9 @@
               return Math.ceil(this.showmy_leaverequest.length / this.itemsPerPage);
             },
             displayedAttendance() {
-                const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-                const endIndex = this.currentPage * this.itemsPerPage;
-                const sortedAttendance = this.list_leaverequest.sort((a, b) => {
-                    return new Date(a.datetime_start) - new Date(b.datetime_start);
-                });
-                return sortedAttendance.slice(startIndex, endIndex);
+              const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+              const endIndex = this.currentPage * this.itemsPerPage;
+              return this.showmy_leaverequest.slice(startIndex, endIndex);
             }
         },
         methods: {
@@ -471,4 +468,5 @@
                 })
             },
         }
-   
+    }
+</script>
