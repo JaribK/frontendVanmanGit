@@ -3,7 +3,7 @@
         <div id="background" class="w-full h-lvh bg-white">
             <div class="navbar bg-gray-800">
                     <div class="flex-1 px-2 lg:flex-none">
-                        <a class="text-lg font-bold text-white">Dashboard</a>
+                        <a class="text-lg font-bold text-white">Dashboard Admin</a>
                     </div> 
                     <div class="flex justify-end flex-1 px-2">
                         <div class="flex items-stretch">
