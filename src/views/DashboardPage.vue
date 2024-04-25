@@ -66,34 +66,48 @@
                     </div>
                 </div>
             </div>
-            <div class="w-[100%] text-center text-black text-[20px] font-bold py-4 flex justify-center">
-                        <div id="datetime-server">
-                            Time Attendance On {{ formatDate(this.server_date)  }} at {{ format_time(this.server_time) }}
-                        </div>
-                    </div>
-            <div id="title">
-                <div class="flex justify-center">
-                    <h1 class="text-[30px] font-bold mt-10 text-black">Dashboard</h1>
-                </div>
-            </div>
             <div id="content" class="w-full h-fit bg-white py-10">
                 <div class="flex justify-center h-full w-full">
                     <div class="flex justify-end flex-wrap w-[50%]">
-                        <div id="box" class="text-black animate-fade-up w-[500px] h-[540px] mx-10 bg-gray-200 drop-shadow-2xl rounded-lg p-10">
-                            <div id="subtitle" class="w-full text-center font-bold mb-4">List users online</div>
+                        <div id="box" class="text-black animate-fade-up w-[500px] h-[540px] mx-10 bg-blue-200 drop-shadow-2xl rounded-lg p-10">
+                            <div id="subtitle" class="w-full text-center font-bold mb-4">List Users</div>
                             <div class="flex flex-col h-[450px] overflow-hidden">
-                                <div v-for="user in loggedInUsers" :key="user.id" class="animate-fade-left flex justify-between items-center w-full h-[50px] border-b border-gray-300">
-                                    <div class="flex items-center w-full" :title="user.role">
+                                <div v-for="user in paginatedUsers" :key="user.id" class="animate-fade-left flex justify-between items-center w-full h-[50px] border-b border-blue-500">
+                                    <div class="flex items-center w-full" v-if="user.is_logged_in == true" :title="user.role">
                                         <div class="w-2 h-2 bg-green-500 rounded-full"></div>
-                                        <div class="ml-2">{{ user.first_name }} {{ user.last_name }} <n class="font-bold">#</n> <n class="font-bold text-blue-700">{{ user.role }}</n></div>
+                                        <div class="ml-2">{{ user.first_name }} {{ user.last_name }} <span class="font-bold">#</span> <span class="font-bold text-blue-700">{{ user.role }}</span></div>
+                                        <div class="text-black text-[12px]"></div>
+                                    </div>
+                                    <div class="flex items-center w-full" v-if="user.is_logged_in == false" :title="user.role">
+                                        <div class="w-2 h-2 bg-red-500 rounded-full"></div>
+                                        <div class="ml-2">{{ user.first_name }} {{ user.last_name }} <span class="font-bold">#</span> <span class="font-bold text-blue-700">{{ user.role }}</span></div>
+                                        <div class="text-black text-[12px]"></div>
+                                    </div>
+                                </div>
+                                <div class="w-full flex justify-center mt-10">
+                                    <div class="join">
+                                      <button class="join-item btn" @click="prevPage" :disabled="currentPage === 1">«</button>
+                                      <button class="join-item btn">Page {{ currentPage }}</button>
+                                      <button class="join-item btn"@click="nextPage" :disabled="currentPage === totalPages">»</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="flex justify-start flex-col w-[50%]">
-                        <div id="box" class="animate-fade-up w-[500px] h-[250px] bg-gray-200 drop-shadow-2xl rounded-lg flex flex-row"></div>
-                        <div id="box" class="animate-fade-up w-[500px] mt-10 h-[250px] bg-gray-200 drop-shadow-2xl rounded-md"></div>
+                        <div id="box" class="animate-fade-up w-[500px] h-[250px] bg-green-200 drop-shadow-2xl rounded-md">
+                            <div class="flex justify-center items-center w-full h-full">
+                                <div class="text-black text-[30px] font-bold text-center">Date & Time <br><br> <span class="text-4xl">{{ format_datetime(this.server_datetime) }}</span></div>
+                                </div>
+                        </div>
+                        <div id="box" class="animate-fade-up mt-10 w-[500px] h-[250px] bg-yellow-200 drop-shadow-2xl rounded-lg flex flex-row">
+                            <div class="flex justify-center items-center w-[50%] h-full">
+                                <div class="text-black text-[20px] font-bold text-center">Users Online <br><br> <span class="text-6xl text-success">{{ this.users_online }}</span></div>
+                            </div>
+                            <div class="flex justify-center items-center w-[50%] h-full">
+                                <div class="text-black text-[20px] font-bold text-center">All users in System<br><br> <span class="text-6xl">{{ this.all_users }}</span></div>
+                            </div>
+                        </div>
                     </div>
                     
             </div>
@@ -120,13 +134,30 @@ const host = 'https://backendvanmangit-production.up.railway.app/'
                 list_users: [],
                 users_online: '',
                 all_users: '',
-                showRole: false
+                currentPage: 1,
+                itemsPerPage: 7,
             }
         },
         computed: {
-            loggedInUsers(){
-                return this.list_users.filter(user => user.is_logged_in == true)
-            }
+            loggedInUsers() {
+                const sortedUsers = this.list_users.sort((a, b) => {
+                    if (a.is_logged_in && !b.is_logged_in) {
+                        return -1; // a comes before b
+                    } else if (!a.is_logged_in && b.is_logged_in) {
+                        return 1; // b comes before a
+                    } else {
+                        return 0; // no change in order
+                    }
+                });
+                return sortedUsers;
+            },
+            totalPages() {
+              return Math.ceil(this.loggedInUsers.length / this.itemsPerPage);
+            },
+            paginatedUsers() {
+              const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+              return this.loggedInUsers.slice(startIndex, startIndex + this.itemsPerPage);
+            },
         },
         mounted() {
             this.getUser()
@@ -137,12 +168,24 @@ const host = 'https://backendvanmangit-production.up.railway.app/'
             }, 1000)
         },
         methods: {
+            prevPage() {
+              if (this.currentPage > 1) {
+                this.currentPage--;
+              }
+            },
+            nextPage() {
+              if (this.currentPage < this.totalPages) {
+                this.currentPage++;
+              }
+            },
+
             getUser(){
                 const userjson = localStorage.getItem('user')
                 const user_data = JSON.parse(userjson)
                 this.user = user_data
                 this.user_id = user_data.id
             },
+
             async logout(){
                 await axios.post(host + 'api/logout/',{},
                     {
@@ -164,6 +207,7 @@ const host = 'https://backendvanmangit-production.up.railway.app/'
                     console.log(err)
                 })
             },
+
             get_datetimefromserver(){
                 axios.get('https://worldtimeapi.org/api/ip')
                 // https://worldtimeapi.org/api/ip
@@ -179,6 +223,7 @@ const host = 'https://backendvanmangit-production.up.railway.app/'
 
                 })
             },
+
             formatDate(datetime){
                 return moment(datetime).format('D MMM YYYY')
             },
