@@ -17,7 +17,7 @@
                                             </svg>
                                             Back to Home
                                         </router-link></li>
-                                        <li><router-link to="/dashboard">
+                                        <li v-if="user.is_superuser == true"><router-link to="/dashboard">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-speedometer2" viewBox="0 0 16 16">
                                               <path d="M8 4a.5.5 0 0 1 .5.5V6a.5.5 0 0 1-1 0V4.5A.5.5 0 0 1 8 4M3.732 5.732a.5.5 0 0 1 .707 0l.915.914a.5.5 0 1 1-.708.708l-.914-.915a.5.5 0 0 1 0-.707M2 10a.5.5 0 0 1 .5-.5h1.586a.5.5 0 0 1 0 1H2.5A.5.5 0 0 1 2 10m9.5 0a.5.5 0 0 1 .5-.5h1.5a.5.5 0 0 1 0 1H12a.5.5 0 0 1-.5-.5m.754-4.246a.39.39 0 0 0-.527-.02L7.547 9.31a.91.91 0 1 0 1.302 1.258l3.434-4.297a.39.39 0 0 0-.029-.518z"/>
                                               <path fill-rule="evenodd" d="M0 10a8 8 0 1 1 15.547 2.661c-.442 1.253-1.845 1.602-2.932 1.25C11.309 13.488 9.475 13 8 13c-1.474 0-3.31.488-4.615.911-1.087.352-2.49.003-2.932-1.25A8 8 0 0 1 0 10m8-7a7 7 0 0 0-6.603 9.329c.203.575.923.876 1.68.63C4.397 12.533 6.358 12 8 12s3.604.532 4.923.96c.757.245 1.477-.056 1.68-.631A7 7 0 0 0 8 3"/>
@@ -32,7 +32,7 @@
                                             </svg>
                                             Leave Request
                                         </router-link></li>
-                                        <li v-if="user.is_superuser == true"><router-link to="/home/admin">
+                                        <li v-if="user.is_superuser == true"><router-link to="/approve-sw">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list-check" viewBox="0 0 16 16">
                                               <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3.854 2.146a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708L2 3.293l1.146-1.147a.5.5 0 0 1 .708 0m0 4a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708L2 7.293l1.146-1.147a.5.5 0 0 1 .708 0m0 4a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0"/>
                                             </svg>
@@ -66,7 +66,7 @@
                     </div>
                 </div>
             </div>
-            <div id="content" class="w-full h-fit bg-white py-10">
+            <div id="content" class="w-full h-fit bg-white pt-10">
                 <div class="flex justify-center h-full w-full">
                     <div class="flex justify-end flex-wrap w-[50%]">
                         <div id="box" class="text-black animate-fade-up w-[500px] h-[540px] mx-10 bg-blue-200 drop-shadow-2xl rounded-lg p-10">
@@ -87,7 +87,7 @@
                                 <div class="w-full flex justify-center mt-10">
                                     <div class="join">
                                       <button class="join-item btn" @click="prevPage" :disabled="currentPage === 1">«</button>
-                                      <button class="join-item btn">Page {{ currentPage }}</button>
+                                      <button class="join-item btn btn-primary">Page {{ currentPage }}</button>
                                       <button class="join-item btn"@click="nextPage" :disabled="currentPage === totalPages">»</button>
                                     </div>
                                 </div>
@@ -102,15 +102,34 @@
                         </div>
                         <div id="box" class="animate-fade-up mt-10 w-[500px] h-[250px] bg-yellow-200 drop-shadow-2xl rounded-lg flex flex-row">
                             <div class="flex justify-center items-center w-[50%] h-full">
-                                <div class="text-black text-[20px] font-bold text-center">Users Online <br><br> <span class="text-6xl text-success">{{ this.users_online }}</span></div>
+                                <div class="text-black text-[20px] font-bold text-center">Users Online Now<br><br> <span class="text-6xl text-success">{{ this.users_online }}</span></div>
                             </div>
                             <div class="flex justify-center items-center w-[50%] h-full">
                                 <div class="text-black text-[20px] font-bold text-center">All users in System<br><br> <span class="text-6xl">{{ this.all_users }}</span></div>
                             </div>
                         </div>
                     </div>
-                    
-            </div>
+                </div>
+                <div id="content2" class="w-full flex pb-10">
+                    <div id="sw" class="w-[50%] flex justify-end px-10">
+                        <router-link to="/approve-sw">
+                            <div id="box" class="transition ease-in-out delay-150  hover:translate-y-16 hover:scale-110 hover:bg-indigo-500 duration-300 animate-fade-up mt-10 w-[500px] h-[250px] bg-red-200 drop-shadow-2xl rounded-lg flex flex-row">
+                                <div id="subtitle" class="w-full text-center text-black font-bold mb-4 py-4 flex flex-col justify-center"><span class="text-[20px]">Amount sign wait for approve</span> <br> <br>
+                                    <span class="text-6xl text-warning">{{ this.amountleft_timesheets }}</span>
+                                </div>
+                            </div>
+                        </router-link>
+                        </div>
+                    <div id="lreq" class="w-[50%] flex justify-start ">
+                        <router-link to="/approve-lr">
+                            <div id="box" class="transition ease-in-out delay-150  hover:translate-y-16 hover:scale-110 hover:bg-indigo-500 duration-300 animate-fade-up mt-10 w-[500px] h-[250px] bg-violet-200 drop-shadow-2xl rounded-lg flex flex-row">
+                                <div id="subtitle" class="w-full text-center text-black font-bold mb-4 py-4 flex flex-col justify-center"><span class="text-[20px]">Amount leave requests wait for approve</span> <br> <br>
+                                    <span class="text-6xl text-warning">{{ this.amountleft_leavereq }}</span>
+                                </div>
+                            </div>
+                        </router-link>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -136,6 +155,10 @@ const host = 'https://backendvanmangit-production.up.railway.app/'
                 all_users: '',
                 currentPage: 1,
                 itemsPerPage: 7,
+                list_timesheets: [],
+                list_leavereq: [],
+                amountleft_timesheets: '',
+                amountleft_leavereq: ''
             }
         },
         computed: {
@@ -160,6 +183,8 @@ const host = 'https://backendvanmangit-production.up.railway.app/'
             },
         },
         mounted() {
+            this.getTimesheets()
+            this.getLeaveReq()
             this.getUser()
             this.getUsers()
             this.getamountUsers()
@@ -260,6 +285,42 @@ const host = 'https://backendvanmangit-production.up.railway.app/'
                     this.all_users = res.data.length
                 })
             },
+
+            getTimesheets(){
+                axios.get(host + 'timesheets/',)
+                .then(res => {
+                    this.list_timesheets = res.data
+                    this.countstatusoftimesheets()
+                })
+            },
+
+            countstatusoftimesheets(){
+                let count = 0
+                for (let i = 0; i < this.list_timesheets.length; i++){
+                    if (this.list_timesheets[i].status == 1){
+                        count++
+                    }
+                }
+                this.amountleft_timesheets = count
+            },
+
+            getLeaveReq(){
+                axios.get(host + 'leave_requests/',)
+                .then(res => {
+                    this.list_leavereq = res.data
+                    this.countstatusofleavereq()
+                })
+            },
+
+            countstatusofleavereq(){
+                let count = 0
+                for (let i = 0; i < this.list_leavereq.length; i++){
+                    if (this.list_leavereq[i].status == 1){
+                        count++
+                    }
+                }
+                this.amountleft_leavereq = count
+            }
             
         }
     }

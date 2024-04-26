@@ -22,7 +22,7 @@ const router = createRouter({
       component: HomePage
     },
     {
-      path: '/home/admin',
+      path: '/approve-sw',
       name: 'admin',
       component: CheckAttendancePage
     },
