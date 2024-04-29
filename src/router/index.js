@@ -59,8 +59,8 @@ const router = createRouter({
       component: ProfilePage
     },
     {
-      path: '/reset-password/:token',
-      name: 'change-password',
+      path: '/reset-password/:id/:token',
+      name: 'reset-password',
       component: ResetPasswordPage
     }
   ]
