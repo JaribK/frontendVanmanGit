@@ -9,6 +9,7 @@ import HelpPage from '@/views/HelpPage.vue'
 import DashboardPage from '@/views/DashboardPage.vue'
 import ProfilePage from '@/views/ProfilePage.vue'
 import ResetPasswordPage from '@/views/ResetPasswordPage.vue'
+import ForgotPasswordPage from '@/views/ForgotPasswordPage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -59,17 +60,31 @@ const router = createRouter({
       component: ProfilePage
     },
     {
-      path: '/reset-password/:id/:token',
+      path: '/reset-password/:token',
       name: 'reset-password',
       component: ResetPasswordPage
+    },
+    {
+      path: '/forgot-password',
+      name: 'forgot-password',
+      component: ForgotPasswordPage
     }
   ]
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.path !== '/register' && to.path !== '/' && localStorage.getItem('token') == null) {
-    next('/');
+  // Check if the route requires authentication
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    // Check if the user is authenticated
+    if (!localStorage.getItem('token')) {
+      // Redirect to the login page if not authenticated
+      next('/');
+    } else {
+      // Proceed to the route if authenticated
+      next();
+    }
   } else {
+    // Proceed to the route if no authentication is required
     next();
   }
 });

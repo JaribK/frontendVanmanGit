@@ -343,7 +343,7 @@
                         icon: 'success',
                         confirmButtonText: 'OK'
                     })
-                    this.$router.push('/login');
+                    this.$router.push('/');
                 }).catch((err) => {
                     console.log(err)
                 })

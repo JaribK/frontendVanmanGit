@@ -7,10 +7,12 @@
                     <form @submit.prevent="login" class="px-[40px]" >
                         <input type="text" v-model="username" name="username" id="username" placeholder="Username" class="input input-primary w-full h-[40px] border-[1px] border-blue-950 rounded-[10px] px-4 my-2 bg-white text-black" required>
                         <input type="password" v-model="password" name="password" id="password" placeholder="Password" class="input input-primary w-full h-[40px] border-[1px] border-blue-950 rounded-[10px] px-4 my-2 bg-white  text-black" required>
+                        <p class="text-black text-center">Forgot your password? <router-link to="/forgot-password" class="text-[#3668A7]">Reset Password</router-link></p>
                         <button type="submit" value="Login" class="btn w-full h-[50px] bg-[#3668A7] text-white rounded-[10px] my-[32px] cursor-pointer">Login</button>
                     </form>
                     <div id="sign-up">
                         <p class="text-black text-center">Don't have an account? <router-link to="/register" class="text-[#3668A7]">Sign Up</router-link></p>
+                        
                     </div>
                 </div>
             </div>
