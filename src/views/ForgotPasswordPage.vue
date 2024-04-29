@@ -57,7 +57,6 @@ const host = 'https://backendvanmangit-production.up.railway.app/'
                 axios.get(`${host}users/`)
                 .then((response) => {
                     this.usersList = response.data
-                    console.log(this.usersList)
                 })
             },
             getOnlyEmail(){
@@ -67,7 +66,6 @@ const host = 'https://backendvanmangit-production.up.railway.app/'
                         const lE = response.data[i].email
                         this.listUsersEamil.push(lE)
                     }
-                    console.log(this.listUsersEamil)
                 })
             },
 
