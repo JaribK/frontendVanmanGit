@@ -7,6 +7,8 @@ import LeaveReqPage from '@/views/LeaveReqPage.vue'
 import ApprovePage from '@/views/ApprovePage.vue'
 import HelpPage from '@/views/HelpPage.vue'
 import DashboardPage from '@/views/DashboardPage.vue'
+import ProfilePage from '@/views/ProfilePage.vue'
+import ChangePasswordPage from '@/views/ChangePasswordPage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -50,6 +52,16 @@ const router = createRouter({
       path: '/dashboard',
       name: 'dashboard',
       component: DashboardPage
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: ProfilePage
+    },
+    {
+      path: '/reset-password/:token',
+      name: 'change-password',
+      component: ChangePasswordPage
     }
   ]
 })
