@@ -55,7 +55,7 @@
                         text: 'Login Success',
                         icon: 'success',
                         confirmButtonText: 'OK',
-                        footer: 'If you have any questions about how to use the system,<br>please click on the Menu at the top right and select <router-link to="/help" class="text-[#3668A7]">Need help?</router-link>'
+                        footer: 'If you have any questions about how to use the system,<br>please click on the Menu at the top right and select <a herf="https://vanman.vercel.app/help" class="text-[#3668A7]">Need help?</a>'
                     });
                     this.$router.push('/home');
                 } catch (error) {

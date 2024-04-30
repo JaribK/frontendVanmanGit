@@ -11,6 +11,13 @@
                             <div class="btn btn-primary mr-2">{{ user.role }}</div>
                             <div tabindex="0" role="button" class="btn btn-ghost text-black bg-white rounded-btn">Welcome, {{ user.username }}</div>
                             <ul tabindex="0" class="menu dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-54 mt-4">
+                                    <li><router-link to="/profile">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                          <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                                          <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                                        </svg>
+                                        Profile
+                                    </router-link></li>
                                     <li v-if="user.is_superuser == true"><router-link to="/dashboard">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-speedometer2" viewBox="0 0 16 16">
                                           <path d="M8 4a.5.5 0 0 1 .5.5V6a.5.5 0 0 1-1 0V4.5A.5.5 0 0 1 8 4M3.732 5.732a.5.5 0 0 1 .707 0l.915.914a.5.5 0 1 1-.708.708l-.914-.915a.5.5 0 0 1 0-.707M2 10a.5.5 0 0 1 .5-.5h1.586a.5.5 0 0 1 0 1H2.5A.5.5 0 0 1 2 10m9.5 0a.5.5 0 0 1 .5-.5h1.5a.5.5 0 0 1 0 1H12a.5.5 0 0 1-.5-.5m.754-4.246a.39.39 0 0 0-.527-.02L7.547 9.31a.91.91 0 1 0 1.302 1.258l3.434-4.297a.39.39 0 0 0-.029-.518z"/>
@@ -367,13 +374,23 @@ import moment from 'moment'
                                         swal.fire({
                                             icon: 'success',
                                             title: 'Success',
-                                            text: 'Sign for work successfully'
-                                        }).then(() => {
-                                            axios.post(host + 'user_timesheets/',{
-                                                user: this.user_id,
-                                                timesheet: res.data.id
+                                            text: 'Sign for work successfully',
+                                            confirmButtonText: 'Next'
+                                            
+                                        }).then(async () => {
+                                            await swal.fire({
+                                                title: 'Warning',
+                                                text: 'Please sign In & Out for Work at bottom table.',
+                                                icon: 'warning',
+                                                confirmButtonColor: '#3085d6',
+                                                confirmButtonText: 'OK, I understand'
+                                            }).then(() => {                       
+                                                axios.post(host + 'user_timesheets/',{
+                                                    user: this.user_id,
+                                                    timesheet: res.data.id
+                                                })
+                                                this.$router.go();
                                             })
-                                            this.$router.go();
                                         })
                                     }).catch((err) => {
                                         console.log(err)
@@ -632,12 +649,21 @@ import moment from 'moment'
                 ).then(() => {
                     localStorage.removeItem('user');
                     localStorage.removeItem('token');
-                    swal.fire({
-                        title: 'Success',
-                        text: 'Logout Success',
-                        icon: 'success',
-                        confirmButtonText: 'OK'
-                    })
+                    const Toast = swal.mixin({
+                      toast: true,
+                      position: "top-end",
+                      showConfirmButton: false,
+                      timer: 3000,
+                      timerProgressBar: true,
+                      didOpen: (toast) => {
+                        toast.onmouseenter = swal.stopTimer;
+                        toast.onmouseleave = swal.resumeTimer;
+                      }
+                    });
+                    Toast.fire({
+                      icon: "success",
+                      title: "Logged out successfully"
+                    });
                     this.$router.push('/');
                 }).catch((err) => {
                     console.log(err)

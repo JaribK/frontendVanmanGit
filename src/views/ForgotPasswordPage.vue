@@ -70,26 +70,44 @@ const host = 'https://backendvanmangit-production.up.railway.app/'
             },
 
             async sendEmail() {
-                if (this.listUsersEamil.includes(this.email)) {
-                    await axios.post(`${host}reset_password/`, {
-                        email: this.email
-                    }).then((response) => {
+                swal.fire({
+                    title: 'Warning',
+                    text: 'Are you sure you want to reset your password?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes',
+                    cancelButtonText: 'No'
+                }).then(async (result) => {
+                    if (result.isConfirmed) {
+                        if (this.listUsersEamil.includes(this.email)) {
+                            await axios.post(`${host}reset_password/`, {
+                                email: this.email
+                            }).then((response) => {
+                                swal.fire({
+                                    title: 'Success',
+                                    text: 'Email has been sent',
+                                    icon: 'success',
+                                    confirmButtonText: 'OK'
+                                });
+                                this.IsSend = true
+                            })
+                        } else {
+                            swal.fire({
+                                title: 'Error',
+                                text: 'Email not found',
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            });
+                        }
+                    } else if (result.dismiss === swal.DismissReason.cancel) {
                         swal.fire({
-                            title: 'Success',
-                            text: 'Email has been sent',
-                            icon: 'success',
+                            title: 'Cancelled',
+                            text: 'Reset password has been cancelled',
+                            icon: 'error',
                             confirmButtonText: 'OK'
                         });
-                        this.IsSend = true
-                    })
-                } else {
-                    swal.fire({
-                        title: 'Error',
-                        text: 'Email not found',
-                        icon: 'error',
-                        confirmButtonText: 'OK'
-                    });
-                }
+                    }
+                })
             }
         }
     }
