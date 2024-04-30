@@ -83,11 +83,20 @@ const host = 'https://backendvanmangit-production.up.railway.app/'
                             await axios.post(`${host}reset_password/`, {
                                 email: this.email
                             }).then((response) => {
-                                swal.fire({
-                                    title: 'Success',
-                                    text: 'Email has been sent',
-                                    icon: 'success',
-                                    confirmButtonText: 'OK'
+                                const Toast = swal.mixin({
+                                  toast: true,
+                                  position: "top-end",
+                                  showConfirmButton: false,
+                                  timer: 3000,
+                                  timerProgressBar: true,
+                                  didOpen: (toast) => {
+                                    toast.onmouseenter = swal.stopTimer;
+                                    toast.onmouseleave = swal.resumeTimer;
+                                  }
+                                });
+                                Toast.fire({
+                                  icon: "success",
+                                  title: "Email has been sent!"
                                 });
                                 this.IsSend = true
                             })

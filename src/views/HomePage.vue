@@ -181,7 +181,7 @@
                         <div class="text-black font-bold text-[20px] w-[100%] text-center mb-10">My Attendance List <br> <div id="amount" class="text-black">Summary Wages : {{ calculateMysalary(this.user_id) }} Baht <br></div></div>
                     </div>
                     <div id="table" class="overflow-x-auto w-full flex justify-center flex-col items-center mb-10">
-                        <table class="table py-[100px] w-[100%] text-center" >
+                        <table class="table py-[100px] w-[100%] text-center">
                             <thead class="text-black bg-emerald-400 rounded-t-lg text-[15px]">
                                 <tr class="rounded-t-lg">
                                     <th class="w-[5%]">No.</th>
@@ -220,7 +220,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="flex justify-center mt-4 pb-[32px] flex-wrap items-center">
+                    <div ref="bottomEl" class="flex justify-center mt-4 pb-[32px] flex-wrap items-center">
                       <button class="btn btn-warning mr-4" @click="goToFirstPage" :disabled="currentPage === 1">Go to First Page</button>
                       <button class="btn btn-primary" @click="prevPage" :disabled="currentPage === 1">Previous</button>
                       <span class=" text-black mx-4"> Page : {{ currentPage }}</span>
@@ -272,6 +272,7 @@ import moment from 'moment'
             this.get_datetimefromserver()
             setInterval(() => {
                 this.get_datetimefromserver();
+                this.getlistTimesheet();
             }, 1000)
         },
 
@@ -384,14 +385,13 @@ import moment from 'moment'
                                                 icon: 'warning',
                                                 confirmButtonColor: '#3085d6',
                                                 confirmButtonText: 'OK, I understand'
-                                            }).then(() => {                       
-                                                axios.post(host + 'user_timesheets/',{
-                                                    user: this.user_id,
-                                                    timesheet: res.data.id
-                                                })
-                                                this.$router.go();
+                                            }).then((res) => {   
+                                                if (res.isConfirmed) {
+                                                    this.scrollToBottom()
+                                                }
                                             })
                                         })
+                                    
                                     }).catch((err) => {
                                         console.log(err)
                                     })
@@ -409,6 +409,9 @@ import moment from 'moment'
                 } catch (error) {
                     console.error(error)
                 }
+            },
+            scrollToBottom() {
+              this.$refs.bottomEl.scrollIntoView({ behavior: 'smooth' });
             },
             checkdatematchholidays2(){ 
                 try {
@@ -465,11 +468,7 @@ import moment from 'moment'
                                             title: 'Success',
                                             text: 'Sign for work successfully'
                                         }).then(() => {
-                                            axios.post(host + 'user_timesheets/',{
-                                                user: this.user_id,
-                                                timesheet: res.data.id
-                                            })
-                                            this.$router.go();
+                                            this.scrollToBottom()
                                         })
                                     }).catch((err) => {
                                         console.log(err)

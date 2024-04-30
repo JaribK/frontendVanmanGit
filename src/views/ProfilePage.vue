@@ -137,7 +137,7 @@
                             <div>
                                 <div class="flex flex-wrap place-items-center h-full gap-12">
                                     <button class="btn w-[212px] h-[48px] btn-warning" @click="sendEmail">Reset Password</button>
-                                    <button class="btn w-[212px] h-[48px] mx-4 btn-error">In Processing</button>
+                                    <button class="btn w-[212px] h-[48px] mx-4 btn-error" @click="buttonInFuture">In Processing</button>
                                 </div>
                             </div>
                         </div>
@@ -215,6 +215,23 @@ const host = 'https://backendvanmangit-production.up.railway.app/'
                     this.server_time = datetime.toTimeString().split(' ')[0];
 
                 })
+            },
+            buttonInFuture(){
+                const Toast = swal.mixin({
+                      toast: true,
+                      position: "top-end",
+                      showConfirmButton: false,
+                      timer: 3000,
+                      timerProgressBar: true,
+                      didOpen: (toast) => {
+                        toast.onmouseenter = swal.stopTimer;
+                        toast.onmouseleave = swal.resumeTimer;
+                      }
+                    });
+                    Toast.fire({
+                      icon: "warning",
+                      title: "Can't use this feature yet, please wait for the next update."
+                    });
             },
             getUser(){
                 const userjson = localStorage.getItem('user')
