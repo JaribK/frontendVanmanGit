@@ -76,13 +76,10 @@ router.beforeEach((to, from, next) => {
   const isAuthenticated = !!localStorage.getItem('token');
   
   if (to.path === '/' && isAuthenticated) {
-      // If already authenticated and trying to access login page, redirect to home or dashboard
-      next('/home'); // Change '/home' to your desired home page route
+      next('/home');
   } else if (!isAuthenticated && to.path !== '/' && to.path !== '/register' && to.name !== 'reset-password' && to.path !== '/forgot-password') {
-      // If not authenticated and trying to access a route other than login or register, redirect to login page
       next('/');
   } else {
-      // Proceed to the route if authenticated or trying to access register
       next();
   }
 });
