@@ -16,7 +16,6 @@
                 </div>
                 <div v-else>
                     <p class="text-center text-white font-bold">Email has been sent. Please check your email. <br> <a @click="ChangeIsSend" href="#">Send Again?</a></p>
-                    
                 </div>
             </form>
             <div class="py-10 flex justify-center">

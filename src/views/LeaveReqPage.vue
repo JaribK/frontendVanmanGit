@@ -9,7 +9,7 @@
             <div id="box" class="bg-white w-[100%] h-fit flex justify-start flex-col" >
                 <div class="w-[100%] text-center text-black text-[20px] font-bold py-4 flex justify-center">
                         <div id="datetime-server">
-                            Time Attendance On {{ formatDate(this.server_date)  }} at {{ format_time(this.server_time) }}
+                            Time Attendance On {{ formatDate(server_date)  }} at {{ format_time(server_time) }}
                         </div>
                     </div>
                 <div id="title" class="text-black font-bold w-full text-center my-[64px] text-[30px]">Leave Request <br> 

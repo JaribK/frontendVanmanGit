@@ -15,18 +15,6 @@
                     <div id="titlebox" class="py-[32px] text-black font-bold text-[30px] w-[100%] text-center">Sign for work <br>{{user.first_name}} {{user.last_name}}</div>
                     <div id="form" class="w-full mt-10">
                         <form action="" class="px-[40px] flex justify-evenly flex-wrap">
-                            <!-- <label class="form-control w-full max-w-xs">
-                                <div class="label">
-                                    <span class="label-text text-black">Time In</span>
-                                </div>
-                                <input id="timein" type="time" placeholder="Type here" class="input input-bordered w-full max-w-xl mb-10" v-model="timein" required/>
-                            </label> -->
-                            <!-- <label class="form-control w-full max-w-xs">
-                                <div class="label">
-                                    <span class="label-text text-black">Time Out</span>
-                                </div>
-                                <input id="timeout" type="time" placeholder="Type here" class="input input-bordered w-full max-w-xs" v-model="timeout" required/>
-                            </label> -->
                             <label class="form-control w-full max-w-xs">
                                 <div class="label">
                                     <span class="label-text text-black">Date</span>
@@ -116,7 +104,7 @@
                         </form>
                     </div>
                     <div id="title2">
-                        <div class="text-black font-bold text-[20px] w-[100%] text-center mb-10">My Attendance List <br> <div id="amount" class="text-black">Summary Wages : {{ calculateMysalary(this.user_id) }} Baht <br></div></div>
+                        <div class="text-black font-bold text-[20px] w-[100%] text-center mb-10">My Attendance List <br> <div id="amount" class="text-black">Summary Wages : {{ calculateMysalary(user_id) }} Baht <br></div></div>
                     </div>
                     <div id="table" class="overflow-x-auto w-full flex justify-center flex-col items-center mb-10">
                         <table class="table py-[100px] w-[100%] text-center">
