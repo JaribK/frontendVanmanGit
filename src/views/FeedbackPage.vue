@@ -10,11 +10,11 @@
                             Time Attendance On {{ formatDate(server_date)  }} at {{ format_time(server_time) }}
                         </div>
                     </div>
-            <div id="title" class="flex justify-center w-full py-10">
+            <div id="title" class="flex justify-center w-full pt-10">
                 <div class="font-bold text-black text-[30px] animate-fade-up animate-once">Feedback to Developer</div>
             </div>
             <div class="flex justify-center bg-white">
-            <div id="information" class=" w-[1024px] mt-16 rounded-[28px] overflow-hidden justify-self-center drop-shadow-2xl animate-fade-up animate-once">
+            <div id="information" class=" w-[1024px] my-16 rounded-[28px] overflow-hidden justify-self-center drop-shadow-2xl animate-fade-up animate-once">
                         <div class="bg-[#3C3C3C] drop-shadow-lg p-4">
                             <h2 class="text-white ml-8">Feedback</h2>
                         </div>
