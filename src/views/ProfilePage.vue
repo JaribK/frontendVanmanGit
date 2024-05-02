@@ -25,37 +25,37 @@
                         <div class="bg-[#303346] h-fit z-40 p-12 drop-shadow-2xl">
                             <div>
                                 <div class="grid grid-cols-2 place-items-center h-full gap-12">
-                                    <label class="flex h-[56px]">
-                                        <div
-                                            class="py-4 w-[123px] bg-[#3C3C3C] text-white rounded-l-[20px] grid place-items-center">
+                                    <label class="flex h-[56px] relative">
+                                        <div class="py-4 w-[123px] bg-[#3C3C3C] text-white rounded-l-[20px] grid place-items-center">
                                             <p>FirstName</p>
                                         </div>
-                                        <input type="text" :value="user.first_name" class="input rounded-l-none h-full rounded-r-[20px]"
-                                            disabled>
+                                        <!-- Invisible overlay -->
+                                        <div class="absolute inset-0 cursor-not-allowed"></div>
+                                        <input type="text" :value="user.first_name" class="input rounded-l-none h-full rounded-r-[20px] pointer-events-none" readonly>
                                     </label>
-                                    <label class="flex h-[56px]">
-                                        <div
-                                            class="py-4 w-[123px] bg-[#3C3C3C] text-white rounded-l-[20px] grid place-items-center">
+                                    <label class="flex h-[56px] relative">
+                                        <div class="py-4 w-[123px] bg-[#3C3C3C] text-white rounded-l-[20px] grid place-items-center">
                                             <p>LastName</p>
                                         </div>
-                                        <input type="text" :value="user.last_name" class="input rounded-l-none h-full rounded-r-[20px] "
-                                            disabled>
+                                        <!-- Invisible overlay -->
+                                        <div class="absolute inset-0 cursor-not-allowed"></div>
+                                        <input type="text" :value="user.last_name" class="input rounded-l-none h-full rounded-r-[20px] pointer-events-none" readonly>
                                     </label>
-                                    <label class="flex h-[56px]">
-                                        <div
-                                            class="py-4 w-[123px] bg-[#3C3C3C] text-white rounded-l-[20px] grid place-items-center">
+                                    <label class="flex h-[56px] relative">
+                                        <div class="py-4 w-[123px] bg-[#3C3C3C] text-white rounded-l-[20px] grid place-items-center">
                                             <p>Email</p>
                                         </div>
-                                        <input type="text" :value="user.email" class="input rounded-l-none h-full rounded-r-[20px]"
-                                            disabled>
+                                        <!-- Invisible overlay -->
+                                        <div class="absolute inset-0 cursor-not-allowed"></div>
+                                        <input type="text" :value="user.email" class="input rounded-l-none h-full rounded-r-[20px] pointer-events-none" readonly>
                                     </label>
-                                    <label class="flex h-[56px]">
-                                        <div
-                                            class="py-4 w-[123px] bg-[#3C3C3C] text-white rounded-l-[20px] grid place-items-center">
+                                    <label class="flex h-[56px] relative">
+                                        <div class="py-4 w-[123px] bg-[#3C3C3C] text-white rounded-l-[20px] grid place-items-center">
                                             <p>Role</p>
                                         </div>
-                                        <input type="text" :value="user.role" class="input rounded-l-none h-full rounded-r-[20px]"
-                                            disabled>
+                                        <!-- Invisible overlay -->
+                                        <div class="absolute inset-0 cursor-not-allowed"></div>
+                                        <input type="text" :value="user.role" class="input rounded-l-none h-full rounded-r-[20px] pointer-events-none" readonly>
                                     </label>
                                 </div>
                             </div>
