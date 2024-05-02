@@ -5,19 +5,19 @@
     <div>
         <div id="background" class="w-full h-fit bg-white">
             <Navbar></Navbar>
-                <div class="w-[100%] text-center text-black text-[20px] font-bold py-4 flex justify-center">
+                <div class="w-[100%] text-center text-black text-[20px] font-bold py-4 flex justify-center animate-fade-up animate-once">
                         <div id="datetime-server">
                             Time Attendance On {{ formatDate(server_date)  }} at {{ format_time(server_time) }}
                         </div>
                 </div>
-                <div class="grid grid-cols-1 h-lvh">
+                <div class="grid grid-cols-1 h-lvh animate-fade-up animate-once">
                     <div class="flex flex-col items-center w-full">
                         <h1 class="text-black text-[30px] py-[32px] font-bold">Profile</h1>
                         <p class="text-black text-[24px] font-bold ">
                             User, {{ user.username }}
                         </p>
                     </div>
-                <div class="w-full flex justify-center flex-col items-center bg-white">
+                <div class="w-full flex justify-center flex-col items-center bg-white animate-fade-up animate-once">
                     <div id="information" class=" w-[1024px] my-16 rounded-[28px] overflow-hidden justify-self-center drop-shadow-2xl">
                         <div class="bg-[#3C3C3C] drop-shadow-lg p-4">
                             <h2 class="text-white ml-8">Info Account</h2>

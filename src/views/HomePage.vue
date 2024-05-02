@@ -5,7 +5,7 @@
     <div>
         <div id="background" class="w-full h-fit bg-white">
             <Navbar></Navbar>
-            <div id="content" class="w-full h-fit flex justify-center">
+            <div id="content" class="w-full h-fit flex justify-center animate-fade-up animate-once">
                 <div id="box" class="bg-white w-[80%] h-fit flex justify-center flex-col">
                     <div class="w-[100%] text-center text-black text-[20px] font-bold py-4 flex justify-center">
                         <div id="datetime-server">
@@ -171,6 +171,7 @@ import moment from 'moment'
         data() {
             return {
                 user: '',
+                user_id: '',
                 holidays: [],
                 datadate:[],
                 timesheetlList: [],

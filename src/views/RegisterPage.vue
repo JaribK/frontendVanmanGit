@@ -1,7 +1,7 @@
 <template>
     <div>
         <div id="background" class="h-dvh w-full bg-blue-950 flex justify-center items-center">
-            <div id="box" class="w-[400px] h-fit bg-white rounded-[28px] items-center" >
+            <div id="box" class="w-[400px] h-fit bg-white rounded-[28px] items-center animate-fade-left animate-once" >
                 <div id="title" class="text-black font-bold w-full text-center my-[16px] text-[30px]">Sign up</div>
                 <div id="from" class="w-full">
                     <form @submit.prevent="register" class="px-[40px]" >

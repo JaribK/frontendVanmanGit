@@ -5,7 +5,7 @@
     <div>
         <div id="background" class="w-full h-fit bg-white">
             <Navbar></Navbar>
-            <div id="content" class="w-full h-lvh flex justify-center">
+            <div id="content" class="w-full h-lvh flex justify-center animate-fade-up animate-once">
             <div id="box" class="bg-white w-[100%] h-fit flex justify-start flex-col" >
                 <div class="w-[100%] text-center text-black text-[20px] font-bold py-4 flex justify-center">
                         <div id="datetime-server">
@@ -147,6 +147,7 @@
         data(){
             return{
                 user: '',
+                user_id: '',
                 datetime_start: '',
                 datetime_end: '',
                 description:'',

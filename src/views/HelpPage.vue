@@ -5,10 +5,10 @@
     <div>
         <div id="background" class="w-full h-lvh bg-white">
             <Navbar></Navbar>
-                <div id="title" class="flex justify-center w-full py-10">
+                <div id="title" class="flex justify-center w-full py-10 animate-fade-up animate-once">
                     <div class="font-bold text-black text-[30px]">Help Foreach Page</div>
                 </div>
-                <div id="content" class="h-fit w-full bg-white flex justify-center py-10">
+                <div id="content" class="h-fit w-full bg-white flex justify-center py-10 animate-fade-up animate-once">
                     <div id="listhelp" class="w-[80%] flex justify-center">
                         <div class="w-full h-full">
                             <div class="collapse collapse-arrow bg-base-200 mb-4">
@@ -37,7 +37,7 @@
                                 <p class="mb-4"><button type="button" class="btn bg-green-500 w-[150px] mr-2 h-[50px]  text-black rounded-[10px] cursor-pointer">Leave Request</button>ปุ่มนี่คือไปหน้า Leave Request</p>
                               </div>
                             </div>
-                            <div class="collapse collapse-arrow bg-base-200 mb-4">
+                            <div class="collapse collapse-arrow bg-base-200 mb-4 ">
                               <input type="radio" name="my-accordion-2" /> 
                               <div class="collapse-title text-xl font-bold">
                                 Guide for Leave Request Page (Click to open.)
@@ -53,7 +53,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="contact" class="h-fit w-full bg-white flex flex-col justify-center py-10">
+                <div id="contact" class="h-fit w-full bg-white flex flex-col justify-center py-10 animate-fade-up animate-once">
                     <div class="flex justify-center w-full py-10">
                         <div class="font-bold text-black text-[20px]">Ask for more information</div>
                     </div>

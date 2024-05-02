@@ -6,7 +6,7 @@
     <div>
         <div id="background" class="w-full h-fit bg-white">
             <Navbar></Navbar>
-            <div id="box" class="bg-white w-[100%] h-fit flex justify-center flex-col items-center" >
+            <div id="box" class="bg-white w-[100%] h-fit flex justify-center flex-col items-center animate-fade-up animate-once" >
                 <div id="config-salary" class="flex justify-center flex-col items-center">
                     <div class="w-[100%] text-center text-black text-[20px] font-bold py-4 flex justify-center">
                         <div id="datetime-server">
