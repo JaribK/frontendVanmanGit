@@ -11,6 +11,7 @@ import ProfilePage from '@/views/ProfilePage.vue'
 import ResetPasswordPage from '@/views/ResetPasswordPage.vue'
 import ForgotPasswordPage from '@/views/ForgotPasswordPage.vue'
 import FeedbackPage from '@/views/FeedbackPage.vue'
+import FeedbackAdminPage from '@/views/FeedbackAdminPage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -74,6 +75,11 @@ const router = createRouter({
       path: '/feedback',
       name: 'feedback',
       component: FeedbackPage
+    },
+    {
+      path: '/feedback-admin',
+      name: 'feedback-admin',
+      component: FeedbackAdminPage
     }
   ]
 })
