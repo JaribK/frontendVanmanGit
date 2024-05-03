@@ -105,6 +105,9 @@ const host = 'https://backendvanmangit-production.up.railway.app/'
             this.getOnlyEmail()
             this.get_datetimefromserver()
             this.email = this.user.email
+            setInterval(() => {
+                this.get_datetimefromserver();
+            }, 1000)
         },
         methods: {
             getUsers(){

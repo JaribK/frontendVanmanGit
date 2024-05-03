@@ -120,6 +120,7 @@ const host = 'https://backendvanmangit-production.up.railway.app/'
             },
         },
         mounted() {
+            this.get_datetimefromserver()
             this.getTimesheets()
             this.getLeaveReq()
             this.getUsers()

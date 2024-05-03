@@ -53,7 +53,7 @@
                         </div>
                 </div>
             </div>
-            <div id="my-feedback" class="w-full h-fit bg-white">
+            <div id="my-feedback" class="w-full h-fit bg-white animate-fade-up animate-once">
                 <div id="title" class="w-full text-center text-[20px] font-bold text-black">My Feedbacks</div>
                 <div id="table" class="overflow-x-auto w-[80%] flex justify-center flex-col items-center mb-10 mx-auto py-10">
                         <table class="table py-[100px] w-[100%] text-center">
@@ -71,7 +71,7 @@
                                         <td>{{ index + 1 }}</td>
                                         <td>{{ format_datetime(mf.datetime_send) }}</td>
                                         <td>{{ mf.type }}</td>
-                                        <td><button class="btn bg-black text-white hover:text-black" @click="openModal(mf.id)">
+                                        <td><button class="btn bg-black text-white hover:text-slate-300" @click="openModal(mf.id)">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                                               <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
                                             </svg>
@@ -104,14 +104,14 @@
                                                             </div>
                                                             <textarea placeholder="Description..." class="textarea w-[320px] h-[300px] bg-white text-black border-black resize-none" v-model="mf.description" readonly></textarea>
                                                         </label>
-
-                                                </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                           </div>
                                         </dialog></td>
-                                        <td v-if="mf.status == 0" class="text-yellow-400 font-bold">Wait for response</td>
-                                        <td v-if="mf.status == 1" class="text-green-500 font-bold">we have received your message</td>
+                                        <td v-if="mf.status == 0" class="text-red-500 font-bold">we have received your message.</td>
+                                        <td v-if="mf.status == 1" class="text-yellow-400 font-bold">We are working on this.</td>
+                                        <td v-if="mf.status == 2" class="text-green-500 font-bold">We have completed processing this or are aware of this.</td>
                                     </tr>
                             </tbody>
                             <tbody v-else>
@@ -120,6 +120,7 @@
                                 </tr>
                             </tbody>
                         </table>
+                        <br><br>
                         <div>
                             <div ref="bottomEl" class="flex justify-center mt-4 pb-[32px] flex-wrap items-center">
                               <button class="btn btn-warning mr-4" @click="goToFirstPage" :disabled="currentPage === 1">Go to First Page</button>
@@ -176,6 +177,7 @@ const host = 'https://backendvanmangit-production.up.railway.app/'
         mounted() {
             this.getUser()
             this.getFeedbacks();
+            this.get_datetimefromserver()
             setInterval(() => {
                 this.getFeedbacks();
                 this.get_datetimefromserver();
