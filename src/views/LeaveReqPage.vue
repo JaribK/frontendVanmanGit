@@ -49,7 +49,7 @@
                 </div>
                 <div id="table" class="overflow-x-auto w-full flex justify-center flex-col items-center mb-10">
                         <table class="table py-[100px] w-[80%] text-center">
-                            <thead class="text-black bg-emerald-400 rounded-t-lg">
+                            <thead class="text-black bg-emerald-400 drop-shadow-md">
                                 <tr class="rounded-t-lg text-[15px]">
                                     <th class="w-[5%]">No.</th>
                                     <th class="w-[35%]">Leave DateTime that request</th>
@@ -169,6 +169,7 @@
             this.get_datetimefromserver()
             setInterval(() => {
                 this.get_datetimefromserver();
+                this.getlist_leaverequest()
             }, 1000)
         },
         computed: {
@@ -283,10 +284,6 @@
                                             text: 'Leave Request Updated',
                                             icon: 'success',
                                             confirmButtonText: 'OK'
-                                        }).then(() => {
-                                            if (confirm) {
-                                                this.$router.go()
-                                            }
                                         })
                                     })
                             }
@@ -338,10 +335,6 @@
                                         text: 'Leave Request Sent',
                                         icon: 'success',
                                         confirmButtonText: 'OK'
-                                    }).then(() => {
-                                        if (confirm) {
-                                            this.$router.go()
-                                        }
                                     })
                                 })
                             }
@@ -369,10 +362,6 @@
                                 text: 'Leave Request Deleted',
                                 icon: 'success',
                                 confirmButtonText: 'OK'
-                            }).then(() => {
-                                if (confirm) {
-                                    this.$router.go()
-                                }
                             })
                         })
                     }

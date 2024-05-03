@@ -24,19 +24,18 @@
                                   <div class="label">
                                     <span class="label-text">Title</span>
                                   </div>
-                                  <input type="text" placeholder="Title..." class="input input-bordered w-full max-w-xs" v-model="title"/>
+                                  <input type="text" placeholder="Title..." class="input input-bordered w-full max-w-xs" v-model="title" required/>
                                 </label>
                                 <label class="form-control w-full max-w-xs ml-10">
                                   <div class="label">
                                     <span class="label-text">Type</span>
                                   </div>
                                   <div>
-                                  <select placeholder="" class="input input-bordered w-full max-w-xs"  v-model="types">
+                                  <select placeholder="" class="input input-bordered w-full max-w-xs"  v-model="types" required>
                                     <option value="" disabled selected>(Click!) Select the Topic...</option>
                                     <option value="Bug">Bug</option>
-                                    <option value="Feature">Feature</option>
-                                    <option value="Improvement">Improvement</option>
-                                    <option value="Others">Others</option>
+                                    <option value="Feature Request">Feature Request</option>
+                                    <option value="Nan" disabled>In future...</option>
                                   </select>
                                 </div>
                                 </label>
@@ -47,7 +46,7 @@
                                   <div class="label">
                                     <span class="label-text">Description</span>
                                     </div>
-                                    <textarea placeholder="Description..." class="textarea w-[930px] h-[300px]" v-model="description"></textarea>
+                                    <textarea placeholder="Description..." class="textarea w-[930px] h-[300px]" v-model="description" required></textarea>
                                 </label>
                             </div>
                         <button class="btn bg-success mt-10 w-[250px] text-white" @click="sendFeedback">Send Feedback</button>

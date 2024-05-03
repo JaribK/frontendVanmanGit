@@ -108,7 +108,7 @@
                     </div>
                     <div id="table" class="overflow-x-auto w-full flex justify-center flex-col items-center mb-10">
                         <table class="table py-[100px] w-[100%] text-center">
-                            <thead class="text-black bg-emerald-400 rounded-t-lg text-[15px]">
+                            <thead class="text-black bg-emerald-400 text-[15px] drop-shadow-md">
                                 <tr class="rounded-t-lg">
                                     <th class="w-[5%]">No.</th>
                                     <th class="w-[15%]">Date</th>

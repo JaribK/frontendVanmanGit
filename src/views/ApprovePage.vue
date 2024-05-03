@@ -50,7 +50,7 @@
                         <button type="button" @click="clearForm" class="btn bg-warning w-[150px] text-black rounded-[10px] mx-4 my-[32px] cursor-pointer">Clear Input</button>
                     </div>
                         <table class="table py-[100px] w-[80%] text-center">
-                            <thead class="text-black bg-emerald-400 rounded-t-lg">
+                            <thead class="text-black bg-emerald-400 drop-shadow-md">
                                 <tr class="rounded-t-lg text-[15px]">
                                     <th class="w-[10%]">DateTime Requested</th>
                                     <th class="w-[10%]">Leave DateTime that request</th>
@@ -155,6 +155,7 @@
             this.get_datetimefromserver()
             setInterval(() => {
                 this.get_datetimefromserver();
+                this.getlist_leaverequest()
             }, 1000)
         },
         computed: {
@@ -226,10 +227,6 @@
                         text: 'Status Updated',
                         icon: 'success',
                         confirmButtonText: 'OK'
-                    }).then(() => {
-                        if (confirm) {
-                            this.$router.go()
-                        }
                     })
                 })
             },
@@ -250,10 +247,6 @@
                                 text: 'Leave Request Deleted',
                                 icon: 'success',
                                 confirmButtonText: 'OK'
-                            }).then(() => {
-                                if (confirm) {
-                                    this.$router.go()
-                                }
                             })
                         })
                     }

@@ -84,7 +84,7 @@
                 </div>
                 <div id="table" class="overflow-x-auto w-full flex justify-center flex-col items-center py-[72px]">
                     <table class="table py-[100px] w-[80%] text-center">
-                        <thead class="text-black bg-emerald-400 rounded-t-lg text-[15px]">
+                        <thead class="text-black bg-emerald-400 text-[15px] drop-shadow-md">
                             <tr class="rounded-t-lg">
                                 <th class="w-[10%]">Date Sign</th>
                                 <th class="w-[10%]">Time In</th>
@@ -237,6 +237,8 @@
             this.get_datetimefromserver()
             setInterval(() => {
                 this.get_datetimefromserver();
+                this.getlistTimesheet()
+                this.getConfigSalary()
             }, 1000)
 
         },
@@ -293,8 +295,12 @@
                     WOF: this.wof,
                     WFH: this.wfh
                 }).then(res => {
-                    console.log(res)
-                    this.$router.go()
+                    swal.fire({
+                        title: 'Success',
+                        text: 'Config Salary Updated',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    })
                 })
             },
             downloadTimesheetInExcel() {
@@ -402,10 +408,6 @@
                         text: 'Status Updated',
                         icon: 'success',
                         confirmButtonText: 'OK'
-                    }).then(() => {
-                        if (confirm) {
-                            this.$router.go()
-                        }
                     })
                 })
             },
@@ -426,10 +428,6 @@
                                 text: 'Data has been deleted',
                                 icon: 'success',
                                 confirmButtonText: 'OK'
-                            }).then(() => {
-                                if (confirm) {
-                                    this.$router.go()
-                                }
                             })
                         })
                     } else if (result.dismiss === swal.DismissReason.cancel) {
