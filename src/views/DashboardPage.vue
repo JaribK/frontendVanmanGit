@@ -41,10 +41,10 @@
                         </div>
                         <div id="box" class="animate-fade-up mt-10 w-[500px] h-[250px] bg-yellow-200 drop-shadow-2xl rounded-lg flex flex-row">
                             <div class="flex justify-center items-center w-[50%] h-full">
-                                <div class="text-black text-[20px] font-bold text-center">Users Online Now<br><br> <span class="text-6xl text-success">{{ this.users_online }}</span></div>
+                                <div class="text-black text-[20px] font-bold text-center">Users Online Now<br><br> <span class="text-6xl text-success">{{ users_online }}</span></div>
                             </div>
                             <div class="flex justify-center items-center w-[50%] h-full">
-                                <div class="text-black text-[20px] font-bold text-center">All users in System<br><br> <span class="text-6xl">{{ this.all_users }}</span></div>
+                                <div class="text-black text-[20px] font-bold text-center">All users in System<br><br> <span class="text-6xl">{{ all_users }}</span></div>
                             </div>
                         </div>
                     </div>
@@ -54,7 +54,7 @@
                         <router-link to="/approve-sw">
                             <div id="box" class="transition ease-in-out delay-150  hover:translate-y-16 hover:scale-110 hover:bg-indigo-500 duration-300 animate-fade-up mt-10 w-[500px] h-[250px] bg-red-200 drop-shadow-2xl rounded-lg flex flex-row">
                                 <div id="subtitle" class="w-full text-center text-black font-bold mb-4 py-4 flex flex-col justify-center"><span class="text-[20px]">Amount sign wait for approve</span> <br> <br>
-                                    <span class="text-6xl text-warning">{{ this.amountleft_timesheets }}</span>
+                                    <span class="text-6xl text-warning">{{ amountleft_timesheets }}</span>
                                 </div>
                             </div>
                         </router-link>
@@ -63,7 +63,7 @@
                         <router-link to="/approve-lr">
                             <div id="box" class="transition ease-in-out delay-150  hover:translate-y-16 hover:scale-110 hover:bg-indigo-500 duration-300 animate-fade-up mt-10 w-[500px] h-[250px] bg-violet-200 drop-shadow-2xl rounded-lg flex flex-row">
                                 <div id="subtitle" class="w-full text-center text-black font-bold mb-4 py-4 flex flex-col justify-center"><span class="text-[20px]">Amount leave requests wait for approve</span> <br> <br>
-                                    <span class="text-6xl text-warning">{{ this.amountleft_leavereq }}</span>
+                                    <span class="text-6xl text-warning">{{ amountleft_leavereq }}</span>
                                 </div>
                             </div>
                         </router-link>
