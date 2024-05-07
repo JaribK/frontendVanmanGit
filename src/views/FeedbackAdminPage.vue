@@ -95,7 +95,7 @@
                                         <td>{{ usersList.find(user => user.id === mf.user).first_name }}</td>
                                         <td v-if="mf.status == 0" class="border-b-blue-900 text-red-600 font-bold flex justify-center items-center">
                                             <div class="dropdown dropdown-top dropdown-end ">
-                                              <div tabindex="0" role="button" class="btn m-1 bg-error text-black w-[125px]">Uncheck<svg width="12px" height="12px" class="hidden h-2 w-2 fill-current opacity-60 sm:inline-block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 2048"><path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"></path></svg></div>
+                                              <div tabindex="0" role="button" class="btn m-1 bg-error text-black w-[125px] border-none">Uncheck<svg width="12px" height="12px" class="hidden h-2 w-2 fill-current opacity-60 sm:inline-block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 2048"><path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"></path></svg></div>
                                               <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
                                                   <li class="text-success" @click="patchstatus(mf.id,2)"><a>Success</a></li>
                                                   <li class="text-warning" @click="patchstatus(mf.id,1)"><a>Pending</a></li>
@@ -108,7 +108,7 @@
                                         </td>
                                         <td v-if="mf.status == 1" class="border-b-blue-900 text-warning font-bold flex justify-center items-center">
                                             <div class="dropdown dropdown-top dropdown-end ">
-                                              <div tabindex="0" role="button" class="btn m-1 bg-warning text-black w-[125px]">Pending<svg width="12px" height="12px" class="hidden h-2 w-2 fill-current opacity-60 sm:inline-block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 2048"><path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"></path></svg></div>
+                                              <div tabindex="0" role="button" class="btn m-1 bg-warning text-black w-[125px] border-none">Pending<svg width="12px" height="12px" class="hidden h-2 w-2 fill-current opacity-60 sm:inline-block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 2048"><path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"></path></svg></div>
                                               <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
                                                   <li class="text-success" @click="patchstatus(mf.id,2)"><a>Success</a></li>
                                                   <li class="text-warning" @click="patchstatus(mf.id,1)"><a>Pending</a></li>
@@ -121,7 +121,7 @@
                                         </td>
                                         <td v-if="mf.status == 2" class="border-b-blue-900 text-green-600 font-bold flex justify-center items-center">
                                             <div class="dropdown dropdown-top dropdown-end ">
-                                              <div tabindex="0" role="button" class="btn m-1 bg-success text-black w-[125px]">Success<svg width="12px" height="12px" class="hidden h-2 w-2 fill-current opacity-60 sm:inline-block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 2048"><path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"></path></svg></div>
+                                              <div tabindex="0" role="button" class="btn m-1 bg-success text-black w-[125px] border-none">Success<svg width="12px" height="12px" class="hidden h-2 w-2 fill-current opacity-60 sm:inline-block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 2048"><path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"></path></svg></div>
                                               <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
                                                   <li class="text-success" @click="patchstatus(mf.id,2)"><a>Success</a></li>
                                                   <li class="text-warning" @click="patchstatus(mf.id,1)"><a>Pending</a></li>

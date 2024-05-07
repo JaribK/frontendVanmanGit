@@ -17,10 +17,10 @@
                         <div class="text-black">
                             daily wage WOF : {{ configsalary.WOF }} | daily wage WFH : {{ configsalary.WFH }}
                         </div><br>
-                        <button class="btn bg-warning w-[100px] text-black" onclick="my_modal_1.showModal()"> Edit </button>
+                        <button class="btn bg-warning w-[100px] text-black border-none" onclick="my_modal_1.showModal()"> Edit </button>
                         <dialog id="my_modal_1" class="modal">
                           <div class="modal-box">
-                            <h3 class="font-bold text-lg">Edit<br></h3>
+                            <h3 class="font-bold text-lg ">Edit<br></h3>
                             <div class="flex justify-center flex-col">
                                 <label class="form-control w-full">
                                   <div class="label">
@@ -37,8 +37,8 @@
                             </div>
                             <div class="modal-action">
                               <form method="dialog">
-                                <button class="btn btn-success" @click="updateconfigsalary">Confirm</button>
-                                <button class="btn btn-error ml-4">Close</button>
+                                <button class="btn btn-success border-none" @click="updateconfigsalary">Confirm</button>
+                                <button class="btn btn-error ml-4 border-none">Close</button>
                               </form>
                             </div>
                           </div>
@@ -78,8 +78,8 @@
                         </label>
                     </div>
                     <div class="w-full flex justify-center flex-wrap">
-                        <input type="button" @click="downloadTimesheetInExcel" value="download list of attendance" class="btn w-[250px] h-[50px] bg-[#3668A7] text-white rounded-[10px] my-[32px] cursor-pointer">
-                        <button type="button" @click="clearForm" class="btn bg-warning w-[150px] h-[50px]  text-black rounded-[10px] mx-4 my-[32px] cursor-pointer">Clear Input</button>
+                        <input type="button" @click="downloadTimesheetInExcel" value="download list of attendance" class=" border-none btn w-[250px] h-[50px] bg-[#3668A7] text-white rounded-[10px] my-[32px] cursor-pointer">
+                        <button type="button" @click="clearForm" class="btn bg-warning w-[150px] h-[50px] border-none text-black rounded-[10px] mx-4 my-[32px] cursor-pointer">Clear Input</button>
                     </div>
                 </div>
                 <div id="table" class="overflow-x-auto w-full flex justify-center flex-col items-center py-[72px]">
@@ -112,7 +112,7 @@
                                         </td>
                                         <td v-if="liftts.status == 0" class="border-b-blue-900 text-red-600 font-bold flex justify-center items-center">
                                             <div class="dropdown dropdown-top dropdown-end ">
-                                              <div tabindex="0" role="button" class="btn m-1 bg-error text-black w-[125px]">Rejected<svg width="12px" height="12px" class="hidden h-2 w-2 fill-current opacity-60 sm:inline-block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 2048"><path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"></path></svg></div>
+                                              <div tabindex="0" role="button" class="btn m-1 bg-error text-black w-[125px] border-none">Rejected<svg width="12px" height="12px" class="hidden h-2 w-2 fill-current opacity-60 sm:inline-block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 2048"><path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"></path></svg></div>
                                               <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
                                                   <li class="text-success" @click="patchstatus(liftts.id,2)"><a>Approve</a></li>
                                                   <li class="text-warning" @click="patchstatus(liftts.id,1)"><a>Pend</a></li>
@@ -125,7 +125,7 @@
                                         </td>
                                         <td v-if="liftts.status == 1" class="border-b-blue-900 text-warning font-bold flex justify-center items-center">
                                             <div class="dropdown dropdown-top dropdown-end ">
-                                              <div tabindex="0" role="button" class="btn m-1 bg-warning text-black w-[125px]">Pending<svg width="12px" height="12px" class="hidden h-2 w-2 fill-current opacity-60 sm:inline-block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 2048"><path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"></path></svg></div>
+                                              <div tabindex="0" role="button" class="btn m-1 bg-warning text-black w-[125px] border-none">Pending<svg width="12px" height="12px" class="hidden h-2 w-2 fill-current opacity-60 sm:inline-block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 2048"><path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"></path></svg></div>
                                               <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
                                                   <li class="text-success" @click="patchstatus(liftts.id,2)"><a>Approve</a></li>
                                                   <li class="text-warning" @click="patchstatus(liftts.id,1)"><a>Pend</a></li>
@@ -138,7 +138,7 @@
                                         </td>
                                         <td v-if="liftts.status == 2" class="border-b-blue-900 text-green-600 font-bold flex justify-center items-center">
                                             <div class="dropdown dropdown-top dropdown-end ">
-                                              <div tabindex="0" role="button" class="btn m-1 bg-success text-black w-[125px]">Approved<svg width="12px" height="12px" class="hidden h-2 w-2 fill-current opacity-60 sm:inline-block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 2048"><path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"></path></svg></div>
+                                              <div tabindex="0" role="button" class="btn m-1 bg-success text-black w-[125px] border-none">Approved<svg width="12px" height="12px" class="hidden h-2 w-2 fill-current opacity-60 sm:inline-block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 2048"><path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"></path></svg></div>
                                               <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
                                                   <li class="text-success" @click="patchstatus(liftts.id,2)"><a>Approve</a></li>
                                                   <li class="text-warning" @click="patchstatus(liftts.id,1)"><a>Pend</a></li>

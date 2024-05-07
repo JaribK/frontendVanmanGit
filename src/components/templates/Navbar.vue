@@ -6,8 +6,8 @@
                 <div class="flex justify-end flex-1 px-2">
                     <div class="flex items-stretch">
                         <div class="dropdown dropdown-end">
-                            <div class="btn btn-primary mr-2">{{ user.role }}</div>
-                            <div tabindex="0" role="button" class="btn btn-ghost text-black bg-white rounded-btn">Welcome, {{ user.username }}</div>
+                            <div class="btn btn-primary mr-2 border-none">{{ user.role }}</div>
+                            <div tabindex="0" role="button" class="btn btn-ghost text-black bg-white rounded-btn border-none">Welcome, {{ user.username }}</div>
                                 <ul tabindex="0" class="menu dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-54 mt-4">
                                     <li v-if="this.$route.path !== '/home'"><router-link to="/home">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">

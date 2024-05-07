@@ -68,8 +68,8 @@
                         <div class="bg-[#303346] h-fit p-12 drop-shadow-2xl">
                             <div>
                                 <div class="flex flex-wrap place-items-center h-full gap-12">
-                                    <button class="btn w-[212px] h-[48px] btn-warning" @click="sendEmail">Reset Password</button>
-                                    <button class="btn w-[212px] h-[48px] mx-4 btn-error" @click="buttonInFuture">In Processing</button>
+                                    <button class="btn w-[212px] h-[48px] btn-warning border-none" @click="sendEmail">Reset Password</button>
+                                    <button class="btn w-[212px] h-[48px] mx-4 btn-error border-none" @click="buttonInFuture">In Processing</button>
                                 </div>
                             </div>
                         </div>

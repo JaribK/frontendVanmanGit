@@ -45,12 +45,12 @@
                                 <textarea id="text" type="text" placeholder="Type here" class="textarea textarea-bordered w-full max-w-xs" cols="15" v-model="text" required></textarea>
                             </label>
                             <div class="w-full flex justify-center flex-wrap mt-10">
-                                <input type="button" :disabled="checkSigninToday()" @click="checkdatematchholidays" value="Start Work" class="btn w-[300px] h-[50px] mt-10 bg-[#3668A7] text-white rounded-[10px] cursor-pointer">
-                                <button type="button" @click="clearForm" class="btn bg-warning w-[150px] h-[50px]  text-black rounded-[10px] mt-10 mx-4 cursor-pointer">Clear Input</button>
-                                <button type="button" @click="downloadTimesheetInExcel" class="btn w-[300px] h-[50px] bg-gray-400 mt-10 text-black rounded-[10px] mb-4 cursor-pointer">Download my Attendance</button>
+                                <input type="button" :disabled="checkSigninToday()" @click="checkdatematchholidays" value="Start Work" class="btn w-[300px] h-[50px] mt-10 border-none bg-[#3668A7] text-white rounded-[10px] cursor-pointer">
+                                <button type="button" @click="clearForm" class="btn bg-warning w-[150px] h-[50px] border-none text-black rounded-[10px] mt-10 mx-4 cursor-pointer">Clear Input</button>
+                                <button type="button" @click="downloadTimesheetInExcel" class="btn w-[300px] h-[50px] bg-gray-400 mt-10 border-none text-black rounded-[10px] mb-4 cursor-pointer">Download my Attendance</button>
                             </div>
                             <div class="w-full flex justify-center flex-wrap mb-10">
-                                <button type="button" onclick="my_modal_1.showModal()" class="btn bg-error w-[300px] text-white">Belated Sign</button>                     
+                                <button type="button" onclick="my_modal_1.showModal()" class="btn bg-error w-[300px] text-white border-none">Belated Sign</button>                     
                                             <dialog id="my_modal_1" class="modal">
                                               <div class="modal-box">
                                                 <h3 class="font-bold text-base text-center">Belated Sign <br> (If you don't have time to sign the normal form)</h3>
@@ -92,14 +92,14 @@
                                                 </div>
                                                 <div class="modal-action">
                                                   <form method="dialog" class="flex justify-evenly flex-row w-full">
-                                                      <button type="submit" class="btn btn-error" @click="checkdatematchholidays2">Sign</button>
-                                                      <button type="reset" class="btn btn-warning" @click="clearForm">ClearInput</button>
+                                                      <button type="submit" class="btn btn-error border-none" @click="checkdatematchholidays2">Sign</button>
+                                                      <button type="reset" class="btn btn-warning border-none" @click="clearForm">ClearInput</button>
                                                       <button class="btn btn-info">Close</button>
                                                   </form>
                                                 </div>
                                               </div>
                                             </dialog>
-                                    <router-link to="/leave-req"><button type="button" class="btn bg-green-500 w-[150px] h-[50px]  text-black rounded-[10px] mx-4 cursor-pointer">Leave Request</button></router-link>
+                                    <router-link to="/leave-req"><button type="button" class="btn bg-green-500 w-[150px] h-[50px] border-none text-black rounded-[10px] mx-4 cursor-pointer">Leave Request</button></router-link>
                             </div>
                         </form>
                     </div>
@@ -109,7 +109,7 @@
                     <div id="table" class="overflow-x-auto w-full flex justify-center flex-col items-center mb-10">
                         <table class="table py-[100px] w-[100%] text-center">
                             <thead class="text-black bg-emerald-400 text-[15px] drop-shadow-md">
-                                <tr class="rounded-t-lg">
+                                <tr class="rounded-full">
                                     <th class="w-[5%]">No.</th>
                                     <th class="w-[15%]">Date</th>
                                     <th class="w-[10%]">Time In</th>

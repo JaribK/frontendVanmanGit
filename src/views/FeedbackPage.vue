@@ -39,7 +39,7 @@
                                   </select>
                                 </div>
                                 </label>
-                                    <button class="btn bg-error w-[200px] h-[50px] mt-9 ml-10 rounded-[10px] cursor-pointer text-white" @click="clearForm">Clear Input</button>   
+                                    <button class="btn bg-error w-[200px] h-[50px] mt-9 ml-10 rounded-[10px] cursor-pointer text-white border-none" @click="clearForm">Clear Input</button>   
                             </div>
                             <div class=" w-full">
                                 <label class="form-control w-full max-w-xs">
@@ -49,7 +49,7 @@
                                     <textarea placeholder="Description..." class="textarea w-[930px] h-[300px] resize-none" v-model="description" required></textarea>
                                 </label>
                             </div>
-                            <button class="btn bg-success mt-10 w-[250px] text-white" @click="sendFeedback">Send Feedback</button>
+                            <button class="btn bg-success mt-10 w-[250px] text-white border-none" @click="sendFeedback">Send Feedback</button>
                         </div>
                 </div>
             </div>

@@ -50,6 +50,75 @@
                                 <p class="font-bold">**และต้องได้รับการอนุมัติจาก Admin ก่อนถึงจะสามารถลาได้</p>
                               </div>
                             </div>
+                            <div class="collapse collapse-arrow bg-base-200 mb-4 ">
+                                <input type="radio" name="my-accordion-2" /> 
+                                <div class="collapse-title text-xl font-bold">
+                                    Guide for Feedback to Dev Page (Click to open.)
+                                </div>
+                                <div class="collapse-content"> 
+                                    <p>About this Page?</p>
+                                    <p>จะเป็นหน้าสำหรับ user ทั่วไป</p>
+                                    <p>ในหน้านี้ user สามารถส่ง feedback ถึง developer ได้ โดยกรอกข้อมูลให้ครบถ้วนและกดส่ง</p>
+                                    <p>และในส่วนของ table ข้างล่างจะแสดงของ feedback ที user ส่งไปแต่ละอันว่ามีการตอบรับหรือแก้ไขแล้ว</p>
+                                    <br>
+                                </div>
+                            </div>
+                            <div v-if="user.is_superuser == true" class="collapse collapse-arrow bg-base-200 mb-4 ">
+                              <input type="radio" name="my-accordion-2" /> 
+                              <div class="collapse-title text-xl font-bold">
+                                Guide for Dashboard Page (Click to open.)
+                              </div>
+                              <div class="collapse-content"> 
+                                <p>About this Page?</p>
+                                <p>จะเป็นหน้าสำหรับ superuser(admin) จะแสดงรายละเอียดต่างๆให้ได้เห็น</p>
+                                <p>ไม่ว่าจะเป็น จำนวน users ที่ ออนไลน์, users ในระบบที่มีอยู่, เวลาของ server และ จำนวน request</p>
+                                <p>ของการลงชื่อเข้าใช้งานและการขอลา</p>
+                                <br>
+                                <p class="font-bold">**user ต้องมี superuser จึงจะเห็น page นี้</p>
+                              </div>
+                            </div>
+                            <div v-if="user.is_superuser == true || user.role == 'Web Developer Trainee'" class="collapse collapse-arrow bg-base-200 mb-4 ">
+                              <input type="radio" name="my-accordion-2" /> 
+                              <div class="collapse-title text-xl font-bold">
+                                Guide for Feedback from User Page (Click to open.)
+                              </div>
+                              <div class="collapse-content"> 
+                                <p>About this Page?</p>
+                                <p>จะเป็นหน้าสำหรับ superuser(admin) และ Web developer Trainee </p>
+                                <p>จะเป็นหน้าที่แสดง feedback ที่ได้จาก user และผู้ที่รับผิดชอบในหน้านี้จะต้องคอบรับผิดชอบตรวจเช็ค feedback จาก user</p>
+                                <p>โดย การปรับ status ของแต่ละ feedback จะมี 3 status คือ Uncheck, Pending, Success</p>
+                                <br>
+                                <p class="font-bold">**user ต้องมี superuser หรือมี role เป็น Web developer Trainee จึงจะเห็น page นี้</p>
+                              </div>
+                            </div>
+                            <div v-if="user.is_superuser == true" class="collapse collapse-arrow bg-base-200 mb-4 ">
+                              <input type="radio" name="my-accordion-2" /> 
+                              <div class="collapse-title text-xl font-bold">
+                                Guide for Manage Attendance Page (Click to open.)
+                              </div>
+                              <div class="collapse-content"> 
+                                <p>About this Page?</p>
+                                <p>จะเป็นหน้าสำหรับ superuser(admin) ในการจัดการการลงชื่อเข้างานและลงชื่ออกงาน </p>
+                                <p>จะเป็นหน้าที่แสดง request start work จาก user ผู้ดูแลมีส่วนที่ต้องอนุมัติการลงชื่อเข้าใช้งานในแต่ละวัน</p>
+                                <p>โดย การปรับ status ของแต่ละ feedback จะมี 3 status คือ Rejected, Pending, Approved</p>
+                                <br>
+                                <p class="font-bold">**user ต้องมี superuser จึงจะเห็น page นี้</p>
+                              </div>
+                            </div>
+                            <div v-if="user.is_superuser == true" class="collapse collapse-arrow bg-base-200 mb-4 ">
+                              <input type="radio" name="my-accordion-2" /> 
+                              <div class="collapse-title text-xl font-bold">
+                                Guide for Manage Leave Request Page (Click to open.)
+                              </div>
+                              <div class="collapse-content"> 
+                                <p>About this Page?</p>
+                                <p>จะเป็นหน้าสำหรับ superuser(admin) ในการจัดการการลงชื่อลางาน</p>
+                                <p>จะเป็นหน้าที่แสดงคำขอลา ที่ได้จาก user และผู้ที่รับผิดชอบในหน้านี้จะต้องคอบรับผิดชอบตรวจเช็ค request จาก user</p>
+                                <p>โดย การปรับ status ของแต่ละ feedback จะมี 3 status คือ Rejected, Pending, Approved</p>
+                                <br>
+                                <p class="font-bold">**user ต้องมี superuser จึงจะเห็น page นี้</p>
+                              </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -57,14 +126,23 @@
                     <div class="flex justify-center w-full py-10">
                         <div class="font-bold text-black text-[20px]">Ask for more information</div>
                     </div>
+                    <div id="discord" class="w-full h-fit flex justify-center pb-10">
+                        <iframe
+                          src="https://discord.com/widget?id=1237246053099765812&theme=dark"
+                          width="350"
+                          height="250"
+                          allowtransparency="true"
+                          frameborder="0"
+                          sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts">
+                        </iframe>
+                    </div>
                     <div class="flex justify-center w-full">
                         <div class="w-[80%]">
-                            <div class="text-black text-[16px] text-center">Email : admin@admin.com
-                                <br>Tel : 02-123-4567
+                            <div class="text-black text-[16px] text-center">Email : k.yorinforwork@gmail.com
+                                <br>Tel : 098-523-2540
                             </div>
                         </div>
                     </div>
-                        
                 </div>
         </div>
 </div>
@@ -78,10 +156,10 @@ const host = 'https://backendvanmangit-production.up.railway.app/'
         name: 'HelpPage',
         data(){
             return{
+                user: JSON.parse(localStorage.getItem('user'))
             }
         },
         mounted() {
-        
         },
         methods : {
         }
