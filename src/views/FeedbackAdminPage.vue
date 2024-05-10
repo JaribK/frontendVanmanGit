@@ -39,7 +39,7 @@
             <div id="my-feedback" class="w-full h-dvh bg-white animate-fade-up animate-once">
                 <div id="title" class="w-full text-center text-[20px] font-bold text-black pt-10">All Feedbacks</div>
                 <div id="table" class="overflow-x-auto w-[80%] flex justify-center flex-col items-center mb-10 mx-auto py-10">
-                        <table class="table py-[100px] w-[100%] text-center">
+                        <table class="table py-[200px] w-[100%] text-center">
                             <thead class="text-black bg-emerald-400 text-[15px] drop-shadow-md">
                                 <tr class="rounded-t-lg">
                                     <th class="w-[10%]">DateTime</th>
