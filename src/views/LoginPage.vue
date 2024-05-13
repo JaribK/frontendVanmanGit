@@ -49,7 +49,7 @@
                     password: this.password
                 });
                     localStorage.setItem('token', response.data.token);
-                    localStorage.setItem('user', response.data.user);
+                    localStorage.setItem('user', JSON.stringify(response.data.user));
                     swal.fire({
                         title: 'Success',
                         text: 'Login Success',

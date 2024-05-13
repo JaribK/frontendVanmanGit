@@ -110,13 +110,13 @@ import * as jwt_decode from 'jwt-decode';
         name: "Navbar",
         data() {
             return {
-                user: this.$store.state.user,
-                user_id: this.$store.state.user.id,
+                user: '',
+                user_id: '',
                 showAdminDropdown: false,
             }
         },
-        created() {
-            this.getUser()
+        mounted() {
+          this.getUser()
         },
         methods: {
           // getUser() {
