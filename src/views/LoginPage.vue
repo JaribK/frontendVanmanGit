@@ -47,9 +47,7 @@
                     username: this.username,
                     password: this.password
                 });
-                    const user = JSON.stringify(response.data.user);
                     localStorage.setItem('token', response.data.token);
-                    localStorage.setItem('user', user);
                     swal.fire({
                         title: 'Success',
                         text: 'Login Success',

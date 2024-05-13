@@ -216,10 +216,18 @@
             gettoday(){
                 this.today = moment().format('YYYY-MM-DD')
             },
-            getUser(){
-                const userjson = localStorage.getItem('user')
-                const user_data = JSON.parse(userjson)
-                this.user = user_data
+            async getUser() {
+              await axios.get(`${host}api/token/`, {
+                  headers: {
+                    "Content-Type" : "application/json",
+                    'Authorization': `Token ${localStorage.getItem('token')}` 
+                  }
+              }).then((response) => {
+                  this.user = response.data.user
+                  this.user_id = response.data.user.id
+              }).catch((err) => {
+                  console.log(err)
+              })
             },
             getlist_leaverequest(){
                 axios.get(`${host}leave_requests`)

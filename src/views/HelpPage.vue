@@ -156,12 +156,26 @@ const host = 'https://backendvanmangit-production.up.railway.app/'
         name: 'HelpPage',
         data(){
             return{
-                user: JSON.parse(localStorage.getItem('user'))
+                user: ''
             }
         },
         mounted() {
+            this.getUser()
         },
         methods : {
+          async getUser() {
+              await axios.get(`${host}api/token/`, {
+                  headers: {
+                    "Content-Type" : "application/json",
+                    'Authorization': `Token ${localStorage.getItem('token')}` 
+                  }
+              }).then((response) => {
+                  this.user = response.data.user
+                  this.user_id = response.data.user.id
+              }).catch((err) => {
+                  console.log(err)
+              })
+          },
         }
         
     }
