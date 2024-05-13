@@ -163,19 +163,12 @@ const host = 'https://backendvanmangit-production.up.railway.app/'
             this.getUser()
         },
         methods : {
-          async getUser() {
-              await axios.get(`${host}api/token/`, {
-                  headers: {
-                    "Content-Type" : "application/json",
-                    'Authorization': `Token ${localStorage.getItem('token')}` 
-                  }
-              }).then((response) => {
-                  this.user = response.data.user
-                  this.user_id = response.data.user.id
-              }).catch((err) => {
-                  console.log(err)
-              })
-          },
+          getUser() {
+                const userjson = localStorage.getItem('user')
+                const user_data = JSON.parse(userjson)
+                this.user = user_data
+                this.user_id = user_data.id
+            },
         }
         
     }

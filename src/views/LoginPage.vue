@@ -23,6 +23,7 @@
 <script>
     import axios from 'axios'
     import swal from 'sweetalert2'
+    const host = 'https://backendvanmangit-production.up.railway.app/'
 
     export default {
         name: 'LoginPage',
@@ -48,6 +49,7 @@
                     password: this.password
                 });
                     localStorage.setItem('token', response.data.token);
+                    localStorage.setItem('user', response.data.user);
                     swal.fire({
                         title: 'Success',
                         text: 'Login Success',

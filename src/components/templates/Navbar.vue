@@ -104,17 +104,19 @@
 import axios from 'axios'
 import swal from 'sweetalert2'
 const host = 'https://backendvanmangit-production.up.railway.app/'
+import * as jwt_decode from 'jwt-decode';
+
     export default {
         name: "Navbar",
         data() {
             return {
-                user: '',
-                user_id: '',
+                user: this.$store.state.user,
+                user_id: this.$store.state.user.id,
                 showAdminDropdown: false,
             }
         },
         created() {
-            this.getUserfromToken()
+            this.getUser()
         },
         methods: {
           // getUser() {
@@ -123,19 +125,13 @@ const host = 'https://backendvanmangit-production.up.railway.app/'
           //     this.user = user_data
           //     this.user_id = user_data.id
           // },
-          async getUserfromToken() {
-              await axios.get(`${host}api/token/`, {
-                  headers: {
-                    "Content-Type" : "application/json",
-                    'Authorization': `Token ${localStorage.getItem('token')}` 
-                  }
-              }).then((response) => {
-                  this.user = response.data.user
-                  this.user_id = response.data.user.id
-              }).catch((err) => {
-                  console.log(err)
-              })
+          getUser() {
+                const userjson = localStorage.getItem('user')
+                const user_data = JSON.parse(userjson)
+                this.user = user_data
+                this.user_id = user_data.id
           },
+          
           toggleAdminDropdown() {
               this.showAdminDropdown = !this.showAdminDropdown;
             },
