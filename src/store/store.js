@@ -5,6 +5,13 @@ const store = createStore({
     },
     mutations: {
     },
+    actions: {
+    },
+    modules: {
+    },
+    getters: {
+    }
 });
 
 export default store;
+

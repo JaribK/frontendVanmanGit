@@ -113,18 +113,26 @@ import * as jwt_decode from 'jwt-decode';
                 user: '',
                 user_id: '',
                 showAdminDropdown: false,
+                timer:''
             }
         },
         mounted() {
           this.getUser()
+          this.resetTimer();
+          document.addEventListener('mousemove', this.resetTimer());
+          document.addEventListener('keypress', this.resetTimer());
+        },
+        beforeDestroy() {
+          document.removeEventListener('mousemove', this.resetTimer());
+          document.removeEventListener('keypress', this.resetTimer());
         },
         methods: {
-          // getUser() {
-          //     const userjson = localStorage.getItem('user')
-          //     const user_data = JSON.parse(userjson)
-          //     this.user = user_data
-          //     this.user_id = user_data.id
-          // },
+          resetTimer() {
+            clearTimeout(this.timer);
+            this.timer = setTimeout(() => {
+                this.logout();
+            }, 30 * 60 * 1000);
+          },
           getUser() {
                 const userjson = localStorage.getItem('user')
                 const user_data = JSON.parse(userjson)
@@ -135,36 +143,36 @@ import * as jwt_decode from 'jwt-decode';
           toggleAdminDropdown() {
               this.showAdminDropdown = !this.showAdminDropdown;
             },
-            async logout(){
-                await axios.post(host + 'api/logout/',{},
-                    {
-                        headers: {
-                            'Authorization': `Token ${localStorage.getItem('token')}`
-                        }
-                    }
-                ).then(() => {
-                    localStorage.removeItem('user');
-                    localStorage.removeItem('token');
-                    const Toast = swal.mixin({
-                      toast: true,
-                      position: "top-end",
-                      showConfirmButton: false,
-                      timer: 3000,
-                      timerProgressBar: true,
-                      didOpen: (toast) => {
-                        toast.onmouseenter = swal.stopTimer;
-                        toast.onmouseleave = swal.resumeTimer;
+          async logout(){
+              await axios.post(host + 'api/logout/',{},
+                  {
+                      headers: {
+                          'Authorization': `Token ${localStorage.getItem('token')}`
                       }
-                    });
-                    Toast.fire({
-                      icon: "success",
-                      title: "Logged out successfully"
-                    });
-                    this.$router.push('/');
-                }).catch((err) => {
-                    console.log(err)
-                })
-            },
+                  }
+              ).then(() => {
+                  localStorage.removeItem('user');
+                  localStorage.removeItem('token');
+                  const Toast = swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                      toast.onmouseenter = swal.stopTimer;
+                      toast.onmouseleave = swal.resumeTimer;
+                    }
+                  });
+                  Toast.fire({
+                    icon: "success",
+                    title: "Logged out successfully"
+                  });
+                  this.$router.push('/');
+              }).catch((err) => {
+                  console.log(err)
+              })
+          },
         }
     }
 </script>
