@@ -74,6 +74,13 @@
                             icon: 'error',
                             confirmButtonText: 'OK'
                         });
+                    } else if (this.password.length < 8) {
+                        swal.fire({
+                            title: 'Warning',
+                            text: 'The length of password must be more than 8 digits',
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
                     } else if (this.username.length < 6) {
                         swal.fire({
                             title: 'Warning',

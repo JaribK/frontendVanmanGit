@@ -38,11 +38,23 @@
                             <div class="label">
                               <span class="label-text text-black">filter by status</span>
                             </div>
-                          <select class="select select-bordered " v-model="selectedStatus" @change="filterByStatus">
+                          <select class="select select-bordered " v-model="selectedStatus">
                             <option value="">All</option>
                             <option value="0">Rejected</option>
                             <option value="1">Pending</option>
                             <option value="2">Approved</option>
+                          </select>
+                        </label>
+                        <label class="form-control w-full max-w-xs ml-4">
+                            <div class="label">
+                              <span class="label-text text-black">filter by types</span>
+                            </div>
+                          <select class="select select-bordered " v-model="selectedTypeofLeave">
+                                <option value="">All</option>
+                                <option value="sick leave">Sick Leave</option>
+                                <option value="personal leave">Personal Leave</option>
+                                <option value="annual leave">Annual Leave</option>
+                                <option value="other" >Other</option>
                           </select>
                         </label>
                     </div>
@@ -57,7 +69,8 @@
                                     <th class="w-[20%]">Description</th>
                                     <th class="w-[10%]">Tel</th>
                                     <th class="w-[20%]">Send Request by</th>
-                                    <th class="w-[30%]">Status</th>
+                                    <th class="w-[10%]">Type of Leave</th>
+                                    <th class="w-[20%]">Status</th>
                                 </tr>
                             </thead>
                             <tbody class="text-black text-center" v-if="displayedAttendance.length > 0">
@@ -67,6 +80,7 @@
                                         <td class="border-b-blue-900">{{ lr.description }}</td>
                                         <td class="border-b-blue-900">{{ lr.tel }}</td>
                                         <td class="border-b-blue-900">{{ lr.who_signed }}</td>
+                                        <td class="border-b-blue-900">{{ lr.type_of_leave }}</td>
                                         <td v-if="lr.status == 0" class="border-b-blue-900 text-red-600 font-bold flex justify-center items-center">
                                             <div class="dropdown dropdown-top dropdown-end ">
                                               <div tabindex="0" role="button" class="btn m-1 bg-error text-black w-[125px] border-none">Rejected<svg width="12px" height="12px" class="hidden h-2 w-2 fill-current opacity-60 sm:inline-block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 2048"><path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"></path></svg></div>
@@ -145,6 +159,7 @@
                 currentPage: 1,
                 itemsPerPage: 10,
                 selectedStatus: '',
+                selectedTypeofLeave: '',
                 server_datetime: '',
                 server_date: '',
                 server_time: ''
@@ -164,7 +179,8 @@
                     return (
                       list.who_signed.toLowerCase().includes(this.search.toLowerCase()) &&
                       (!this.datestart || !this.dateend || (list.datetime_requested >= this.datestart && list.datetime_requested <= this.dateend)) &&
-                      (!this.selectedStatus || list.status == this.selectedStatus)
+                      (!this.selectedStatus || list.status == this.selectedStatus) &&
+                      (!this.selectedTypeofLeave || list.type_of_leave == this.selectedTypeofLeave)
                     );
                   });
             },

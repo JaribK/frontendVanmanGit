@@ -44,14 +44,14 @@
       },
       async resetPassword() {
         if (this.newPassword === this.confirmPassword) {
-          if (this.newPassword.length < 6) {
+          if (this.newPassword.length < 8) {
             swal.fire({
                 title: 'warning',
-                text: 'The length of username must be more than 6 digits',
+                text: 'The length of password must be more than 8 digits',
                 icon: 'error',
                 confirmButtonText: 'OK'
             });
-          }else{
+          } else {
             if (!this.newPassword.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&_-])[A-Za-z\d@$!%*?&_-]{8,}$/)) {
               swal.fire({
                   title: 'warning',

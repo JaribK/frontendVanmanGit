@@ -29,10 +29,11 @@
                             <div class="label">
                               <span class="label-text text-black">filter by Status</span>
                             </div>
-                          <select class="select select-bordered " v-model="selectedStatus" @change="filterByStatus">
+                          <select class="select select-bordered " v-model="selectedStatus" @change="filterByStatusAndType">
                             <option value="">All</option>
                             <option value="0">wait for response</option>
-                            <option value="1">Checked & Accepted</option>
+                            <option value="1">In progressing</option>
+                            <option value="2">Done</option>
                           </select>
                         </label>
             </div>
@@ -182,7 +183,7 @@ const host = 'https://backendvanmangit-production.up.railway.app/'
                 return this.feedbacks_list.filter(list => {
                     return (
                         (this.selectedTypes ? list.type === this.selectedTypes : true) &&
-                        (this.selectedStatus ? list.status == this.selectedStatus : true)
+                        (this.selectedStatus ? list.status == this.selectedStatus : true || this.selectedStatus == '0' && list.status == 0 || this.selectedStatus == '1' && list.status == 1 || this.selectedStatus == '2' && list.status == 2)
                     );
                 });
             },

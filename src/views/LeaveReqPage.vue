@@ -31,6 +31,18 @@
                         </label>
                         <label class="form-control w-full max-w-xs">
                             <div class="label">
+                                <span class="label-text text-black">Type of leave</span>
+                            </div>
+                            <select class="select select-bordered" v-model="type_of_leave" required>
+                                <option disabled selected>Please Pick one</option>
+                                <option value="sick leave">Sick Leave</option>
+                                <option value="personal leave">Personal Leave</option>
+                                <option value="annual leave">Annual Leave</option>
+                                <option value="other" >Other</option>
+                            </select>
+                        </label>
+                        <label class="form-control w-full max-w-xs">
+                            <div class="label">
                                 <span class="label-text text-black">Description (Reason for leave request)</span>
                             </div>
                             <input id="description" type="text" placeholder="Type here" class="input input-bordered w-full max-w-xl mb-10" v-model="description" required/>
@@ -52,9 +64,10 @@
                             <thead class="text-black bg-emerald-400 drop-shadow-md">
                                 <tr class="rounded-t-lg text-[15px]">
                                     <th class="w-[5%]">No.</th>
-                                    <th class="w-[35%]">Leave DateTime that request</th>
-                                    <th class="w-[30%]">Description</th>
-                                    <th class="w-[20%]">Status</th>
+                                    <th class="w-[30%]">Leave DateTime that request</th>
+                                    <th class="w-[15%]">Type of Leave</th>
+                                    <th class="w-[35%]">Description</th>
+                                    <th class="w-[15%]">Status</th>
                                     <th class="w-[10%]">Manage</th>
                                 </tr>
                             </thead>
@@ -62,6 +75,7 @@
                                     <tr v-for="lr,index in displayedAttendance" :key="lr.id" class="border-b-black">
                                         <td class="border-b-blue-900">{{ index + 1 }}</td>
                                         <td class="border-b-blue-900">{{ formatDateTime(lr.datetime_start) }} - {{ formatDateTime(lr.datetime_end) }}</td>
+                                        <td class="border-b-blue-900">{{ lr.type_of_leave  }}</td>
                                         <td class="border-b-blue-900">{{ lr.description }}</td>
                                         <td v-if="lr.status == 0" class="border-b-blue-900 text-red-600 font-bold">Rejected</td>
                                         <td v-if="lr.status == 1" class="border-b-blue-900 text-warning font-bold">Pending</td>
@@ -88,6 +102,18 @@
                                                             <span class="label-text text-black">Leave DateTime End</span>
                                                         </div>
                                                         <input id="datetimeout" type="datetime-local" placeholder="Type here" class="input input-bordered w-full max-w-xl mb-4" v-model="datetime_end" required/>
+                                                    </label>
+                                                    <label class="form-control w-full max-w-xs">
+                                                        <div class="label">
+                                                            <span class="label-text text-black">Type of leave</span>
+                                                        </div>
+                                                        <select class="select select-bordered" v-model="type_of_leave" required>
+                                                            <option disabled selected>Please Pick one</option>
+                                                            <option value="sick leave">Sick Leave</option>
+                                                            <option value="personal leave">Personal Leave</option>
+                                                            <option value="annual leave">Annual Leave</option>
+                                                            <option value="other" >Other</option>
+                                                        </select>
                                                     </label>
                                                     <label class="form-control w-full max-w-xs">
                                                         <div class="label">
@@ -150,6 +176,7 @@
                 user_id: '',
                 datetime_start: '',
                 datetime_end: '',
+                type_of_leave: '',
                 description:'',
                 tel:'',
                 list_leaverequest: [],
@@ -233,12 +260,13 @@
                   this.datetime_end = '';
                   this.description = '';
                   this.tel = '';
+                  this.type_of_leave = '';
             },
             formatDateTime(datetime){
                 return moment(datetime).format('D MMM YYYY | hh:mm A')
             },
             patch_leaverequest(id){
-                if (this.datetime_start == '' || this.datetime_end == '' || this.description == '' || this.tel == '') {
+                if (this.datetime_start == '' || this.datetime_end == '' || this.description == '' || this.tel == '' || this.type_of_leave == '') {
                     swal.fire({
                         title: 'Error',
                         text: 'All field must be filled',
@@ -278,6 +306,7 @@
                                         datetime_end: this.datetime_end,
                                         description: this.description,
                                         tel: this.tel,
+                                        type_of_leave: this.type_of_leave,
                                     })
                                     .then((res) => {
                                         swal.fire({
@@ -328,6 +357,7 @@
                                     who_signed: this.user.first_name + ' ' + this.user.last_name,
                                     status: 1,
                                     tel: this.tel,
+                                    type_of_leave: this.type_of_leave,
                                     user: this.user.id
                                 })
                                 .then((res) => {

@@ -76,7 +76,7 @@
                     } else {
                         swal.fire({
                             title: 'Warning',
-                            text: 'Something went wrong',
+                            text: 'No username or password in the system, please register first',
                             icon: 'warning',
                             confirmButtonText: 'OK'
                         });
