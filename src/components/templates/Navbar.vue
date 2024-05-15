@@ -103,7 +103,7 @@
 <script>
 import axios from 'axios'
 import swal from 'sweetalert2'
-const host = 'https://backendvanmangit-production.up.railway.app/'
+let host = ''
 import * as jwt_decode from 'jwt-decode';
 
     export default {
@@ -115,6 +115,9 @@ import * as jwt_decode from 'jwt-decode';
                 showAdminDropdown: false,
                 timer:''
             }
+        },
+        created() {
+          host = this.$store.state.host
         },
         mounted() {
           this.getUser()

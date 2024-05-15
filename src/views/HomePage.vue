@@ -163,7 +163,7 @@
 import axios from 'axios'
 import swal from 'sweetalert2'
 import * as XLSX from 'xlsx'
-const host = 'https://backendvanmangit-production.up.railway.app/';
+let host = ''
 import moment from 'moment'
 
     export default {
@@ -190,6 +190,9 @@ import moment from 'moment'
                 server_date: '',
                 server_time: ''
             }
+        },
+        created() {
+          host = this.$store.state.host
         },
 
         mounted() {

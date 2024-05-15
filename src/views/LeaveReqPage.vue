@@ -166,7 +166,7 @@
 <script>
     import axios from 'axios'
     import swal from 'sweetalert2'
-    const host = 'https://backendvanmangit-production.up.railway.app/'
+    let host = ''
     import moment from 'moment'
     export default {
         name: 'LeaveReqPage',
@@ -188,6 +188,9 @@
                 server_date: '',
                 server_time: ''
             }
+        },
+        created() {
+          host = this.$store.state.host
         },
         mounted(){
             this.getUser()

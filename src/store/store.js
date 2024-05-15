@@ -1,7 +1,8 @@
-import { createStore } from 'vuex';
+import Vuex from 'vuex';
 
-const store = createStore({
+const store = new Vuex.Store({
     state: {
+        host:'https://backendvanmangit-production.up.railway.app/'
     },
     mutations: {
     },

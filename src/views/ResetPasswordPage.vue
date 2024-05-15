@@ -25,7 +25,7 @@
 <script>
   import axios from 'axios';
   import swal from 'sweetalert2';
-  const host = 'https://backendvanmangit-production.up.railway.app/'
+  let host = ''
   export default {
     name: 'ResetPasswordPage',
     data() {
@@ -34,6 +34,9 @@
         confirmPassword: '',
         token: '',
       };
+    },
+    created() {
+          host = this.$store.state.host
     },
     mounted() {
       this.gettokenfromurlparams();

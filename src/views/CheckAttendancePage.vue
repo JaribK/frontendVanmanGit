@@ -171,7 +171,7 @@
 
 <script>
     import axios from 'axios'
-    const host = 'https://backendvanmangit-production.up.railway.app/';
+    let host = ''
     import * as XLSX from 'xlsx'
     import swal from 'sweetalert2'
     import moment from 'moment'
@@ -230,6 +230,9 @@
             }
         
 
+        },
+        created() {
+          host = this.$store.state.host
         },
         mounted(){
             this.getlistTimesheet()

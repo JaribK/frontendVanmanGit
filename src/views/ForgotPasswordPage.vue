@@ -32,7 +32,7 @@
 <script>
 import axios from 'axios'
 import swal from 'sweetalert2'
-const host = 'https://backendvanmangit-production.up.railway.app/'
+let host = ''
     export default {
         name: 'ForgotPasswordPage',
         data() {
@@ -42,6 +42,9 @@ const host = 'https://backendvanmangit-production.up.railway.app/'
                 usersList: [],
                 listUsersEamil: []
             }
+        },
+        created() {
+          host = this.$store.state.host
         },
         mounted(){
             this.getUsers()

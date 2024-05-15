@@ -84,7 +84,7 @@
 import axios from 'axios'
 import swal from 'sweetalert2'
 import moment from 'moment'
-const host = 'https://backendvanmangit-production.up.railway.app/'
+let host = ''
     export default {
         name: 'ProfilePage',
         data(){
@@ -98,6 +98,9 @@ const host = 'https://backendvanmangit-production.up.railway.app/'
                 usersList: [],
                 listUsersEamil: []
             }
+        },
+        created() {
+          host = this.$store.state.host
         },
         mounted(){
             this.getUser()

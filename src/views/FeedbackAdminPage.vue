@@ -162,7 +162,7 @@
 import moment from 'moment'
 import axios from 'axios'
 import swal from "sweetalert2";
-const host = 'https://backendvanmangit-production.up.railway.app/'
+let host = ''
     export default {
         name: 'FeedbackAdminPage',
         data() {
@@ -198,6 +198,9 @@ const host = 'https://backendvanmangit-production.up.railway.app/'
                 });
                 return sortedAttendance.slice(startIndex, endIndex);
             }
+        },
+        created() {
+          host = this.$store.state.host
         },
         mounted(){
             this.getUsers()

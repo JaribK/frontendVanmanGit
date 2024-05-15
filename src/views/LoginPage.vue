@@ -23,7 +23,7 @@
 <script>
     import axios from 'axios'
     import swal from 'sweetalert2'
-    const host = 'https://backendvanmangit-production.up.railway.app/'
+    let host = ''
 
     export default {
         name: 'LoginPage',
@@ -34,6 +34,7 @@
             }
         },
         created(){
+            host = this.$store.state.host
             this.checkUserlogin()
         },
         methods : {

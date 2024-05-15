@@ -151,13 +151,16 @@
 <script>
 import swal from 'sweetalert2'
 import axios from 'axios'
-const host = 'https://backendvanmangit-production.up.railway.app/'
+let host = ''
     export default {
         name: 'HelpPage',
         data(){
             return{
                 user: ''
             }
+        },
+        created() {
+          host = this.$store.state.host
         },
         mounted() {
             this.getUser()
