@@ -86,7 +86,7 @@
                                             </button>
                                         </td>
                                         <td v-if="lr.status == 1">
-                                            <button type="button" onclick="my_modal_1.showModal()" class="btn btn-warning">Manage</button>                     
+                                            <button type="button" @click="openModal(lr.id)" class="btn btn-warning">Manage</button>                     
                                             <dialog id="my_modal_1" class="modal">
                                               <div class="modal-box">
                                                 <h3 class="font-bold text-lg">Manage this data</h3>
@@ -231,6 +231,13 @@
               if (this.currentPage > 1) {
                 this.currentPage--;
               }
+            },
+            openModal(id) {
+                const modalId = 'my_modal_1';
+                const modal = document.getElementById(modalId);
+                if (modal) {
+                    modal.showModal();
+                }
             },
             nextPage() {
               if (this.currentPage < this.totalPages) {
