@@ -203,9 +203,9 @@ import moment from 'moment'
             this.getlistTimesheet()
             this.fetchHolidays()
             this.getConfigSalary()
-            this.get_datetimefromserver()
+            this.updateDateTime()
             setInterval(() => {
-                this.get_datetimefromserver();
+                this.updateDateTime()
                 this.getlistTimesheet();
             }, 1000)
         },
@@ -231,6 +231,17 @@ import moment from 'moment'
         
 
         methods: {
+            updateDateTime() {
+              const now = new Date();
+              const date = this.formatDate(now);
+              const time = this.format_time(now);
+
+              this.server_datetime = `${date} ${time}`;
+
+              this.server_date = now.toISOString().split('T')[0];
+
+              this.server_time = now.toTimeString().split(' ')[0];
+            },
             async fetchHolidays(){
                 await axios.get('https://apigw1.bot.or.th/bot/public/financial-institutions-holidays/?year=2024', {
                     headers: {
@@ -758,21 +769,21 @@ import moment from 'moment'
                 }
             },
 
-            get_datetimefromserver(){
-                axios.get('https://worldtimeapi.org/api/ip')
-                // https://worldtimeapi.org/api/ip
-                .then(res => {
-                    this.server_datetime = res.data.datetime
-                    const datetime = new Date(this.server_datetime);
+            // get_datetimefromserver(){
+            //     axios.get('https://worldtimeapi.org/api/ip')
+            //     // https://worldtimeapi.org/api/ip
+            //     .then(res => {
+            //         this.server_datetime = res.data.datetime
+            //         const datetime = new Date(this.server_datetime);
             
-                    // Get date in "YYYY-MM-DD" format
-                    this.server_date = datetime.toISOString().split('T')[0];
+            //         // Get date in "YYYY-MM-DD" format
+            //         this.server_date = datetime.toISOString().split('T')[0];
 
-                    // Get time in "HH:MM:SS" format
-                    this.server_time = datetime.toTimeString().split(' ')[0];
+            //         // Get time in "HH:MM:SS" format
+            //         this.server_time = datetime.toTimeString().split(' ')[0];
 
-                })
-            },
+            //     })
+            // },
         }
     }   
 </script>

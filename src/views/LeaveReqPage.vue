@@ -196,9 +196,9 @@
             this.getUser()
             this.getlist_leaverequest()
             this.gettoday()
-            this.get_datetimefromserver()
+            this.updateDateTime()
             setInterval(() => {
-                this.get_datetimefromserver();
+                this.updateDateTime()
                 this.getlist_leaverequest()
             }, 1000)
         },
@@ -409,20 +409,16 @@
                 })
             },
 
-            get_datetimefromserver(){
-                axios.get('https://worldtimeapi.org/api/ip')
-                // https://worldtimeapi.org/api/ip
-                .then(res => {
-                    this.server_datetime = res.data.datetime
-                    const datetime = new Date(this.server_datetime);
-            
-                    // Get date in "YYYY-MM-DD" format
-                    this.server_date = datetime.toISOString().split('T')[0];
+            updateDateTime() {
+              const now = new Date();
+              const date = this.formatDate(now);
+              const time = this.format_time(now);
 
-                    // Get time in "HH:MM:SS" format
-                    this.server_time = datetime.toTimeString().split(' ')[0];
+              this.server_datetime = `${date} ${time}`;
 
-                })
+              this.server_date = now.toISOString().split('T')[0];
+
+              this.server_time = now.toTimeString().split(' ')[0];
             },
         }
     }
