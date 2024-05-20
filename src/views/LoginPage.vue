@@ -67,6 +67,13 @@
                             icon: 'warning',
                             confirmButtonText: 'OK'
                         });
+                    } else if (error.response.status === 403) {
+                        swal.fire({
+                            title: 'Warning',
+                            text: 'User is not activated, please contact the administrator to activate the account',
+                            icon: 'warning',
+                            confirmButtonText: 'OK'
+                        });
                     } else if (error.response.status === 409) {
                         swal.fire({
                             title: 'Warning',
