@@ -446,8 +446,6 @@ import moment from 'moment'
                                     icon: 'success',
                                     title: 'Success',
                                     text: 'Sign for work successfully'
-                                }).then(() => {
-                                    this.$router.go();
                                 })
                             }).catch((err) => {
                                 console.log(err)
@@ -482,8 +480,6 @@ import moment from 'moment'
                                     icon: 'success',
                                     title: 'Success',
                                     text: 'Sign for work successfully'
-                                }).then(() => {
-                                    this.$router.go();
                                 })
                             }).catch((err) => {
                                 console.log(err)
@@ -567,37 +563,6 @@ import moment from 'moment'
                 const wb = XLSX.utils.book_new();
                 XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
                 XLSX.writeFile(wb, `attendance_of_${this.user.first_name}_${this.user.last_name}.xlsx`);
-            },
-
-            async logout(){
-                await axios.post(host + 'api/logout/',{},
-                    {
-                        headers: {
-                            'Authorization': `Token ${localStorage.getItem('token')}`
-                        }
-                    }
-                ).then(() => {
-                    localStorage.removeItem('user');
-                    localStorage.removeItem('token');
-                    const Toast = swal.mixin({
-                      toast: true,
-                      position: "top-end",
-                      showConfirmButton: false,
-                      timer: 3000,
-                      timerProgressBar: true,
-                      didOpen: (toast) => {
-                        toast.onmouseenter = swal.stopTimer;
-                        toast.onmouseleave = swal.resumeTimer;
-                      }
-                    });
-                    Toast.fire({
-                      icon: "success",
-                      title: "Logged out successfully"
-                    });
-                    this.$router.push('/');
-                }).catch((err) => {
-                    console.log(err)
-                })
             },
 
             getUser() {

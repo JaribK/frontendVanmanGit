@@ -40,7 +40,7 @@ let host = ''
                 email: '',
                 IsSend: false,
                 usersList: [],
-                listUsersEamil: []
+                listUsersEmail: []
             }
         },
         created() {
@@ -66,7 +66,7 @@ let host = ''
                 .then((response) => {
                     for (let i = 0; i < response.data.length; i++) {
                         const lE = response.data[i].email
-                        this.listUsersEamil.push(lE)
+                        this.listUsersEmail.push(lE)
                     }
                 })
             },
@@ -81,7 +81,7 @@ let host = ''
                     cancelButtonText: 'No'
                 }).then(async (result) => {
                     if (result.isConfirmed) {
-                        if (this.listUsersEamil.includes(this.email)) {
+                        if (this.listUsersEmail.includes(this.email)) {
                             await axios.post(`${host}reset_password/`, {
                                 email: this.email
                             }).then((response) => {

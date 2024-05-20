@@ -271,36 +271,6 @@
                     }
                 })
             },
-            async logout(){
-                await axios.post(host + 'api/logout/',{},
-                    {
-                        headers: {
-                            'Authorization': `Token ${localStorage.getItem('token')}`
-                        }
-                    }
-                ).then(() => {
-                    localStorage.removeItem('user');
-                    localStorage.removeItem('token');
-                    const Toast = swal.mixin({
-                      toast: true,
-                      position: "top-end",
-                      showConfirmButton: false,
-                      timer: 3000,
-                      timerProgressBar: true,
-                      didOpen: (toast) => {
-                        toast.onmouseenter = swal.stopTimer;
-                        toast.onmouseleave = swal.resumeTimer;
-                      }
-                    });
-                    Toast.fire({
-                      icon: "success",
-                      title: "Logged out successfully"
-                    });
-                    this.$router.push('/');
-                }).catch((err) => {
-                    console.log(err)
-                })
-            },
             clearForm(){
                 this.datestart = ''
                 this.dateend = ''
