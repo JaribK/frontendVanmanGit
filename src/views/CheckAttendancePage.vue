@@ -314,38 +314,48 @@
                 let totalWages = 0;
                 const dataForExcel = this.mergedFilteredList.map((attendance) => {
                     let status = '';
+                    let wages = 0; // Variable to store wages
+                
                     if (attendance.type_of_work === "Work From Home") {
                         if (attendance.status === 0) {
                             status = 'Rejected';
-                            totalWages += 0;
                         } else if (attendance.status === 1) {
                             status = 'Pending';
-                            totalWages += 0;
                         } else if (attendance.status === 2) {
                             status = 'Approved';
-                            totalWages += this.configsalary.WFH;
+                            wages = this.configsalary.WFH;
+                            totalWages += wages;
                         }
                     } else if (attendance.type_of_work === "Work at Office") {
                         if (attendance.status === 0) {
                             status = 'Rejected';
-                            totalWages += 0;
                         } else if (attendance.status === 1) {
                             status = 'Pending';
-                            totalWages += 0;
                         } else if (attendance.status === 2) {
                             status = 'Approved';
-                            totalWages += this.configsalary.WOF;
+                            wages = this.configsalary.WOF;
+                            totalWages += wages;
                         }
                     }
-                    return { ...attendance, status };
+                    return {
+                        date: attendance.date,
+                        time_in: attendance.time_in,
+                        time_out: attendance.time_out,
+                        description: attendance.description,
+                        type_of_work: attendance.type_of_work,
+                        who_signed: attendance.who_signed,
+                        type_sign: attendance.type_sign,
+                        status,
+                        wages 
+                    }; // Include wages in the returned object
                 });
-
+            
                 const totalObject = { Total_Wages: totalWages };
                 dataForExcel.push(totalObject);
-
+            
                 const ws = XLSX.utils.json_to_sheet(dataForExcel);
                 const wb = XLSX.utils.book_new();
-                XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+                XLSX.utils.book_append_sheet(wb, ws, 'Attendance');
                 XLSX.writeFile(wb, `list_of_attendance.xlsx`);
             },
             formatDateTime(datetime){

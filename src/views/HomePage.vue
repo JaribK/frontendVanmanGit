@@ -134,7 +134,7 @@
                                             <span v-if="ts.type_sign == 'normal'" class="text-green-500 font-bold">Normal</span>
                                             <span v-else-if="ts.type_sign == 'backdate'" class="text-red-500 font-bold">Backdate</span>
                                             <span v-else-if="ts.type_sign == 'holiday'" class="text-blue-500 font-bold">Holiday</span>
-                                            <span v-else-if="ts.type_sign == 'holiday(backdate)'" class="text-red-700 font-bold">Backdate(Holiday)</span>
+                                            <span v-else-if="ts.type_sign == 'backdate(holiday)'" class="text-red-700 font-bold">Backdate(Holiday)</span>
                                         </td>
                                         <td v-if="ts.status == 0" class="border-b-blue-900 text-red-600 font-bold">Rejected</td>
                                         <td v-if="ts.status == 1" class="border-b-blue-900 text-warning font-bold">Pending</td>
@@ -681,38 +681,48 @@ import moment from 'moment'
                 let totalWages = 0;
                 const dataForExcel = this.getmyattendance.map((attendance) => {
                     let status = '';
+                    let wages = 0; // Variable to store wages
+                
                     if (attendance.type_of_work === "Work From Home") {
                         if (attendance.status === 0) {
                             status = 'Rejected';
-                            totalWages += 0;
                         } else if (attendance.status === 1) {
                             status = 'Pending';
-                            totalWages += 0;
                         } else if (attendance.status === 2) {
                             status = 'Approved';
-                            totalWages += this.configsalary.WFH;
+                            wages = this.configsalary.WFH;
+                            totalWages += wages;
                         }
                     } else if (attendance.type_of_work === "Work at Office") {
                         if (attendance.status === 0) {
                             status = 'Rejected';
-                            totalWages += 0;
                         } else if (attendance.status === 1) {
                             status = 'Pending';
-                            totalWages += 0;
                         } else if (attendance.status === 2) {
                             status = 'Approved';
-                            totalWages += this.configsalary.WOF;
+                            wages = this.configsalary.WOF;
+                            totalWages += wages;
                         }
                     }
-                    return { ...attendance, status };
+                    return {
+                        date: attendance.date,
+                        time_in: attendance.time_in,
+                        time_out: attendance.time_out,
+                        description: attendance.description,
+                        type_of_work: attendance.type_of_work,
+                        who_signed: attendance.who_signed,
+                        type_sign: attendance.type_sign,
+                        status,
+                        wages 
+                    }; // Include wages in the returned object
                 });
-
+            
                 const totalObject = { Total_Wages: totalWages };
                 dataForExcel.push(totalObject);
-
+            
                 const ws = XLSX.utils.json_to_sheet(dataForExcel);
                 const wb = XLSX.utils.book_new();
-                XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+                XLSX.utils.book_append_sheet(wb, ws, 'Attendance');
                 XLSX.writeFile(wb, `attendance_of_${this.user.first_name}_${this.user.last_name}.xlsx`);
             },
 
