@@ -74,6 +74,8 @@
                             <option value="">All</option>
                             <option value="normal">Normal</option>
                             <option value="backdate">Backdate</option>
+                            <option value="holiday">Holiday</option>
+                            <option value="backdate(holiday)">Backdate(Holiday)</option>
                           </select>
                         </label>
                     </div>
@@ -109,6 +111,8 @@
                                         <td class="border-b-blue-900">
                                             <span v-if="liftts.type_sign == 'normal'" class="text-green-500 font-bold">Normal</span>
                                             <span v-else-if="liftts.type_sign == 'backdate'" class="text-red-500 font-bold">Backdate</span>
+                                            <span v-else-if="liftts.type_sign == 'holiday'" class="text-blue-500 font-bold">Holiday</span>
+                                            <span v-else-if="liftts.type_sign == 'backdate(holiday)'" class="text-red-700 font-bold">Backdate(Holiday)</span>
                                         </td>
                                         <td v-if="liftts.status == 0" class="border-b-blue-900 text-red-600 font-bold flex justify-center items-center">
                                             <div class="dropdown dropdown-top dropdown-end ">

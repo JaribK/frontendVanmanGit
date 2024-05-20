@@ -133,6 +133,8 @@
                                         <td class="border-b-blue-900">
                                             <span v-if="ts.type_sign == 'normal'" class="text-green-500 font-bold">Normal</span>
                                             <span v-else-if="ts.type_sign == 'backdate'" class="text-red-500 font-bold">Backdate</span>
+                                            <span v-else-if="ts.type_sign == 'holiday'" class="text-blue-500 font-bold">Holiday</span>
+                                            <span v-else-if="ts.type_sign == 'holiday(backdate)'" class="text-red-700 font-bold">Backdate(Holiday)</span>
                                         </td>
                                         <td v-if="ts.status == 0" class="border-b-blue-900 text-red-600 font-bold">Rejected</td>
                                         <td v-if="ts.status == 1" class="border-b-blue-900 text-warning font-bold">Pending</td>
@@ -188,7 +190,8 @@ import moment from 'moment'
                 itemsPerPage: 10,
                 server_datetime: '',
                 server_date: '',
-                server_time: ''
+                server_time: '',
+                checkday: '',
             }
         },
         created() {
@@ -196,9 +199,9 @@ import moment from 'moment'
         },
 
         mounted() {
-            this.fetchHolidays()
             this.getUser()
             this.getlistTimesheet()
+            this.fetchHolidays()
             this.getConfigSalary()
             this.get_datetimefromserver()
             setInterval(() => {
@@ -225,6 +228,7 @@ import moment from 'moment'
             }
 
         },
+        
 
         methods: {
             async fetchHolidays(){
@@ -264,15 +268,86 @@ import moment from 'moment'
             checkdatematchholidays(){ 
                 try {
                 if (this.date == this.server_date) {
-                    if (this.holidays.includes(this.date)) {
+                    const selectedDate = new Date(this.date);
+                    const day_of_Week = selectedDate.getDay();
+                    this.checkday = day_of_Week
+                    if (this.holidays.includes(this.date) || this.checkday == 0 || this.checkday == 6) {
                         this.isHoliday = true;
                         const holidayIndex = this.holidays.indexOf(this.date);
-                        swal.fire({
+                        if (this.holidays.includes(this.date)) {
+                            swal.fire({
+                                icon: 'warning',
+                                title: 'Oops...',
+                                text: 'This date is a holiday. Do you want to sign in?',
+                                footer: this.datadate[holidayIndex].HolidayDescription,
+                                showCancelButton: true,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'Yes, I want to sign in',
+                                cancelButtonText: 'No'
+                            }).then(result => {
+                                if (result.isConfirmed) {
+                                    axios.post(host+ 'timesheets/',{
+                                        date: this.date,
+                                        time_in: '00:00:00',
+                                        time_out: '00:00:00',
+                                        type_of_work: this.type_of_work,
+                                        description: this.text,
+                                        who_signed: this.user.first_name + ' ' + this.user.last_name,
+                                        user: this.user_id,
+                                        type_sign:'holiday',
+                                        status: 1
+                                    }).then((res) => {
+                                        swal.fire({
+                                            icon: 'success',
+                                            title: 'Success',
+                                            text: 'Sign for work successfully'
+                                        }).then(() => {
+                                            this.scrollToBottom()
+                                        })
+                                    }).catch((err) => {
+                                        console.log(err)
+                                    })
+                                } else {
+                                }
+                            })
+                        } else if (this.checkday == 0 || this.checkday == 6){
+                            swal.fire({
                             icon: 'warning',
                             title: 'Oops...',
-                            text: 'This date is a holiday.',
-                            footer: this.datadate[holidayIndex].HolidayDescription
-                        });
+                            text: 'This date is a holiday. Do you want to sign in?',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Yes, I want to sign in',
+                            cancelButtonText: 'No'
+                        }).then(result => {
+                                if (result.isConfirmed) {
+                                    axios.post(host+ 'timesheets/',{
+                                        date: this.date,
+                                        time_in: '00:00:00',
+                                        time_out: '00:00:00',
+                                        type_of_work: this.type_of_work,
+                                        description: this.text,
+                                        who_signed: this.user.first_name + ' ' + this.user.last_name,
+                                        user: this.user_id,
+                                        type_sign:'holiday',
+                                        status: 1
+                                    }).then((res) => {
+                                        swal.fire({
+                                            icon: 'success',
+                                            title: 'Success',
+                                            text: 'Sign for work successfully'
+                                        }).then(() => {
+                                            this.scrollToBottom()
+                                        })
+                                    }).catch((err) => {
+                                        console.log(err)
+                                    })
+                                } else {
+                                }
+                            })
+                        }
                     } else {
                         if (this.date == '' || this.type_of_work == '' || this.text == '') {
                             swal.fire({
@@ -355,16 +430,81 @@ import moment from 'moment'
                             title: 'Oops...',
                             text: 'Please select a day before today.'
                         });
-                    } else if (this.holidays.includes(this.date)) {
+                    } else if (this.holidays.includes(this.date) || this.checkday == 0 || this.checkday == 6) {
                         this.isHoliday = true;
                         const holidayIndex = this.holidays.indexOf(this.date);
+                        if (this.holidays.includes(this.date)) {
+                            swal.fire({
+                                icon: 'warning',
+                                title: 'Oops...',
+                                text: 'This date is a holiday. Do you want to sign in?',
+                                footer: this.datadate[holidayIndex].HolidayDescription,
+                                showCancelButton: true,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'Yes, I want to sign in',
+                                cancelButtonText: 'No'
+                            }).then(result => {
+                                if (result.isConfirmed) {
+                                    axios.post(host+ 'timesheets/',{
+                                        date: this.date,
+                                        time_in: this.timein,
+                                        time_out: this.timeout,
+                                        type_of_work: this.type_of_work,
+                                        description: this.text,
+                                        who_signed: this.user.first_name + ' ' + this.user.last_name,
+                                        user: this.user_id,
+                                        type_sign:'backdate(holiday)',
+                                        status: 1
+                                    }).then((res) => {
+                                        swal.fire({
+                                            icon: 'success',
+                                            title: 'Success',
+                                            text: 'Sign for work successfully'
+                                        }).then(() => {
+                                            this.scrollToBottom()
+                                        })
+                                    }).catch((err) => {
+                                        console.log(err)
+                                    })
+                                }
+                            })
+                        } else if (this.checkday == 0 || this.checkday == 6){
                         swal.fire({
                             icon: 'warning',
                             title: 'Oops...',
-                            text: 'This date is a holiday.',
-                            footer: this.datadate[holidayIndex].HolidayDescription
-                        });
-                    } else {
+                            text: 'This date is a holiday. Do you want to sign in?',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Yes, I want to sign in',
+                            cancelButtonText: 'No'
+                        }).then(result => {
+                                if (result.isConfirmed) {
+                                    axios.post(host+ 'timesheets/',{
+                                        date: this.date,
+                                        time_in: this.timein,
+                                        time_out: this.timeout,
+                                        type_of_work: this.type_of_work,
+                                        description: this.text,
+                                        who_signed: this.user.first_name + ' ' + this.user.last_name,
+                                        user: this.user_id,
+                                        type_sign:'backdate(holiday)',
+                                        status: 1
+                                    }).then((res) => {
+                                        swal.fire({
+                                            icon: 'success',
+                                            title: 'Success',
+                                            text: 'Sign for work successfully'
+                                        }).then(() => {
+                                            this.scrollToBottom()
+                                        })
+                                    }).catch((err) => {
+                                        console.log(err)
+                                    })
+                                }
+                            })
+                    }} else {
                         if (this.date == '' || this.type_of_work == '' || this.text == '' || this.timein == '' || this.timeout == '') {
                             swal.fire({
                                 icon: 'error',
