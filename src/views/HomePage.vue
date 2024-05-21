@@ -448,6 +448,9 @@ import moment from 'moment'
                 try {
                     const today = new Date(this.server_date);
                     const selectedDate = new Date(this.date);
+                    const day_of_Week = selectedDate.getDay();
+                    this.checkday = day_of_Week
+                    
                     
                     if (selectedDate >= today) {
                         swal.fire({
