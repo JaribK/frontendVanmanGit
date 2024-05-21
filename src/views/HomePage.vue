@@ -192,6 +192,7 @@ import moment from 'moment'
                 server_date: '',
                 server_time: '',
                 checkday: '',
+                year:'',
             }
         },
         created() {
@@ -204,9 +205,11 @@ import moment from 'moment'
             this.fetchHolidays()
             this.getConfigSalary()
             this.updateDateTime()
+            this.getyearfromserverdatetime()
             setInterval(() => {
-                this.updateDateTime()
+                this.updateDateTime();
                 this.getlistTimesheet();
+                this.getyearfromserverdatetime();
             }, 1000)
         },
 
@@ -231,6 +234,11 @@ import moment from 'moment'
         
 
         methods: {
+            getyearfromserverdatetime(){
+                const dateParts = this.server_datetime.split(' '); 
+                const year = dateParts[2];
+                this.year = year;
+            },
             updateDateTime() {
               const now = new Date();
               const date = this.formatDate(now);
@@ -243,7 +251,7 @@ import moment from 'moment'
               this.server_time = now.toTimeString().split(' ')[0];
             },
             async fetchHolidays(){
-                await axios.get('https://apigw1.bot.or.th/bot/public/financial-institutions-holidays/?year=2024', {
+                await axios.get(`https://apigw1.bot.or.th/bot/public/financial-institutions-holidays/?year=${this.year}`, {
                     headers: {
                         'X-IBM-Client-Id': 'b853435f-b070-4ad8-88b9-0f80dd119f7d',
                         'accept': 'application/json'
