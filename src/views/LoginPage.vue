@@ -2,7 +2,7 @@
     <div>
         <div id="background" class="h-dvh w-full bg-blue-950 flex justify-center items-center">
             <div id="box" class="w-[400px] h-[600px] bg-white rounded-[28px] items-center animate-fade-left animate-once" >
-                <div id="title" class="text-black font-bold w-full text-center my-[64px] text-[30px]">VANMAN <br> Sign for work</div>
+                <div id="title" class="text-black font-bold w-full text-center my-[64px] text-[30px]">VANMAN <br> Work Check-In</div>
                 <div id="from" class="w-full">
                     <form @submit.prevent="login" class="px-[40px]" >
                         <input type="text" v-model="username" name="username" id="username" placeholder="Username" class="input input-primary w-full h-[40px] border-[1px] border-blue-950 rounded-[10px] px-4 my-2 bg-white text-black" required>
