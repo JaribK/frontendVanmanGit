@@ -238,7 +238,7 @@ let host = ''
               const date = this.formatDate(now);
               const time = this.format_time(now);
 
-              this.server_datetime = `${date} ${time}`;
+              this.server_datetime = now;
 
               this.server_date = now.toISOString().split('T')[0];
 
