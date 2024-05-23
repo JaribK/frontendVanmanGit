@@ -128,7 +128,27 @@
                                         <td v-else class="border-b-blue-900">{{ format_time(ts.time_in) }}</td>
                                         <td v-if="ts.time_out == '00:00:00'" class="border-b-blue-900"><button :disabled="!isInServerTimeRangeTimeOut()" @click="signtime_out(ts.id,ts.date)" class="btn btn-warning">Sign TimeOut</button></td>
                                         <td v-else class="border-b-blue-900">{{ format_time(ts.time_out) }}</td>
-                                        <td class="border-b-blue-900">{{ ts.description }}</td>
+                                        <td class="border-b-blue-900">{{ ts.description }} <br>
+                                            <!-- Open the modal using ID.showModal() method -->
+                                            <button v-if=" ts.date == server_date" class="btn mt-4" @click="openModal(ts.id)" >Edit</button>
+                                            <dialog :id="'my_modal_5_' + ts.id" class="modal modal-bottom sm:modal-middle">
+                                              <div class="modal-box">
+                                                <h3 class="font-bold text-lg text-white">Edit Description</h3>
+                                                <br>
+                                                <textarea type="text" class="input input-bordered w-[320px] max-w-xs h-[180px] resize-none cursor-not-allowed" :value="ts.description" readonly>
+                                                </textarea>
+                                                <p class="py-4 text-white">Change to</p>
+                                                <textarea type="text" class="input input-bordered w-[320px] max-w-xs h-[180px] resize-none mb-4" v-model="today_des" required>
+                                                </textarea>
+                                                <div class="modal-action flex justify-around">
+                                                  <form method="dialog">
+                                                    <button type="submit" class="btn btn-success border-none mx-4" @click="patchDescription(ts.id)">Save</button>
+                                                    <button class="btn">Close</button>
+                                                  </form>
+                                                </div>
+                                              </div>
+                                            </dialog>
+                                        </td>
                                         <td class="border-b-blue-900">{{ ts.type_of_work}}</td>
                                         <td class="border-b-blue-900">
                                             <span v-if="ts.type_sign == 'normal'" class="text-green-500 font-bold">Normal</span>
@@ -193,6 +213,7 @@ import moment from 'moment'
                 server_time: '',
                 checkday: '',
                 year:'',
+                today_des: '',
             }
         },
         created() {
@@ -214,7 +235,6 @@ import moment from 'moment'
         },
 
         computed: {
-            
             getmyattendance(){
                 return this.timesheetlList.filter(timesheet => timesheet.user === this.user_id)
             },
@@ -234,6 +254,30 @@ import moment from 'moment'
         
 
         methods: {
+            cleardescription(){
+                this.today_des = ''
+            },
+            patchDescription(id){
+                axios.patch(host + 'timesheets/' + id + '/',{
+                    description: this.today_des
+                }).then(() => {
+                    swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'Edit description successfully'
+                    })
+                    this.cleardescription()
+                }).catch((err) => {
+                    console.log(err)
+                })
+            },
+            openModal(id){
+                const modalId = 'my_modal_5_' + id;
+                const modal = document.getElementById(modalId);
+                if (modal) {
+                    modal.showModal();
+                }
+            },
             getyearfromserverdatetime(){
                 const dateParts = this.server_datetime.split(' '); 
                 const year = dateParts[2];
