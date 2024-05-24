@@ -45,13 +45,13 @@
                             <div class="label">
                                 <span class="label-text text-black">Description (Reason for leave request)</span>
                             </div>
-                            <input id="description" type="text" placeholder="Type here" class="input input-bordered w-full max-w-xl mb-10" v-model="description" required/>
+                            <input maxlength="255" id="description" type="text" placeholder="Type here" class="input input-bordered w-full max-w-xl mb-10" v-model="description" required/>
                         </label>
                         <label class="form-control w-full max-w-xs">
                             <div class="label">
                                 <span class="label-text text-black">Tel</span>
                             </div>
-                            <input id="tel" type="text" placeholder="Type here" class="input input-bordered w-full max-w-xl mb-10" v-model="tel" required/>
+                            <input maxlength="10" id="tel" type="text" placeholder="Type here" class="input input-bordered w-full max-w-xl mb-10" v-model="tel" required/>
                         </label>
                         <div class="w-full flex justify-center flex-wrap">
                                 <input type="submit"  value="Send Request" class="btn w-[300px] h-[50px] bg-[#3668A7] text-white rounded-[10px] my-[64px] cursor-pointer">
@@ -119,13 +119,13 @@
                                                         <div class="label">
                                                             <span class="label-text text-black">Description</span>
                                                         </div>
-                                                        <input id="description" type="text" placeholder="Type here" class="input input-bordered w-full max-w-xl mb-4" v-model="description" required/>
+                                                        <input maxlength="255" id="description" type="text" placeholder="Type here" class="input input-bordered w-full max-w-xl mb-4" v-model="description" required/>
                                                     </label>
                                                     <label class="form-control w-full max-w-xs">
                                                         <div class="label">
                                                             <span class="label-text text-black">Tel</span>
                                                         </div>
-                                                        <input id="tel" type="text" placeholder="Type here" class="input input-bordered w-full max-w-xl mb-4" v-model="tel" required/>
+                                                        <input maxlength="10" id="tel" type="text" placeholder="Type here" class="input input-bordered w-full max-w-xl mb-4" v-model="tel" required/>
                                                     </label>
                                                 </div>
                                                 <div class="modal-action">

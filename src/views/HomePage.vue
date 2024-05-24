@@ -42,7 +42,7 @@
                                 <div class="label">
                                     <span class="label-text text-black">Description (What will you do today?)</span>
                                 </div>
-                                <textarea id="text" type="text" placeholder="Type here" class="textarea textarea-bordered w-full max-w-xs" cols="15" v-model="text" required></textarea>
+                                <textarea maxlength="255" id="text" type="text" placeholder="Type here" class="textarea textarea-bordered w-full max-w-xs" cols="15" v-model="text" required></textarea>
                             </label>
                             <div class="w-full flex justify-center flex-wrap mt-10">
                                 <input type="button" :disabled="checkSigninToday()" @click="checkdatematchholidays" value="Start Work" class="btn w-[300px] h-[50px] mt-10 border-none bg-[#3668A7] text-white rounded-[10px] cursor-pointer">
@@ -87,7 +87,7 @@
                                                         <div class="label">
                                                             <span class="label-text text-black">Description</span>
                                                         </div>
-                                                        <input id="description" type="text" placeholder="Type here" class="input input-bordered w-full max-w-xl mb-4" v-model="text" required/>
+                                                        <input maxlength="255" id="description" type="text" placeholder="Type here" class="input input-bordered w-full max-w-xl mb-4" v-model="text" required/>
                                                     </label>
                                                 </div>
                                                 <div class="modal-action">
@@ -138,7 +138,7 @@
                                                 <textarea type="text" class="input input-bordered w-[320px] max-w-xs h-[180px] resize-none cursor-not-allowed" :value="ts.description" readonly>
                                                 </textarea>
                                                 <p class="py-4 text-white">Change to</p>
-                                                <textarea type="text" class="input input-bordered w-[320px] max-w-xs h-[180px] resize-none mb-4" v-model="today_des" required>
+                                                <textarea maxlength="255" type="text" class="input input-bordered w-[320px] max-w-xs h-[180px] resize-none mb-4" v-model="today_des" required>
                                                 </textarea>
                                                 <div class="modal-action flex justify-around">
                                                   <form method="dialog">

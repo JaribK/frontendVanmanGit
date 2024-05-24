@@ -8,7 +8,7 @@
             <form class="form-container" @submit.prevent="sendEmail">
                 <div v-if="IsSend == false" class="form-container flex flex-col w-[300px] h-[200px]">
                     <label for="email" class="">Email:</label>
-                    <input type="email" id="email" name="email" required class="border text-black bg-white border-gray-300 rounded-md px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" v-model="email">
+                    <input maxlength="50" type="email" id="email" name="email" required class="border text-black bg-white border-gray-300 rounded-md px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" v-model="email">
                     <br>
                     <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">
                         Send Email

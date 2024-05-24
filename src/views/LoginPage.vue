@@ -5,8 +5,8 @@
                 <div id="title" class="text-black font-bold w-full text-center my-[64px] text-[30px]">VANMAN <br> Work Check-In</div>
                 <div id="from" class="w-full">
                     <form @submit.prevent="login" class="px-[40px]" >
-                        <input type="text" v-model="username" name="username" id="username" placeholder="Username" class="input input-primary w-full h-[40px] border-[1px] border-blue-950 rounded-[10px] px-4 my-2 bg-white text-black" required>
-                        <input type="password" v-model="password" name="password" id="password" placeholder="Password" class="input input-primary w-full h-[40px] border-[1px] border-blue-950 rounded-[10px] px-4 my-2 bg-white  text-black" required>
+                        <input type="text" maxlength="50" v-model="username" name="username" id="username" placeholder="Username" class="input input-primary w-full h-[40px] border-[1px] border-blue-950 rounded-[10px] px-4 my-2 bg-white text-black" required>
+                        <input type="password" maxlength="50" v-model="password" name="password" id="password" placeholder="Password" class="input input-primary w-full h-[40px] border-[1px] border-blue-950 rounded-[10px] px-4 my-2 bg-white  text-black" required>
                         <p class="text-black text-center">Forgot your password? <router-link to="/forgot-password" class="text-[#3668A7]">Reset Password</router-link></p>
                         <button type="submit" value="Login" class="btn w-full h-[50px] bg-[#3668A7] text-white rounded-[10px] my-[32px] cursor-pointer">Login</button>
                     </form>
@@ -45,7 +45,7 @@
         },
         async login() {
             try {
-                const response = await axios.post('https://backendvanmangit-production.up.railway.app/api/login', {
+                const response = await axios.post(host+'api/login', {
                     username: this.username,
                     password: this.password
                 });

@@ -24,7 +24,7 @@
                                   <div class="label">
                                     <span class="label-text">Title</span>
                                   </div>
-                                  <input type="text" placeholder="Title..." class="input input-bordered w-full max-w-xs" v-model="title" required/>
+                                  <input maxlength="100" type="text" placeholder="Title..." class="input input-bordered w-full max-w-xs" v-model="title" required/>
                                 </label>
                                 <label class="form-control w-full max-w-xs ml-10">
                                   <div class="label">
@@ -46,7 +46,7 @@
                                   <div class="label">
                                     <span class="label-text">Description</span>
                                     </div>
-                                    <textarea placeholder="Description..." class="textarea w-[930px] h-[300px] resize-none" v-model="description" required></textarea>
+                                    <textarea maxlength="255" placeholder="Description..." class="textarea w-[930px] h-[300px] resize-none" v-model="description" required></textarea>
                                 </label>
                             </div>
                             <button class="btn bg-success mt-10 w-[250px] text-white border-none" @click="sendFeedback">Send Feedback</button>

@@ -7,12 +7,12 @@
         <form class="form-container flex flex-col w-[300px] h-[200px]" @submit.prevent="resetPassword">
           <div class="mb-4 w-[300px] flex flex-col">
             <label for="newPassword" class="mb-2">New Password:</label>
-            <input type="password" id="newPassword" v-model="newPassword" class=" text-black bg-white w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <input maxlength="50" type="password" id="newPassword" v-model="newPassword" class=" text-black bg-white w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
           </div>
 
           <div class="mb-4 w-[300px]">
             <label for="confirmPassword" class="mb-2">Confirm Password:</label>
-            <input type="password" id="confirmPassword" v-model="confirmPassword" class="text-black bg-white w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <input maxlength="50" type="password" id="confirmPassword" v-model="confirmPassword" class="text-black bg-white w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
           </div>
 
           <input type="submit" value="Reset Password" class="btn btn-primary mb-4 w-[300px] py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600"></input>

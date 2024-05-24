@@ -5,12 +5,12 @@
                 <div id="title" class="text-black font-bold w-full text-center my-[16px] text-[30px]">Sign up</div>
                 <div id="from" class="w-full">
                     <form @submit.prevent="register" class="px-[40px]" >
-                        <input type="text" v-model="username" name="username" id="username" placeholder="Username" class="input input-primary w-full h-[40px] border-[1px] border-blue-950 rounded-[10px] px-4 my-2 bg-white text-black" required>
-                        <input type="email" v-model="email" name="email" id="email" placeholder="Email" class="input input-primary w-full h-[40px] border-[1px] border-blue-950 rounded-[10px] px-4 my-2 bg-white text-black" required>
-                        <input type="text" v-model="firstname" name="firstname" id="firstname" placeholder="First Name" class="input input-primary w-full h-[40px] border-[1px] border-blue-950 rounded-[10px] px-4 my-2 bg-white text-black" required>
-                        <input type="text" v-model="lastname" name="lastname" id="lastname" placeholder="Last Name" class="input input-primary w-full h-[40px] border-[1px] border-blue-950 rounded-[10px] px-4 my-2 bg-white text-black" required>
-                        <input type="password" v-model="password" name="password" id="password" placeholder="Password" class="input input-primary w-full h-[40px] border-[1px] border-blue-950 rounded-[10px] px-4 my-2 bg-white  text-black" required>
-                        <input type="password" v-model="password_confirmation" name="password_confirmation" id="password_confirmation" placeholder="Confirm Password" class="input input-primary w-full h-[40px] border-[1px] border-blue-950 rounded-[10px] px-4 my-2 bg-white  text-black" required>
+                        <input maxlength="50" type="text" v-model="username" name="username" id="username" placeholder="Username" class="input input-primary w-full h-[40px] border-[1px] border-blue-950 rounded-[10px] px-4 my-2 bg-white text-black" required>
+                        <input maxlength="50" type="email" v-model="email" name="email" id="email" placeholder="Email" class="input input-primary w-full h-[40px] border-[1px] border-blue-950 rounded-[10px] px-4 my-2 bg-white text-black" required>
+                        <input maxlength="50" type="text" v-model="firstname" name="firstname" id="firstname" placeholder="First Name" class="input input-primary w-full h-[40px] border-[1px] border-blue-950 rounded-[10px] px-4 my-2 bg-white text-black" required>
+                        <input maxlength="50" type="text" v-model="lastname" name="lastname" id="lastname" placeholder="Last Name" class="input input-primary w-full h-[40px] border-[1px] border-blue-950 rounded-[10px] px-4 my-2 bg-white text-black" required>
+                        <input maxlength="50" type="password" v-model="password" name="password" id="password" placeholder="Password" class="input input-primary w-full h-[40px] border-[1px] border-blue-950 rounded-[10px] px-4 my-2 bg-white  text-black" required>
+                        <input maxlength="50" type="password" v-model="password_confirmation" name="password_confirmation" id="password_confirmation" placeholder="Confirm Password" class="input input-primary w-full h-[40px] border-[1px] border-blue-950 rounded-[10px] px-4 my-2 bg-white  text-black" required>
                         <select v-model="role" name="role" id="role" class="select select-bordered w-full h-[40px] border-[1px] border-blue-950 rounded-[10px] px-4 my-2 bg-white text-black" required>
                             <option value="" disabled selected>Select Role</option>
                             <option value="System Engineer Trainee">System Engineer Trainee</option>
@@ -42,6 +42,7 @@
 <script>
     import axios from 'axios'
     import swal from 'sweetalert2'
+    let host = ''
 
     export default {
         name: 'LoginPage',
@@ -57,6 +58,7 @@
             }
         },
         created(){
+            host = this.$store.state.host
             this.checkUserlogin()
         },
         methods : {
@@ -98,7 +100,7 @@
                         });
                     } else {
                         // Rest of the code remains the same
-                        await axios.post('https://backendvanmangit-production.up.railway.app/api/register', {
+                        await axios.post(host + 'api/register', {
                             username: this.username,
                             email: this.email,
                             password: this.password,
