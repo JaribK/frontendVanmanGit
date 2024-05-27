@@ -9,19 +9,21 @@
                 <div class="flex justify-center h-full w-full">
                     <div class="flex justify-end flex-wrap w-[50%]">
                         <div id="box" class="text-black animate-fade-up w-[500px] h-[540px] mx-10 bg-blue-200 drop-shadow-2xl rounded-lg p-10">
-                            <div id="subtitle" class="w-full text-center font-bold mb-4">List Users</div>
+                            <div id="subtitle" class="w-full text-center font-bold mb-4">List Users (Click to view attendance details.)</div>
                             <div class="flex flex-col h-[450px] overflow-hidden">
                                 <div v-for="user in paginatedUsers" :key="user.id" class="animate-fade-left flex justify-between items-center w-full h-[50px] border-b border-blue-500">
-                                    <div class="flex items-center w-full" v-if="user.is_logged_in == true" :title="user.role">
-                                        <div class="w-2 h-2 bg-green-500 rounded-full"></div>
-                                        <div class="ml-2">{{ user.first_name }} {{ user.last_name }} <span class="font-bold">#</span> <span class="font-bold text-blue-700">{{ user.role }}</span></div>
-                                        <div class="text-black text-[12px]"></div>
-                                    </div>
-                                    <div class="flex items-center w-full" v-if="user.is_logged_in == false" :title="user.role">
+                                    <router-link :to="{ path: `/graph-attendance-views/${user.id}` }" class="transition hover: translate-x-[0.4px] hover:scale-110 hover: duration-300">
+                                        <div class="flex items-center w-full" v-if="user.is_logged_in == true" :title="'can click to view a graph showing attendance details of this user.'">
+                                            <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                                            <div class="ml-2">{{ user.first_name }} {{ user.last_name }} <span class="font-bold">#</span> <span class="font-bold text-blue-700">{{ user.role }}</span></div>
+                                            <div class="text-black text-[12px]"></div>
+                                        </div>
+                                    <div class="flex items-center w-full" v-if="user.is_logged_in == false" :title="'can click to view a graph showing attendance details of this user.'">
                                         <div class="w-2 h-2 bg-red-500 rounded-full"></div>
                                         <div class="ml-2">{{ user.first_name }} {{ user.last_name }} <span class="font-bold">#</span> <span class="font-bold text-blue-700">{{ user.role }}</span></div>
                                         <div class="text-black text-[12px]"></div>
                                     </div>
+                                </router-link>
                                 </div>
                                 <div class="w-full flex justify-center mt-10">
                                     <div class="join">

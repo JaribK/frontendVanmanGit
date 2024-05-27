@@ -12,6 +12,7 @@ import ResetPasswordPage from '@/views/ResetPasswordPage.vue'
 import ForgotPasswordPage from '@/views/ForgotPasswordPage.vue'
 import FeedbackPage from '@/views/FeedbackPage.vue'
 import FeedbackAdminPage from '@/views/FeedbackAdminPage.vue'
+import GraphViewsOfAttendancePage from '@/views/GraphViewsOfAttendancePage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -80,6 +81,11 @@ const router = createRouter({
       path: '/feedback-admin',
       name: 'feedback-admin',
       component: FeedbackAdminPage
+    },
+    {
+      path: '/graph-attendance-views/:id',
+      name: 'graph-attendance-views',
+      component: GraphViewsOfAttendancePage
     }
   ]
 })
