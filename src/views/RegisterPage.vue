@@ -28,6 +28,12 @@
                             <option value="Accountant Trainee">Accountant Trainee</option>
                             <option value="Secretary Trainee">Secretary Trainee</option>
                         </select>
+                        <select name="supervisor" id="supervisor" v-model="supervisor" class="select select-bordered w-full h-[40px] border-[1px] border-blue-950 rounded-[10px] px-4 my-2 bg-white text-black" required>
+                            <option value="" disabled selected>Select Supervisor</option>
+                            <option v-for="user in superusersList" :key="user.id" :value="user.id">
+                                {{user.username}}
+                            </option>
+                        </select>
                         <button type="submit" value="Register" class="btn w-full h-[50px] bg-[#3668A7] text-white rounded-[10px] my-[32px] cursor-pointer">Sign up</button>
                     </form>
                     <div id="sign-up">
@@ -54,18 +60,33 @@
                 password_confirmation: '',
                 firstname: '',
                 lastname: '',
-                role: ''
+                role: '',
+                supervisor: '',
+                superusersList: []
             }
         },
         created(){
             host = this.$store.state.host
             this.checkUserlogin()
         },
+        mounted(){
+            this.getUsers()
+        },
         methods : {
             checkUserlogin(){
                 if(localStorage.getItem('token')){
                     this.$router.push('/home')
                 }
+            },
+            getUsers(){
+                axios.get(host + 'users/')
+                .then((response) => {
+                    for (let i = 0; i < response.data.length; i++) {
+                        if (response.data[i].is_superuser == true) {
+                            this.superusersList.push(response.data[i])
+                        }
+                    }
+                })
             },
             async register(){
                 try {
@@ -106,13 +127,10 @@
                             password: this.password,
                             first_name: this.firstname,
                             last_name: this.lastname,
-                            role: this.role
+                            role: this.role,
+                            supervisor: this.supervisor
                         })
                         .then((response) => {
-                            console.log(response.status);
-                            if (response.status == 400) {
-                                alert('Username or Password is incorrect');
-                            } else {
                                 swal.fire({
                                     title: 'Success',
                                     text: 'Register Success',
@@ -120,16 +138,25 @@
                                     confirmButtonText: 'OK'
                                 });
                                 this.$router.push('/');
-                            }
                         });
                     }
                 } catch (error) {
-                    swal.fire({
-                        title: 'Error',
-                        text: 'Username or Password is incorrect',
-                        icon: 'error',
-                        confirmButtonText: 'OK'
-                    });
+                    console.log(error)
+                    if (error.response.status == 409){
+                        swal.fire({
+                            title: 'Error',
+                            text: error.response.data.error,
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                    } else if (error.response.status == 400) {
+                        swal.fire({
+                            title: 'Error',
+                            text: 'Please fill in all fields',
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                    }
                 }
             }
         }

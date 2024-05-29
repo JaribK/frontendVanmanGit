@@ -145,7 +145,7 @@
                             </tbody>
                             <tbody class="text-black text-center" v-else>
                                 <tr>
-                                    <td colspan="5" class="border-b-blue-900 font-bold">No data available.</td>
+                                    <td colspan="6" class="border-b-blue-900 font-bold">No data available.</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -186,7 +186,8 @@
                 itemsPerPage: 10,
                 server_datetime: '',
                 server_date: '',
-                server_time: ''
+                server_time: '',
+                userList: [],
             }
         },
         created() {
@@ -216,6 +217,12 @@
             }
         },
         methods: {
+            getUsers(){
+                axios.get(`${host}users/`)
+                .then((res) => {
+                    this.userList = res.data
+                })
+            },
             formatDate(datetime){
                 return moment(datetime).format('D MMM YYYY')
             },
