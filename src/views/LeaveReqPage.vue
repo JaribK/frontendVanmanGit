@@ -95,7 +95,7 @@
                                                         <div class="label">
                                                             <span class="label-text text-black">Leave DateTime Start</span>
                                                         </div>
-                                                        <input id="datetimein" type="datetime-local" value="" placeholder="Type here" class="input input-bordered w-full max-w-xl mb-4" v-model="datetime_start" required/>
+                                                        <input id="datetimein" type="datetime-local" placeholder="Type here" class="input input-bordered w-full max-w-xl mb-4" v-model="datetime_start" required/>
                                                     </label>
                                                     <label class="form-control w-full max-w-xs">
                                                         <div class="label">
@@ -318,12 +318,15 @@
                                         confirmButtonText: 'OK'
                                     })
                                 } else {
-                                    axios.patch(`${host}leave_requests/${id}/`, {
+                                    axios.put(`${host}leave_requests/${id}/`, {
                                         datetime_start: this.datetime_start,
                                         datetime_end: this.datetime_end,
                                         description: this.description,
                                         tel: this.tel,
                                         type_of_leave: this.type_of_leave,
+                                        who_signed: this.user.first_name + ' ' + this.user.last_name,
+                                        status: 1,
+                                        user: this.user.id
                                     })
                                     .then((res) => {
                                         swal.fire({

@@ -438,7 +438,7 @@ import moment from 'moment'
                                     this.isHoliday = false
                                     axios.post(host+ 'timesheets/',{
                                         date: this.date,
-                                        time_in: '00:00:00',
+                                        time_in: this.server_time,
                                         time_out: '00:00:00',
                                         type_of_work: this.type_of_work,
                                         description: this.text,
