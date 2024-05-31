@@ -775,7 +775,7 @@ import moment from 'moment'
                     return {
                         date: attendance.date,
                         time_in: attendance.time_in,
-                        time_out: attendance.time_out,
+                        time_out: attendance.time_out === '00:00:00' ? 'Not signed out work' : attendance.time_out,
                         description: attendance.description,
                         type_of_work: attendance.type_of_work,
                         who_signed: attendance.who_signed,
