@@ -57,6 +57,14 @@
                                         <div class="absolute inset-0 cursor-not-allowed"></div>
                                         <input type="text" :value="user.role" class="input rounded-l-none h-full rounded-r-[20px] pointer-events-none" readonly>
                                     </label>
+                                    <label class="flex h-[56px] relative items-center">
+                                        <div class="py-4 w-[123px] bg-[#3C3C3C] text-white rounded-l-[20px] grid place-items-center">
+                                            <p>Supervisor</p>
+                                        </div>
+                                        <!-- Invisible overlay -->
+                                        <div class="absolute inset-0 cursor-not-allowed"></div>
+                                        <input type="text" :value="supervisor_flname" class="input rounded-l-none h-full rounded-r-[20px] pointer-events-none" readonly>
+                                    </label>
                                 </div>
                             </div>
                         </div>
@@ -67,8 +75,30 @@
                         </div>
                         <div class="bg-[#303346] h-fit p-12 drop-shadow-2xl">
                             <div>
-                                <div class="flex flex-wrap place-items-center h-full gap-12">
+                                <div class="flex flex-wrap justify-evenly place-items-center h-full gap-12">
                                     <button class="btn w-[212px] h-[48px] btn-warning border-none" @click="sendEmail">Reset Password</button>
+                                    <button class="btn w-[212px] h-[48px] mx-4 btn-info border-none" onclick="my_modal_1.showModal()">Change Supervisor</button>
+                                    <dialog id="my_modal_1" class="modal">
+                                      <div class="modal-box">
+                                        <h3 class="font-bold text-lg">Hello!</h3>
+                                        <p class="py-4">Now your supervisor is : {{ supervisor_flname }}</p>
+                                            <div id="change-supervisor">
+                                                <label for="supervisor">Change Supervisor</label>
+                                                <select name="supervisor" id="supervisor" v-model="select_supervisor" class="select select-bordered w-full h-[40px] border-[1px] border-blue-950 rounded-[10px] px-4 my-2 bg-white text-black" required>
+                                                    <option value="" disabled selected>Select Supervisor</option>
+                                                    <option class="text-black" v-for="user in superusersList" :key="user.id" :value="user.id">
+                                                                {{user.first_name}} {{user.last_name}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        <div class="modal-action">
+                                          <form method="dialog" class="w-full flex justify-between">
+                                            <button class="btn btn-success" @click="changeSupervisor">Chnage</button>
+                                            <button class="btn btn-warning">Close</button>
+                                          </form>
+                                        </div>
+                                      </div>
+                                    </dialog>
                                     <button class="btn w-[212px] h-[48px] mx-4 btn-error border-none" @click="buttonInFuture">In Processing</button>
                                 </div>
                             </div>
@@ -96,7 +126,10 @@ let host = ''
                 server_time: '',
                 email: '',
                 usersList: [],
-                listUsersEamil: []
+                listUsersEamil: [],
+                supervisor_flname: '',
+                superusersList: [],
+                select_supervisor: ''
             }
         },
         created() {
@@ -105,18 +138,57 @@ let host = ''
         mounted(){
             this.getUser()
             this.getUsers()
+            this.getsuperUsers()
             this.getOnlyEmail()
             this.updateDateTime()
             this.email = this.user.email
             setInterval(() => {
                 this.updateDateTime()
+                this.getUser()
+                this.getUsers()
             }, 1000)
         },
         methods: {
+            getsuperUsers(){
+                axios.get(host + 'users/')
+                .then((response) => {
+                    for (let i = 0; i < response.data.length; i++) {
+                        if (response.data[i].is_superuser == true) {
+                            this.superusersList.push(response.data[i])
+                        }
+                    }
+                })
+            },
+            changeSupervisor(){
+                swal.fire({
+                    title: 'Warning',
+                    text: 'Are you sure you want to change your supervisor?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes',
+                    cancelButtonText: 'No'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        axios.patch(`${host}users/${this.user_id}/`, {
+                            supervisor: this.select_supervisor
+                        }).then((response) => {
+                            swal.fire({
+                                title: 'Success',
+                                text: 'Supervisor has been changed',
+                                icon: 'success',
+                                confirmButtonText: 'OK'
+                            });
+                        })
+                    } else {
+
+                    }
+                })
+            },
             getUsers(){
                 axios.get(`${host}users/`)
                 .then((response) => {
                     this.usersList = response.data
+                    this.filterSupervisorUsername(this.user_id)
                 })
             },
             getOnlyEmail(){
@@ -255,7 +327,20 @@ let host = ''
                     }
                 })
             },
+            filterSupervisorUsername(user_id) {
+                const user1 = this.usersList.find(user => user.id === user_id);
+                if (user1) {
+                    const supervisor = this.usersList.find(user => user.id === user1.supervisor);
+                    if (supervisor) {
+                        this.supervisor_flname = supervisor.first_name + ' ' + supervisor.last_name;
+                    } else {
+                        console.error(`Supervisor with ID ${user1.supervisor} not found`);
+                    }
+                } else {
+                    console.error(`User with ID ${user_id} not found`);
+                }
+            }
+                       
         }
-        
     }
 </script>
