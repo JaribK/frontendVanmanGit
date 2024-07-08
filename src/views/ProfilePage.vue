@@ -80,10 +80,10 @@
                                     <button class="btn w-[212px] h-[48px] mx-4 btn-info border-none" onclick="my_modal_1.showModal()">Change Supervisor</button>
                                     <dialog id="my_modal_1" class="modal">
                                       <div class="modal-box">
-                                        <h3 class="font-bold text-lg">Hello!</h3>
-                                        <p class="py-4">Now your supervisor is : {{ supervisor_flname }}</p>
+                                        <h3 class="font-bold text-lg">Change Supervisor</h3>
+                                        <p class="py-4">Now your supervisor is : <strong>{{ supervisor_flname }}</strong></p>
                                             <div id="change-supervisor">
-                                                <label for="supervisor">Change Supervisor</label>
+                                                <label for="supervisor">Select Supervisor</label>
                                                 <select name="supervisor" id="supervisor" v-model="select_supervisor" class="select select-bordered w-full h-[40px] border-[1px] border-blue-950 rounded-[10px] px-4 my-2 bg-white text-black" required>
                                                     <option value="" disabled selected>Select Supervisor</option>
                                                     <option class="text-black" v-for="user in superusersList" :key="user.id" :value="user.id">
